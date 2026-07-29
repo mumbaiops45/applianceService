@@ -143,7 +143,10 @@ export default function Process() {
                         Step {index + 1}
                       </span>
 
-                      <Link href="/contact" className="rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-red-600">
+                      <Link
+                        href="/contact"
+                        className="relative z-50 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-600"
+                      >
                         Learn More
                       </Link>
 
@@ -154,7 +157,7 @@ export default function Process() {
               );
             })}
 
-             </div>
+          </div>
         </div>
       </div>
     </section>
