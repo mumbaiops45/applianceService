@@ -1,26 +1,203 @@
-@import "tailwindcss";
+/* app/globals.css */
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+@import "tailwindcss";
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core palette — Torn Service Tag system */
+  --ink: #10202E;
+  --ink-soft: #55636C;
+  --paper: #F1F0EE;
+  --surface: #FFFFFF;
+
+  /* was teal, now the deep navy hero tone */
+  --petrol: #0B1A2E;
+  --petrol-dark: #071120;
+  --petrol-light: #E7EBEF;
+
+  /* was orange, now the crimson accent/CTA */
+  --signal: #E0293D;
+  --signal-dark: #B81F30;
+  --signal-light: #FDE7E9;
+
+  --mint: #2F9E44;
+  --line: #DEDAD3;
+
+  --radius: 14px;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+  IMPORTANT: base resets live in @layer base.
+  Tailwind v4 puts utility classes inside cascade layers; any CSS written
+  OUTSIDE a layer beats ALL layered styles no matter its specificity.
+  Without this @layer wrapper, plain rules like `a { color: inherit }` or
+  `h1 { color: var(--ink) }` silently override `text-white`, `text-black`,
+  etc. on every element that uses them.
+*/
+@layer base {
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: clamp(2.5rem, 5vw, 4.25rem); }
+  h2 { font-size: clamp(2rem, 4vw, 3rem); }
+  h3 { font-size: 1.5rem; }
+
+  p { color: var(--ink-soft); line-height: 1.75; font-size: 16px; }
+
+  a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+  img { display: block; max-width: 100%; }
+  button { cursor: pointer; font-family: inherit; transition: all 0.3s ease; }
+  input, textarea, select { font-family: inherit; outline: none; }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.container { width: min(1280px, 100%); margin-inline: auto; padding-inline: clamp(16px, 4vw, 32px); }
+section { padding: clamp(50px, 5vw, 100px) 0; }
+.section-light { background: var(--surface); }
+.section-paper { background: var(--paper); }
+
+/* ===== Buttons ===== */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 32px; border-radius: 999px;
+  background: var(--signal); color: white; font-weight: 600;
+  box-shadow: 0 10px 28px rgba(224, 41, 61, 0.35);
+  transition: 0.3s;
 }
+.btn-primary:hover { transform: translateY(-3px); background: var(--signal-dark); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 14px 32px; border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.6); color: white; font-weight: 600;
+  background: transparent; transition: 0.3s;
+}
+.btn-outline:hover { background: white; color: var(--petrol-dark); border-color: white; transform: translateY(-3px); }
+
+/* ===== Cards ===== */
+.card {
+  background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line);
+  box-shadow: 0 12px 35px rgba(16, 32, 46, 0.06); transition: 0.35s;
+}
+.card:hover { transform: translateY(-6px); box-shadow: 0 20px 45px rgba(16, 32, 46, 0.12); }
+
+/* ===== Signature: Service Ticket ===== */
+.service-tag {
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px rgba(16, 32, 46, 0.22);
+  padding: 26px 26px 22px;
+}
+.service-tag::before {
+  /* tear-line perforation under header */
+  content: "";
+  position: absolute;
+  left: 22px; right: 22px; top: 74px;
+  height: 1px;
+  background-image: linear-gradient(to right, var(--line) 60%, transparent 0%);
+  background-size: 10px 1px;
+  background-repeat: repeat-x;
+}
+.service-tag__punch {
+  position: absolute;
+  top: -12px; left: 28px;
+  width: 22px; height: 22px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px rgba(16,32,46,0.15);
+}
+.service-tag__id {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+/* ===== Hero torn-edge divider ===== */
+.hero-tear {
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  width: 100%;
+  line-height: 0;
+  z-index: 20;
+  filter: drop-shadow(0 -10px 16px rgba(7, 17, 32, 0.35));
+}
+.hero-tag {
+  position: absolute;
+  left: 32px;
+  bottom: -1px;
+  transform: translateY(50%);
+  z-index: 21;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 16px 8px 12px;
+  box-shadow: 0 14px 30px rgba(16, 32, 46, 0.18);
+}
+.hero-tag__dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--signal);
+  animation: led-pulse 1.8s ease-in-out infinite;
+}
+.hero-tag__text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ===== Utilities ===== */
+.text-petrol { color: var(--petrol); }
+.text-signal { color: var(--signal); }
+.text-muted { color: var(--ink-soft); }
+.bg-petrol { background: var(--petrol); }
+.bg-paper { background: var(--paper); }
+.rounded-xl { border-radius: var(--radius); }
+
+/* Power LED pulse — used next to logo / hero tag */
+@keyframes led-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(224,41,61,0.6); }
+  50% { box-shadow: 0 0 0 5px rgba(224,41,61,0); }
+}
+.led-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--signal);
+  animation: led-pulse 1.8s ease-in-out infinite;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: var(--petrol); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--petrol-dark); }
+::selection { background: var(--signal); color: white; }
