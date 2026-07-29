@@ -282,7 +282,7 @@ export const serviceLandingContent = {
       description:
         "Trusted Samsung refrigerator repair for cooling failure, loud operation, faulty fans, water dispenser issues, and compressor concerns.",
       badge: "Samsung Cooling Experts",
-      heroImage: "/samsung2 .jpg",
+      heroImage: "/samsung2.jpg",
       stats: [
         { value: "25K+", label: "Repairs Done" },
         { value: "Fast", label: "Doorstep Response" },
