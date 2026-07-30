@@ -4,10 +4,13 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
+import CustomerEnquiryPopup from "@/components/CustomerEnquiryPopup";
 
 export default function Hero() {
   return (
     <section className="relative w-full min-h-screen flex items-center">
+
+      <CustomerEnquiryPopup />
       {/* Background + overlays + glow, clipped to the hero box only */}
       <div className="absolute inset-0 overflow-hidden">
         <div
@@ -32,7 +35,7 @@ export default function Hero() {
           >
             {/* Small intro line */}
             <p className="text-lg md:text-xl text-white/70 font-medium mb-3">
-              Welcome to <span className="text-white font-semibold">Appliances Care</span>
+              Welcome to <span className="text-white font-semibold">Customer Care</span>
             </p>
 
             {/* Big headline — the actual service statement */}

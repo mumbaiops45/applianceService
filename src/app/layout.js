@@ -3,6 +3,7 @@ import "./globals.css";
 
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import ScrollToTop from "../components/ScrollToTop";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -45,7 +46,7 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         <main>{children}</main>
-
+  <ScrollToTop />
         <Footer />
       </body>
     </html>
