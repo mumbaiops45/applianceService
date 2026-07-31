@@ -2,6 +2,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Phone, ChevronDown, Sparkles, RefreshCw, Droplet, Tv } from 'lucide-react';
@@ -34,24 +35,21 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ${
-        scroll
-          ? 'border-b border-slate-200/80 bg-white/90 shadow-[0_12px_40px_rgba(7,17,32,0.08)] backdrop-blur-2xl'
+      className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ${scroll
+          ? 'border-b border-white bg-white/90 shadow-[0_12px_40px_rgba(7,17,32,0.08)] backdrop-blur-2xl'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 md:h-20 lg:px-8">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#E0293D] to-[#B81F30] text-white shadow-lg shadow-red-200/70">
-            <Sparkles size={18} />
-          </div>
-          <div className="leading-none">
-            <div className="text-lg font-black tracking-tight text-[#E0293D] sm:text-xl">ApplianceCare</div>
-            <div className={`text-[11px] uppercase tracking-[0.28em] ${inverted ? 'text-white/70' : 'text-slate-500'}`}>
-              Premium Repair Service
-            </div>
-          </div>
-        </Link>
+        <div className="relative h-16 w-16 overflow-hidden rounded-2xl bg-white p-1 ">
+          <Image
+            src="/Build Smar.png"
+            alt="Appliance Care"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
 
         <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
           {[
@@ -64,9 +62,8 @@ export default function Navbar() {
             <Link
               key={href}
               href={href}
-              className={`relative text-sm font-semibold transition-all duration-300 after:absolute after:bottom-[-6px] after:left-0 after:h-[2px] after:w-0 after:rounded-full after:bg-[#E0293D] after:transition-all after:duration-300 hover:after:w-full ${
-                inverted ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-[#E0293D]'
-              }`}
+              className={`relative text-sm font-semibold transition-all duration-300 after:absolute after:bottom-[-6px] after:left-0 after:h-[2px] after:w-0 after:rounded-full after:bg-[#E0293D] after:transition-all after:duration-300 hover:after:w-full ${inverted ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-[#E0293D]'
+                }`}
             >
               {label}
             </Link>
@@ -74,9 +71,8 @@ export default function Navbar() {
 
           <div className="group relative">
             <button
-              className={`flex items-center gap-2 text-sm font-semibold transition-all duration-300 ${
-                    inverted ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-[#E0293D]'
-              }`}
+              className={`flex items-center gap-2 text-sm font-semibold transition-all duration-300 ${inverted ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-[#E0293D]'
+                }`}
             >
               Services
               <ChevronDown size={16} className="transition-transform duration-300 group-hover:rotate-180" />
@@ -120,16 +116,16 @@ export default function Navbar() {
                               className="group flex items-center gap-3 rounded-xl px-2.5 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-white hover:text-[#E0293D] hover:shadow-sm"
                             >
                               {BrandIcon ? (
-                                <BrandIcon 
-                                  className={`${isSamsung ? 'h-8 w-8' : 'h-6 w-6'} transition-transform group-hover:scale-110`} 
-                                  style={{ color }} 
+                                <BrandIcon
+                                  className={`${isSamsung ? 'h-8 w-8' : 'h-6 w-6'} transition-transform group-hover:scale-110`}
+                                  style={{ color }}
                                 />
                               ) : (
-                                <span 
-                                  className="inline-flex h-8 w-8 items-center justify-center rounded-md text-sm font-bold text-white transition-transform group-hover:scale-110" 
+                                <span
+                                  className="inline-flex h-8 w-8 items-center justify-center rounded-md text-sm font-bold text-white transition-transform group-hover:scale-110"
                                   style={{ backgroundColor: color }}
                                 >
-                                  {brand.label.slice(0,2).toUpperCase()}
+                                  {brand.label.slice(0, 2).toUpperCase()}
                                 </span>
                               )}
                               <span className="group-hover:text-[#E0293D]">{brand.label}</span>
@@ -172,15 +168,13 @@ export default function Navbar() {
       </div>
 
       <div
-        className={`fixed inset-0 z-40 bg-[#071120]/60 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
-          menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
-        }`}
+        className={`fixed inset-0 z-40 bg-[#071120]/60 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+          }`}
         onClick={closeMenu}
       >
         <div
-          className={`absolute right-0 top-0 h-full w-[88%] max-w-sm bg-white shadow-2xl transition-transform duration-500 ease-in-out ${
-            menuOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+          className={`absolute right-0 top-0 h-full w-[88%] max-w-sm bg-white shadow-2xl transition-transform duration-500 ease-in-out ${menuOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex h-full flex-col overflow-y-auto p-6">
@@ -235,23 +229,23 @@ export default function Navbar() {
                           const BrandIcon = brandIcons[brand.slug];
                           const isSamsung = brand.slug === 'samsung';
                           return (
-                            <Link 
-                              key={brand.slug} 
-                              href={`/${cat.slug}/${brand.slug}`} 
-                              className="flex items-center gap-3 py-2 pl-1 text-sm text-slate-600 transition hover:text-[#E0293D]" 
+                            <Link
+                              key={brand.slug}
+                              href={`/${cat.slug}/${brand.slug}`}
+                              className="flex items-center gap-3 py-2 pl-1 text-sm text-slate-600 transition hover:text-[#E0293D]"
                               onClick={closeMenu}
                             >
                               {BrandIcon ? (
-                                <BrandIcon 
-                                  className={`${isSamsung ? 'h-10 w-10' : 'h-7 w-7'}`} 
-                                  style={{ color }} 
+                                <BrandIcon
+                                  className={`${isSamsung ? 'h-10 w-10' : 'h-7 w-7'}`}
+                                  style={{ color }}
                                 />
                               ) : (
-                                <span 
-                                  className="inline-flex h-8 w-8 items-center justify-center rounded-md text-xs font-bold text-white" 
+                                <span
+                                  className="inline-flex h-8 w-8 items-center justify-center rounded-md text-xs font-bold text-white"
                                   style={{ backgroundColor: color }}
                                 >
-                                  {brand.label.slice(0,2).toUpperCase()}
+                                  {brand.label.slice(0, 2).toUpperCase()}
                                 </span>
                               )}
                               <span>{brand.label}</span>
@@ -266,9 +260,9 @@ export default function Navbar() {
               {/* ============================================ */}
               {/* 📞 MOBILE CALL NOW - UPDATED WITH CLIENT NUMBER */}
               {/* ============================================ */}
-              <a 
-                href={`tel:${CLIENT_PHONE}`} 
-                className="mt-4 rounded-full bg-gradient-to-r from-[#E0293D] to-[#B81F30] px-5 py-3 text-center font-semibold text-white shadow-lg transition hover:scale-105" 
+              <a
+                href={`tel:${CLIENT_PHONE}`}
+                className="mt-4 rounded-full bg-gradient-to-r from-[#E0293D] to-[#B81F30] px-5 py-3 text-center font-semibold text-white shadow-lg transition hover:scale-105"
                 onClick={closeMenu}
               >
                 Call Now
