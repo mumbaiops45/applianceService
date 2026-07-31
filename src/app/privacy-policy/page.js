@@ -416,7 +416,7 @@ export default function PrivacyPolicy() {
 
                     <p className="mt-2 break-all text-red-100">
 
-                      support@appliancecare.com
+                      buildsmart0@gmail.com
 
                     </p>
 

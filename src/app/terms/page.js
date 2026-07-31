@@ -569,7 +569,7 @@ export default function TermsPage() {
 
                     <p className="mt-3 break-all text-red-100">
 
-                      support@appliancecare.com
+                      buildsmart0@gmail.com
 
                     </p>
 

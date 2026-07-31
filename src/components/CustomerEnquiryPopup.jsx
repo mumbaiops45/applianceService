@@ -292,7 +292,7 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     value={form.email}
                                     onChange={handleChange}
                                     required
-                                    placeholder="example@gmail.com"
+                                    placeholder="buildsmart0@gmail.com"
                                     className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20 focus:bg-white/10"
                                 />
                             </div>

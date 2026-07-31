@@ -18,7 +18,7 @@ import {
 // 📞 CLIENT CONTACT DETAILS - UPDATE THESE ONLY
 // ============================================
 const CLIENT_PHONE = "+91 xxxxxxxxxx";
-const CLIENT_EMAIL = "support@appliancecare.com";
+const CLIENT_EMAIL = "buildsmart0@gmail.com";
 const CLIENT_ADDRESS = "Doorstep service across Delhi NCR";
 // ============================================
 
@@ -515,7 +515,7 @@ export default function ContactClient() {
                         value={form.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        placeholder="example@gmail.com"
+                        placeholder="buildsmart0@gmail.com"
                         className={getInputClassName("email")}
                       />
                       {errors.email && touched.email && (

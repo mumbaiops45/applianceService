@@ -312,10 +312,10 @@ export default function Footer() {
                     </p>
 
                     <a
-                      href="mailto:support@appliancecare.com"
+                      href="mailto:buildsmart0@gmail.com"
                       className="break-all text-sm font-medium text-white hover:text-red-400"
                     >
-                      support@appliancecare.com
+                      buildsmart0@gmail.com
                     </a>
 
                   </div>
