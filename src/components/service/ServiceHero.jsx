@@ -4,7 +4,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { CalendarCheck, Phone, ShieldCheck, Clock3, Sparkles, BadgeCheck } from 'lucide-react';
-
+// ============================================
+// 📞 CLIENT CONTACT DETAILS
+// ============================================
+const CLIENT_PHONE = "1800202257";
+// ============================================
 const applianceImages = {
     'washing-machine': '/service1.jpg',
     refrigerator: '/service2.jpg',
@@ -153,7 +157,7 @@ export default function ServiceHero({
                             {/* CTA Buttons */}
                             <div className="mt-8 flex flex-wrap gap-4">
                                 <a
-                                    href="tel:+91 xxxxx xxxxx"
+                                    href={`tel:${CLIENT_PHONE}`}
                                     className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${colors.gradient} px-7 py-3.5 font-semibold text-white shadow-lg ${colors.shadow} transition hover:-translate-y-0.5 hover:shadow-xl`}
                                 >
                                     <Phone size={18} /> Call Now

@@ -17,9 +17,10 @@ import {
 // ============================================
 // 📞 CLIENT CONTACT DETAILS - UPDATE THESE ONLY
 // ============================================
-const CLIENT_PHONE = "+91 xxxxxxxxxx";
+const CLIENT_PHONE = "1800202257";
+const CLIENT_PHONE_DISPLAY = "1800-202-257";
 const CLIENT_EMAIL = "buildsmart0@gmail.com";
-const CLIENT_ADDRESS = "Doorstep service across Delhi NCR";
+const CLIENT_ADDRESS = "Bengaluru, Karnataka, India";
 // ============================================
 
 const serviceBrands = {
@@ -371,7 +372,7 @@ export default function ContactClient() {
                     className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:border-[#E0293D] hover:bg-white"
                   >
                     <Phone className="text-[#E0293D]" size={18} />
-                    <span className="font-semibold text-[#0B1A2E]">{CLIENT_PHONE}</span>
+                    <span className="font-semibold text-[#0B1A2E]">{CLIENT_PHONE_DISPLAY}</span>
                   </a>
                   
                   <a 
@@ -433,7 +434,7 @@ export default function ContactClient() {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         maxLength={10}
-                        placeholder="9876543210"
+                        placeholder="Enter 10-digit ph number"
                         className={getInputClassName("phone")}
                       />
                       {errors.phone && touched.phone && (
@@ -515,7 +516,7 @@ export default function ContactClient() {
                         value={form.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        placeholder="buildsmart0@gmail.com"
+                        placeholder="Enter your email address"
                         className={getInputClassName("email")}
                       />
                       {errors.email && touched.email && (
@@ -561,7 +562,7 @@ export default function ContactClient() {
                           onChange={handleChange}
                           onBlur={handlePincodeBlur}
                           maxLength={6}
-                          placeholder="560001"
+                          placeholder="Enter 6-digit pincode"
                           className={getInputClassName("pincode")}
                         />
                         {fetchingCity && (
@@ -590,7 +591,7 @@ export default function ContactClient() {
                         value={form.city}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        placeholder="Bangalore"
+                        placeholder="Enter your city"
                         className={getInputClassName("city")}
                       />
                       {errors.city && touched.city && (

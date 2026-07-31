@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
-import { ArrowRight, Loader2, X, User, Phone, Mail, MapPin, Home, Building2, FileText } from "lucide-react";
+import { ArrowRight, Loader2, X, User, Phone, Mail, MapPin, Home, Building2, FileText, AlertCircle } from "lucide-react";
 
 const serviceBrands = {
     "Washing Machine": ["LG", "Samsung", "Bosch", "IFB"],
@@ -11,14 +11,33 @@ const serviceBrands = {
     Television: ["Samsung", "LG", "Sony", "Vu"],
 };
 
+// ============================================
+// 📞 CLIENT CONTACT DETAILS
+// ============================================
+const CLIENT_PHONE = "1800202257";
+const CLIENT_EMAIL = "buildsmart0@gmail.com";
+// ============================================
+
 export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
     const router = useRouter();
     const [show, setShow] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [fetchingCity, setFetchingCity] = useState(false);
+    const [touched, setTouched] = useState({});
 
     const [form, setForm] = useState({
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        pincode: "",
+        city: "",
+        service: "",
+        message: "",
+    });
+
+    const [errors, setErrors] = useState({
         name: "",
         phone: "",
         email: "",
@@ -67,12 +86,160 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
         }, 300);
     };
 
+    // Validation function for individual fields
+    const validateField = (name, value) => {
+        switch (name) {
+            case "name":
+                if (!value || value.trim() === "") {
+                    return "Full name is required.";
+                }
+                if (!/^[A-Za-z\s]+$/.test(value)) {
+                    return "Name should contain only alphabets and spaces.";
+                }
+                if (value.trim().split(/\s+/).length < 2) {
+                    return "Please enter your full name (first and last name).";
+                }
+                return "";
+
+            case "phone":
+                if (!value || value.trim() === "") {
+                    return "Phone number is required.";
+                }
+                if (!/^[0-9]{10}$/.test(value)) {
+                    return "Please enter a valid 10-digit phone number.";
+                }
+                return "";
+
+            case "email":
+                if (!value || value.trim() === "") {
+                    return "Email address is required.";
+                }
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    return "Please enter a valid email address.";
+                }
+                return "";
+
+            case "service":
+                if (!value) {
+                    return "Please select a service.";
+                }
+                return "";
+
+            case "address":
+                if (!value || value.trim() === "") {
+                    return "Address is required.";
+                }
+                if (value.trim().length < 10) {
+                    return "Please enter a complete address (minimum 10 characters).";
+                }
+                return "";
+
+            case "pincode":
+                if (!value || value.trim() === "") {
+                    return "Pincode is required.";
+                }
+                if (!/^[0-9]{6}$/.test(value)) {
+                    return "Please enter a valid 6-digit pincode.";
+                }
+                return "";
+
+            case "city":
+                if (!value || value.trim() === "") {
+                    return "City is required.";
+                }
+                if (!/^[A-Za-z\s]+$/.test(value)) {
+                    return "City should contain only alphabets and spaces.";
+                }
+                return "";
+
+            case "message":
+                // Message is optional, but if provided, validate
+                if (value && value.trim() !== "") {
+                    if (value.trim().split(/\s+/).length < 3) {
+                        return "Please provide a more detailed description (minimum 3 words).";
+                    }
+                    if (value.length < 20) {
+                        return "Please provide more details (minimum 20 characters).";
+                    }
+                }
+                return "";
+
+            default:
+                return "";
+        }
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        // Special handling for service field
+        if (name === "service") {
+            setForm((prev) => ({
+                ...prev,
+                service: value,
+            }));
+            // Clear error when service is selected
+            if (errors.service) {
+                setErrors((prev) => ({ ...prev, service: "" }));
+            }
+            return;
+        }
+
+        // Name field - block invalid characters
+        if (name === "name") {
+            if (value && !/^[A-Za-z\s]*$/.test(value)) {
+                setErrors((prev) => ({ 
+                    ...prev, 
+                    name: "Name should contain only alphabets and spaces." 
+                }));
+                return;
+            }
+        }
+
+        // Phone field - block invalid characters
+        if (name === "phone") {
+            if (value && !/^[0-9]*$/.test(value)) {
+                setErrors((prev) => ({ 
+                    ...prev, 
+                    phone: "Phone number should contain only digits." 
+                }));
+                return;
+            }
+        }
+
+        // City field - block invalid characters
+        if (name === "city") {
+            if (value && !/^[A-Za-z\s]*$/.test(value)) {
+                setErrors((prev) => ({ 
+                    ...prev, 
+                    city: "City should contain only alphabets and spaces." 
+                }));
+                return;
+            }
+        }
+
+        // Update form
         setForm((prev) => ({
             ...prev,
             [name]: value,
         }));
+
+        // Real-time validation for touched fields
+        if (touched[name]) {
+            const error = validateField(name, value);
+            setErrors((prev) => ({ ...prev, [name]: error }));
+        }
+    };
+
+    const handleBlur = (e) => {
+        const { name, value } = e.target;
+        
+        // Mark field as touched
+        setTouched((prev) => ({ ...prev, [name]: true }));
+        
+        // Validate on blur
+        const error = validateField(name, value);
+        setErrors((prev) => ({ ...prev, [name]: error }));
     };
 
     const fetchCityFromPincode = async (pincode) => {
@@ -91,6 +258,10 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                     const cityName = postOffices[0].District || postOffices[0].Region || postOffices[0].Name;
                     if (cityName) {
                         setForm((prev) => ({ ...prev, city: cityName }));
+                        // Validate city after auto-fill
+                        const cityError = validateField("city", cityName);
+                        setErrors((prev) => ({ ...prev, city: cityError }));
+                        setTouched((prev) => ({ ...prev, city: true }));
                     }
                 }
             }
@@ -103,38 +274,49 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
 
     const handlePincodeBlur = (e) => {
         const pincode = e.target.value;
+        // Validate pincode
+        const error = validateField("pincode", pincode);
+        setErrors((prev) => ({ ...prev, pincode: error }));
+        setTouched((prev) => ({ ...prev, pincode: true }));
+        // Fetch city
         fetchCityFromPincode(pincode);
+    };
+
+    const validateForm = () => {
+        const newErrors = {};
+        let isValid = true;
+
+        // Validate all fields
+        Object.keys(form).forEach((key) => {
+            // Skip message validation if empty (optional)
+            if (key === "message" && !form[key]) {
+                newErrors[key] = "";
+                return;
+            }
+            const error = validateField(key, form[key]);
+            if (error) {
+                newErrors[key] = error;
+                isValid = false;
+            }
+        });
+
+        setErrors(newErrors);
+        return isValid;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!form.service) {
-            toast.error("Please select a service.");
-            return;
-        }
-        if (!form.name.trim()) {
-            toast.error("Please enter your name.");
-            return;
-        }
-        if (form.phone.length < 10) {
-            toast.error("Please enter a valid 10-digit phone number.");
-            return;
-        }
-        if (!form.email.trim()) {
-            toast.error("Please enter your email address.");
-            return;
-        }
-        if (!form.address.trim()) {
-            toast.error("Please enter your address.");
-            return;
-        }
-        if (form.pincode.length < 6) {
-            toast.error("Please enter a valid 6-digit pincode.");
-            return;
-        }
-        if (!form.city.trim()) {
-            toast.error("Please enter your city.");
+        // Mark all fields as touched
+        const allTouched = {};
+        Object.keys(form).forEach((key) => {
+            allTouched[key] = true;
+        });
+        setTouched(allTouched);
+
+        // Validate form
+        if (!validateForm()) {
+            toast.error("Please fix all the errors before submitting.");
             return;
         }
 
@@ -174,6 +356,8 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                     service: "",
                     message: "",
                 });
+                setErrors({});
+                setTouched({});
                 handleCancel();
             } else {
                 toast.error(data.message || "Submission failed. Please try again.");
@@ -185,6 +369,13 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
         setLoading(false);
     };
 
+    // Helper to get input className based on validation state
+    const getInputClassName = (fieldName) => {
+        const baseClass = "w-full rounded-xl border px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:ring-2 focus:bg-white/10";
+        const errorClass = errors[fieldName] && touched[fieldName] ? "border-[#E0293D] bg-white/5 focus:border-[#E0293D] focus:ring-[#E0293D]/20" : "border-white/10 bg-white/5 focus:border-[#E0293D] focus:ring-[#E0293D]/20";
+        return `${baseClass} ${errorClass}`;
+    };
+
     if (!show) {
         return <Toaster position="top-center" reverseOrder={false} />;
     }
@@ -193,7 +384,7 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
         <>
             <Toaster position="top-center" reverseOrder={false} />
 
-            {/* Backdrop - NO onClick handler */}
+            {/* Backdrop */}
             <div
                 className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 transition-opacity duration-300"
                 style={{ opacity: isVisible ? 1 : 0 }}
@@ -230,13 +421,13 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     Fill in your details and our expert technician will reach out to you at the earliest.
                                 </p>
                             </div>
-                            {/* <div className="hidden sm:flex items-center gap-2.5 rounded-full bg-white/20 px-3.5 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
+                            <div className="hidden sm:flex items-center gap-1.5 rounded-full bg-white/20 px-3.5 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
                                 <span className="relative flex h-2 w-2">
                                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
                                     <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
                                 </span>
                                 Quick Response
-                            </div> */}
+                            </div>
                         </div>
                     </div>
 
@@ -256,10 +447,16 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     name="name"
                                     value={form.name}
                                     onChange={handleChange}
-                                    required
+                                    onBlur={handleBlur}
                                     placeholder="Enter your full name"
-                                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20 focus:bg-white/10"
+                                    className={getInputClassName("name")}
                                 />
+                                {errors.name && touched.name && (
+                                    <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                                        <AlertCircle size={12} />
+                                        {errors.name}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Row 1: Phone */}
@@ -273,11 +470,17 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     name="phone"
                                     value={form.phone}
                                     onChange={handleChange}
-                                    required
+                                    onBlur={handleBlur}
                                     maxLength={10}
-                                    placeholder="9876543210"
-                                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20 focus:bg-white/10"
+                                    placeholder="Enter 10-digit phone number"
+                                    className={getInputClassName("phone")}
                                 />
+                                {errors.phone && touched.phone && (
+                                    <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                                        <AlertCircle size={12} />
+                                        {errors.phone}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Row 2: Email */}
@@ -291,10 +494,16 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     name="email"
                                     value={form.email}
                                     onChange={handleChange}
-                                    required
-                                    placeholder="buildsmart0@gmail.com"
-                                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20 focus:bg-white/10"
+                                    onBlur={handleBlur}
+                                    placeholder="Enter your email address"
+                                    className={getInputClassName("email")}
                                 />
+                                {errors.email && touched.email && (
+                                    <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                                        <AlertCircle size={12} />
+                                        {errors.email}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Row 2: Service */}
@@ -307,8 +516,9 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     name="service"
                                     value={form.service}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}
                                     required
-                                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition-all duration-200 appearance-none cursor-pointer focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20 focus:bg-white/10"
+                                    className={getInputClassName("service")}
                                     style={{
                                         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
                                         backgroundRepeat: "no-repeat",
@@ -323,6 +533,12 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                         </option>
                                     ))}
                                 </select>
+                                {errors.service && touched.service && (
+                                    <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                                        <AlertCircle size={12} />
+                                        {errors.service}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Row 3: Address (Full Width) */}
@@ -336,10 +552,16 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     name="address"
                                     value={form.address}
                                     onChange={handleChange}
-                                    required
+                                    onBlur={handleBlur}
                                     placeholder="Street, locality, landmark"
-                                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20 focus:bg-white/10"
+                                    className={getInputClassName("address")}
                                 />
+                                {errors.address && touched.address && (
+                                    <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                                        <AlertCircle size={12} />
+                                        {errors.address}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Row 4: Pincode */}
@@ -355,10 +577,9 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                         value={form.pincode}
                                         onChange={handleChange}
                                         onBlur={handlePincodeBlur}
-                                        required
                                         maxLength={6}
-                                        placeholder="560001"
-                                        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20 focus:bg-white/10"
+                                        placeholder="Enter 6-digit pincode"
+                                        className={getInputClassName("pincode")}
                                     />
                                     {fetchingCity && (
                                         <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -366,6 +587,12 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                         </div>
                                     )}
                                 </div>
+                                {errors.pincode && touched.pincode && (
+                                    <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                                        <AlertCircle size={12} />
+                                        {errors.pincode}
+                                    </p>
+                                )}
                                 <p className="text-[10px] text-slate-500">
                                     Blur after typing 6 digits to auto‑fill city
                                 </p>
@@ -382,29 +609,42 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     name="city"
                                     value={form.city}
                                     onChange={handleChange}
-                                    required
-                                    placeholder="Bangalore"
-                                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20 focus:bg-white/10"
+                                    onBlur={handleBlur}
+                                    placeholder="Enter your city"
+                                    className={getInputClassName("city")}
                                 />
+                                {errors.city && touched.city && (
+                                    <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                                        <AlertCircle size={12} />
+                                        {errors.city}
+                                    </p>
+                                )}
                                 <p className="text-[10px] text-slate-500">
                                     Auto‑filled from pincode – you can edit it
                                 </p>
                             </div>
 
-                            {/* Row 5: Message (Full Width) */}
+                            {/* Row 5: Message (Full Width) - Optional */}
                             <div className="md:col-span-2 space-y-1.5">
                                 <label className="flex items-center gap-1.5 text-sm font-medium text-slate-300">
                                     <FileText size={15} className="text-[#E0293D]" />
-                                    Describe the Issue <span className="text-slate-500">(Optional)</span>
+                                    Describe the Issue <span className="text-slate-400">(Optional)</span>
                                 </label>
                                 <textarea
                                     rows={3}
                                     name="message"
                                     value={form.message}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}
                                     placeholder="Example: Washing machine is not spinning properly..."
-                                    className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition-all duration-200 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20 focus:bg-white/10"
+                                    className={getInputClassName("message")}
                                 />
+                                {errors.message && touched.message && (
+                                    <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                                        <AlertCircle size={12} />
+                                        {errors.message}
+                                    </p>
+                                )}
                             </div>
                         </div>
 

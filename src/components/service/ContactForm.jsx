@@ -1,9 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { SectionTitle } from '../ui/SectionTitle';
 import toast, { Toaster } from 'react-hot-toast';
-import { ArrowRight, Loader2, Phone } from 'lucide-react';
+import { ArrowRight, Loader2, Phone, AlertCircle } from 'lucide-react';
+
+// ============================================
+// 📞 CLIENT CONTACT DETAILS
+// ============================================
+const CLIENT_PHONE = "1800202257";
+const CLIENT_PHONE_DISPLAY = "1800-202-257";
+// ============================================
 
 const serviceBrands = {
   "Washing Machine": ["LG", "Samsung", "Bosch", "IFB"],
@@ -15,6 +22,7 @@ export function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [fetchingCity, setFetchingCity] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [touched, setTouched] = useState({});
 
   const [form, setForm] = useState({
     name: "",
@@ -29,6 +37,108 @@ export function ContactForm() {
     date: "",
   });
 
+  const [errors, setErrors] = useState({});
+
+  // Validation rules
+  const validateField = (name, value) => {
+    switch (name) {
+      case "name":
+        if (!value || value.trim() === "") {
+          return "Full name is required.";
+        }
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          return "Name should contain only alphabets and spaces.";
+        }
+        if (value.trim().split(/\s+/).length < 2) {
+          return "Please enter your full name (first and last name).";
+        }
+        return "";
+
+      case "phone":
+        if (!value || value.trim() === "") {
+          return "Phone number is required.";
+        }
+        if (!/^[0-9]{10}$/.test(value)) {
+          return "Please enter a valid 10-digit phone number.";
+        }
+        return "";
+
+      case "email":
+        if (!value || value.trim() === "") {
+          return "Email address is required.";
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          return "Please enter a valid email address.";
+        }
+        return "";
+
+      case "service":
+        if (!value) {
+          return "Please select a service.";
+        }
+        return "";
+
+      case "brand":
+        if (!value) {
+          return "Please select a brand.";
+        }
+        return "";
+
+      case "address":
+        if (!value || value.trim() === "") {
+          return "Address is required.";
+        }
+        if (value.trim().length < 10) {
+          return "Please enter a complete address (minimum 10 characters).";
+        }
+        return "";
+
+      case "pincode":
+        if (!value || value.trim() === "") {
+          return "Pincode is required.";
+        }
+        if (!/^[0-9]{6}$/.test(value)) {
+          return "Please enter a valid 6-digit pincode.";
+        }
+        return "";
+
+      case "city":
+        if (!value || value.trim() === "") {
+          return "City is required.";
+        }
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          return "City should contain only alphabets and spaces.";
+        }
+        return "";
+
+      case "message":
+        if (!value || value.trim() === "") {
+          return "Please describe the issue.";
+        }
+        if (value.trim().split(/\s+/).length < 3) {
+          return "Please provide a more detailed description (minimum 3 words).";
+        }
+        if (value.length < 20) {
+          return "Please provide more details (minimum 20 characters).";
+        }
+        return "";
+
+      case "date":
+        if (value && value.trim() !== "") {
+          const selectedDate = new Date(value);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          if (selectedDate < today) {
+            return "Please select today or a future date.";
+          }
+        }
+        return "";
+
+      default:
+        return "";
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -38,21 +148,64 @@ export function ContactForm() {
         service: value,
         brand: "",
       }));
+      setErrors((prev) => ({ ...prev, service: "", brand: "" }));
       return;
+    }
+
+    // Name field - block invalid characters
+    if (name === "name") {
+      if (value && !/^[A-Za-z\s]*$/.test(value)) {
+        setErrors((prev) => ({ 
+          ...prev, 
+          name: "Name should contain only alphabets and spaces." 
+        }));
+        return;
+      }
+    }
+
+    // Phone field - block invalid characters
+    if (name === "phone") {
+      if (value && !/^[0-9]*$/.test(value)) {
+        setErrors((prev) => ({ 
+          ...prev, 
+          phone: "Phone number should contain only digits." 
+        }));
+        return;
+      }
+    }
+
+    // City field - block invalid characters
+    if (name === "city") {
+      if (value && !/^[A-Za-z\s]*$/.test(value)) {
+        setErrors((prev) => ({ 
+          ...prev, 
+          city: "City should contain only alphabets and spaces." 
+        }));
+        return;
+      }
     }
 
     setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setErrors((prev) => ({ ...prev, [name]: error }));
+    }
   };
 
-  // Auto-fetch city from pincode
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    const error = validateField(name, value);
+    setErrors((prev) => ({ ...prev, [name]: error }));
+  };
+
   const fetchCityFromPincode = async (pincode) => {
     if (!pincode || pincode.length !== 6) return;
-    if (form.city && form.city.trim() !== "") {
-      return;
-    }
+    if (form.city && form.city.trim() !== "") return;
 
     setFetchingCity(true);
     try {
@@ -64,6 +217,9 @@ export function ContactForm() {
           const cityName = postOffices[0].District || postOffices[0].Region || postOffices[0].Name;
           if (cityName) {
             setForm((prev) => ({ ...prev, city: cityName }));
+            const cityError = validateField("city", cityName);
+            setErrors((prev) => ({ ...prev, city: cityError }));
+            setTouched((prev) => ({ ...prev, city: true }));
           }
         }
       }
@@ -76,26 +232,45 @@ export function ContactForm() {
 
   const handlePincodeBlur = (e) => {
     const pincode = e.target.value;
-    fetchCityFromPincode(pincode);
+    const error = validateField("pincode", pincode);
+    setErrors((prev) => ({ ...prev, pincode: error }));
+    setTouched((prev) => ({ ...prev, pincode: true }));
+    if (pincode && pincode.length === 6) {
+      fetchCityFromPincode(pincode);
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    let isValid = true;
+
+    Object.keys(form).forEach((key) => {
+      if (key === "date" && !form[key]) {
+        newErrors[key] = "";
+        return;
+      }
+      const error = validateField(key, form[key]);
+      if (error) {
+        newErrors[key] = error;
+        isValid = false;
+      }
+    });
+
+    setErrors(newErrors);
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.service) {
-      toast.error("Please select a service.");
-      return;
-    }
-    if (!form.brand) {
-      toast.error("Please select a brand.");
-      return;
-    }
-    if (form.phone.length < 10) {
-      toast.error("Please enter a valid 10-digit phone number.");
-      return;
-    }
-    if (form.pincode.length < 6) {
-      toast.error("Please enter a valid 6-digit pincode.");
+    const allTouched = {};
+    Object.keys(form).forEach((key) => {
+      allTouched[key] = true;
+    });
+    setTouched(allTouched);
+
+    if (!validateForm()) {
+      toast.error("Please fix all the errors before submitting.");
       return;
     }
 
@@ -137,6 +312,8 @@ export function ContactForm() {
           message: "",
           date: "",
         });
+        setErrors({});
+        setTouched({});
         setSubmitted(true);
       } else {
         toast.error(data.message || "Submission failed. Please try again.");
@@ -148,11 +325,27 @@ export function ContactForm() {
     setLoading(false);
   };
 
+  const getInputClassName = (fieldName) => {
+    const baseClass = "w-full rounded-2xl border p-3.5 text-sm outline-none transition focus:ring-2 bg-white";
+    const errorClass = errors[fieldName] && touched[fieldName] 
+      ? "border-[#E0293D] focus:border-[#E0293D] focus:ring-[#E0293D]/20" 
+      : "border-slate-200 focus:border-[#E0293D] focus:ring-[#E0293D]/10";
+    return `${baseClass} ${errorClass}`;
+  };
+
+  const getSelectClassName = (fieldName) => {
+    const baseClass = "w-full rounded-2xl border p-3.5 text-sm outline-none transition focus:ring-2 bg-white appearance-none cursor-pointer";
+    const errorClass = errors[fieldName] && touched[fieldName] 
+      ? "border-[#E0293D] focus:border-[#E0293D] focus:ring-[#E0293D]/20" 
+      : "border-slate-200 focus:border-[#E0293D] focus:ring-[#E0293D]/10";
+    return `${baseClass} ${errorClass}`;
+  };
+
   return (
     <section className="bg-white py-14">
       <Toaster position="top-center" reverseOrder={false} />
 
-      <div className="mx-auto max-w-xl px-4">
+      <div className="mx-auto max-w-2xl px-4">
         <SectionTitle
           tag="Get in touch"
           title="Send Us a Message"
@@ -165,66 +358,85 @@ export function ContactForm() {
             ✅ Your message has been received. We will get back to you shortly with the best next step.
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm md:p-7">
-            <div className="mb-4 rounded-[24px] bg-[#F8FAFC] p-4 text-sm leading-6 text-slate-600">
-              Tell us the appliance model and issue briefly so our team can prepare the right technician and spare parts.
+          <form onSubmit={handleSubmit} className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+            <div className="mb-6 rounded-[24px] bg-[#F8FAFC] p-5 text-sm leading-6 text-slate-600 border border-slate-100">
+              <p>📋 Tell us the appliance model and issue briefly so our team can prepare the right technician and spare parts.</p>
             </div>
 
-            <div className="grid gap-3 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {/* Name */}
               <div>
-                <label htmlFor="contact-name" className="block text-sm font-medium text-slate-700">
-                  Name <span className="text-[#E0293D]">*</span>
+                <label htmlFor="contact-name" className="block text-sm font-semibold text-slate-700 mb-1.5">
+                  Full Name <span className="text-[#E0293D]">*</span>
                 </label>
                 <input
                   id="contact-name"
                   name="name"
                   value={form.name}
                   onChange={handleChange}
-                  placeholder="Your full name"
+                  onBlur={handleBlur}
+                  placeholder="Enter your full name"
                   type="text"
-                  required
-                  className="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 p-3 text-sm outline-none transition focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/10"
+                  className={getInputClassName("name")}
                 />
+                {errors.name && touched.name && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
+                    <AlertCircle size={13} />
+                    {errors.name}
+                  </p>
+                )}
               </div>
 
               {/* Phone */}
               <div>
-                <label htmlFor="contact-phone" className="block text-sm font-medium text-slate-700">
-                  Phone <span className="text-[#E0293D]">*</span>
+                <label htmlFor="contact-phone" className="block text-sm font-semibold text-slate-700 mb-1.5">
+                  Phone Number <span className="text-[#E0293D]">*</span>
                 </label>
                 <input
                   id="contact-phone"
                   name="phone"
                   value={form.phone}
                   onChange={handleChange}
-                  placeholder="Mobile number"
+                  onBlur={handleBlur}
+                  placeholder="Enter 10-digit phone number"
                   type="tel"
-                  required
                   maxLength={10}
-                  className="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 p-3 text-sm outline-none transition focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/10"
+                  className={getInputClassName("phone")}
                 />
+                {errors.phone && touched.phone && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
+                    <AlertCircle size={13} />
+                    {errors.phone}
+                  </p>
+                )}
               </div>
 
               {/* Email */}
               <div>
-                <label htmlFor="contact-email" className="block text-sm font-medium text-slate-700">
-                  Email <span className="text-[#E0293D]">*</span>
+                <label htmlFor="contact-email" className="block text-sm font-semibold text-slate-700 mb-1.5">
+                  Email Address <span className="text-[#E0293D]">*</span>
                 </label>
                 <input
                   id="contact-email"
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  placeholder="Email (optional)"
+                  onBlur={handleBlur}
+                  placeholder="Enter your email address"
                   type="email"
-                  className="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 p-3 text-sm outline-none transition focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/10"
+                  className={getInputClassName("email")}
                 />
+                {errors.email && touched.email && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
+                    <AlertCircle size={13} />
+                    {errors.email}
+                  </p>
+                )}
               </div>
 
               {/* Date */}
               <div>
-                <label htmlFor="contact-date" className="block text-sm font-medium text-slate-700">
+                <label htmlFor="contact-date" className="block text-sm font-semibold text-slate-700 mb-1.5">
                   Preferred Date
                 </label>
                 <input
@@ -232,24 +444,31 @@ export function ContactForm() {
                   name="date"
                   value={form.date}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   type="date"
                   min={new Date().toISOString().split("T")[0]}
-                  className="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 p-3 text-sm outline-none transition focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/10"
+                  className={getInputClassName("date")}
                 />
+                {errors.date && touched.date && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
+                    <AlertCircle size={13} />
+                    {errors.date}
+                  </p>
+                )}
               </div>
 
               {/* Service */}
               <div>
-                <label htmlFor="contact-service" className="block text-sm font-medium text-slate-700">
-                  Service <span className="text-[#E0293D]">*</span>
+                <label htmlFor="contact-service" className="block text-sm font-semibold text-slate-700 mb-1.5">
+                  Select Service <span className="text-[#E0293D]">*</span>
                 </label>
                 <select
                   id="contact-service"
                   name="service"
                   value={form.service}
                   onChange={handleChange}
-                  required
-                  className="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 p-3 text-sm outline-none transition appearance-none cursor-pointer focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/10"
+                  onBlur={handleBlur}
+                  className={getSelectClassName("service")}
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
                     backgroundRepeat: "no-repeat",
@@ -264,21 +483,27 @@ export function ContactForm() {
                     </option>
                   ))}
                 </select>
+                {errors.service && touched.service && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
+                    <AlertCircle size={13} />
+                    {errors.service}
+                  </p>
+                )}
               </div>
 
               {/* Brand */}
               <div>
-                <label htmlFor="contact-brand" className="block text-sm font-medium text-slate-700">
-                  Brand <span className="text-[#E0293D]">*</span>
+                <label htmlFor="contact-brand" className="block text-sm font-semibold text-slate-700 mb-1.5">
+                  Select Brand <span className="text-[#E0293D]">*</span>
                 </label>
                 <select
                   id="contact-brand"
                   name="brand"
                   value={form.brand}
                   onChange={handleChange}
-                  required
+                  onBlur={handleBlur}
                   disabled={!form.service}
-                  className="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 p-3 text-sm outline-none transition appearance-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/10"
+                  className={getSelectClassName("brand")}
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
                     backgroundRepeat: "no-repeat",
@@ -296,56 +521,74 @@ export function ContactForm() {
                       </option>
                     ))}
                 </select>
+                {errors.brand && touched.brand && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
+                    <AlertCircle size={13} />
+                    {errors.brand}
+                  </p>
+                )}
               </div>
 
-              {/* Address */}
+              {/* Address - Full Width */}
               <div className="md:col-span-2">
-                <label htmlFor="contact-address" className="block text-sm font-medium text-slate-700">
-                  Address
+                <label htmlFor="contact-address" className="block text-sm font-semibold text-slate-700 mb-1.5">
+                  Address <span className="text-[#E0293D]">*</span>
                 </label>
                 <input
                   id="contact-address"
                   name="address"
                   value={form.address}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   placeholder="Street, locality, landmark"
                   type="text"
-                  className="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 p-3 text-sm outline-none transition focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/10"
+                  className={getInputClassName("address")}
                 />
+                {errors.address && touched.address && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
+                    <AlertCircle size={13} />
+                    {errors.address}
+                  </p>
+                )}
               </div>
 
               {/* Pincode */}
               <div>
-                <label htmlFor="contact-pincode" className="block text-sm font-medium text-slate-700">
+                <label htmlFor="contact-pincode" className="block text-sm font-semibold text-slate-700 mb-1.5">
                   Pincode <span className="text-[#E0293D]">*</span>
                 </label>
-                <div className="relative mt-2">
+                <div className="relative">
                   <input
                     id="contact-pincode"
                     name="pincode"
                     value={form.pincode}
                     onChange={handleChange}
                     onBlur={handlePincodeBlur}
-                    placeholder="560001"
+                    placeholder="Enter 6-digit pincode"
                     type="text"
-                    required
                     maxLength={6}
-                    className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-3 text-sm outline-none transition focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/10"
+                    className={getInputClassName("pincode")}
                   />
                   {fetchingCity && (
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2">
                       <Loader2 size={18} className="animate-spin text-slate-400" />
                     </div>
                   )}
                 </div>
+                {errors.pincode && touched.pincode && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
+                    <AlertCircle size={13} />
+                    {errors.pincode}
+                  </p>
+                )}
                 <p className="mt-1 text-xs text-slate-400">
-                  Blur after typing 6 digits to auto‑fill city
+                  💡 Blur after typing 6 digits to auto‑fill city
                 </p>
               </div>
 
               {/* City */}
               <div>
-                <label htmlFor="contact-city" className="block text-sm font-medium text-slate-700">
+                <label htmlFor="contact-city" className="block text-sm font-semibold text-slate-700 mb-1.5">
                   City <span className="text-[#E0293D]">*</span>
                 </label>
                 <input
@@ -353,39 +596,52 @@ export function ContactForm() {
                   name="city"
                   value={form.city}
                   onChange={handleChange}
-                  placeholder="Bangalore"
+                  onBlur={handleBlur}
+                  placeholder="Enter your city"
                   type="text"
-                  required
-                  className="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 p-3 text-sm outline-none transition focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/10"
+                  className={getInputClassName("city")}
                 />
+                {errors.city && touched.city && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
+                    <AlertCircle size={13} />
+                    {errors.city}
+                  </p>
+                )}
                 <p className="mt-1 text-xs text-slate-400">
-                  Auto‑filled from pincode – you can edit it
+                  🔄 Auto‑filled from pincode – you can edit it
                 </p>
               </div>
 
-              {/* Message */}
+              {/* Message - Full Width */}
               <div className="md:col-span-2">
-                <label htmlFor="contact-message" className="block text-sm font-medium text-slate-700">
-                  Message <span className="text-[#E0293D]">*</span>
+                <label htmlFor="contact-message" className="block text-sm font-semibold text-slate-700 mb-1.5">
+                  Describe the Issue <span className="text-[#E0293D]">*</span>
                 </label>
                 <textarea
                   id="contact-message"
                   name="message"
                   value={form.message}
                   onChange={handleChange}
-                  placeholder="Describe the issue, model and any error codes"
+                  onBlur={handleBlur}
+                  placeholder="Describe the issue, model and any error codes (minimum 20 characters)"
                   rows="4"
-                  required
-                  className="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 p-3 text-sm resize-none outline-none transition focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/10"
+                  className={getInputClassName("message")}
                 />
+                {errors.message && touched.message && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
+                    <AlertCircle size={13} />
+                    {errors.message}
+                  </p>
+                )}
               </div>
             </div>
 
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+            {/* Buttons */}
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <button
                 type="submit"
                 disabled={loading}
-                className="flex items-center justify-center gap-2 w-full rounded-full bg-[#E0293D] py-3 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-8"
+                className="flex items-center justify-center gap-2 w-full rounded-full bg-[#E0293D] py-3.5 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-10"
               >
                 {loading ? (
                   <>
@@ -400,8 +656,8 @@ export function ContactForm() {
                 )}
               </button>
               <a
-                href="tel:+91 xxxxx xxxxx"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+                href={`tel:${CLIENT_PHONE}`}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
               >
                 <Phone size={18} />
                 Or call us

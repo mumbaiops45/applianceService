@@ -10,10 +10,16 @@ import {
   ShieldCheck,
   BadgeCheck,
   Headphones,
-  ExternalLink ,
+  ExternalLink,
 } from "lucide-react";
 
-
+// ============================================
+// 📞 CLIENT CONTACT DETAILS
+// ============================================
+const CLIENT_PHONE = "1800202257";
+const CLIENT_PHONE_DISPLAY = "1800-202-257";
+const CLIENT_EMAIL = "buildsmart0@gmail.com";
+// ============================================
 
 export default function Footer() {
   return (
@@ -25,7 +31,7 @@ export default function Footer() {
 
       <div className="absolute bottom-0 right-0 h-[420px] w-[420px] rounded-full bg-blue-600/20 blur-[140px]" />
 
-      
+
 
       {/* ================= Main Footer ================= */}
 
@@ -286,11 +292,8 @@ export default function Footer() {
                       Call Us
                     </p>
 
-                    <a
-                      href="tel:+919876543210"
-                      className="font-medium text-white hover:text-red-400"
-                    >
-                      +91 xxxxx xxxxx
+                    <a href={`tel:${CLIENT_PHONE}`} className="font-medium text-white hover:text-red-400 transition">
+                      {CLIENT_PHONE_DISPLAY}
                     </a>
 
                   </div>
@@ -305,19 +308,14 @@ export default function Footer() {
                     <Mail size={20} className="text-white" />
                   </div>
 
-                  <div className="min-w-0">
-
-                    <p className="text-sm text-slate-500">
-                      Email
-                    </p>
-
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-slate-500">Email</p>
                     <a
-                      href="mailto:buildsmart0@gmail.com"
-                      className="break-all text-sm font-medium text-white hover:text-red-400"
+                      href={`mailto:${CLIENT_EMAIL}`}
+                      className="text-sm font-medium text-white hover:text-red-400 transition break-all inline-block"
                     >
-                      buildsmart0@gmail.com
+                      {CLIENT_EMAIL}
                     </a>
-
                   </div>
 
                 </div>

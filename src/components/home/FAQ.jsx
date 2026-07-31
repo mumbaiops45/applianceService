@@ -13,8 +13,9 @@ import { globalFaq } from "../data/faq";
 // ============================================
 // 📞 CLIENT CONTACT DETAILS - UPDATE THESE ONLY
 // ============================================
-const CLIENT_PHONE = "+919876543210"; // ← Replace with client's actual phone number (without spaces)
-const CLIENT_PHONE_DISPLAY = "+91 98765 43210"; // ← Display format with spaces
+const CLIENT_PHONE = "1800202257"; // ← Client's phone number
+const CLIENT_PHONE_DISPLAY = "1800-202-257"; // ← Display format
+const CLIENT_WHATSAPP = "6366949496"; // ← Client's WhatsApp number
 // ============================================
 
 export default function FAQ() {
@@ -24,8 +25,8 @@ export default function FAQ() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // WhatsApp number format (remove + and spaces)
-  const whatsappNumber = CLIENT_PHONE.replace(/\+/g, '').replace(/\s/g, '');
+  // WhatsApp number format (remove any spaces)
+  const whatsappNumber = CLIENT_WHATSAPP.replace(/\s/g, '');
 
   return (
     <section className="relative overflow-hidden bg-linear-to-b from-slate-50 via-white to-slate-100 py-24">
@@ -116,7 +117,7 @@ export default function FAQ() {
 
               <div className="mt-10 space-y-4">
                 {/* ============================================ */}
-                {/* 📞 CALL NOW BUTTON - FIXED */}
+                {/* 📞 CALL NOW BUTTON - UPDATED */}
                 {/* ============================================ */}
                 <a
                   href={`tel:${CLIENT_PHONE.replace(/\s/g, '')}`}
@@ -127,7 +128,7 @@ export default function FAQ() {
                 </a>
 
                 {/* ============================================ */}
-                {/* 💬 WHATSAPP US BUTTON - FIXED */}
+                {/* 💬 WHATSAPP US BUTTON - UPDATED */}
                 {/* ============================================ */}
                 <a
                   href={`https://wa.me/${whatsappNumber}`}

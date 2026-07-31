@@ -8,6 +8,13 @@ import { Menu, X, Phone, ChevronDown, Sparkles, RefreshCw, Droplet, Tv } from 'l
 import { SiLg, SiSamsung, SiBosch, SiWipro, SiSony, SiVultr } from 'react-icons/si';
 import { serviceCategories } from '../data/services';
 
+// ============================================
+// 📞 CLIENT CONTACT DETAILS
+// ============================================
+const CLIENT_PHONE = "1800202257";
+const CLIENT_PHONE_DISPLAY = "1800-202-257";
+// ============================================
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [serviceOpen, setServiceOpen] = useState(false);
@@ -138,14 +145,18 @@ export default function Navbar() {
           </div>
         </nav>
 
+        {/* ============================================ */}
+        {/* 📞 CALL NOW BUTTON - UPDATED WITH CLIENT NUMBER */}
+        {/* ============================================ */}
         <div className="hidden lg:flex">
           <a
-            href="tel:+91 xxxxx xxxxx"
+            href={`tel:${CLIENT_PHONE}`}
             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-gradient-to-r from-[#E0293D] to-[#B81F30] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-200/50 transition hover:-translate-y-0.5 hover:shadow-xl"
           >
             <Phone size={16} /> Call Now
           </a>
         </div>
+        {/* ============================================ */}
 
         <button
           className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-white/10 lg:hidden"
@@ -252,9 +263,17 @@ export default function Navbar() {
                   })}
                 </div>
               </div>
-              <a href="tel:+91 xxxxx xxxxx" className="mt-4 rounded-full bg-gradient-to-r from-[#E0293D] to-[#B81F30] px-5 py-3 text-center font-semibold text-white shadow-lg" onClick={closeMenu}>
+              {/* ============================================ */}
+              {/* 📞 MOBILE CALL NOW - UPDATED WITH CLIENT NUMBER */}
+              {/* ============================================ */}
+              <a 
+                href={`tel:${CLIENT_PHONE}`} 
+                className="mt-4 rounded-full bg-gradient-to-r from-[#E0293D] to-[#B81F30] px-5 py-3 text-center font-semibold text-white shadow-lg transition hover:scale-105" 
+                onClick={closeMenu}
+              >
                 Call Now
               </a>
+              {/* ============================================ */}
             </div>
           </div>
         </div>

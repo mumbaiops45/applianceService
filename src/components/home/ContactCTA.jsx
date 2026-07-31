@@ -9,6 +9,13 @@ import {
   BadgeCheck,
 } from "lucide-react";
 
+// ============================================
+// 📞 CLIENT CONTACT DETAILS
+// ============================================
+const CLIENT_PHONE = "1800202257";
+const CLIENT_PHONE_DISPLAY = "1800-202-257";
+// ============================================
+
 export default function ContactCTA() {
   return (
     <section className="relative overflow-hidden py-24">
@@ -175,7 +182,7 @@ export default function ContactCTA() {
               <div className="mt-10 flex flex-col gap-4">
 
                 <a
-                  href="tel:+91 xxxxx xxxxx"
+                  href={`tel:${CLIENT_PHONE}`}
                   className="flex items-center justify-center gap-3 rounded-2xl bg-red-600 py-4 text-lg font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-red-700"
                 >
                   <PhoneCall size={22} />

@@ -5,7 +5,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import CustomerEnquiryPopup from "@/components/CustomerEnquiryPopup";
-
+// ============================================
+// 📞 CLIENT CONTACT DETAILS
+// ============================================
+const CLIENT_PHONE = "1800202257";
+const CLIENT_PHONE_DISPLAY = "1800-202-257";
+// ============================================
 export default function Hero() {
   return (
     <section className="relative w-full min-h-screen flex items-center">
@@ -85,7 +90,7 @@ export default function Hero() {
                 Book Service
               </Link>
               <a
-                href="tel:+91 xxxxx xxxxx"
+                href={`tel:${CLIENT_PHONE}`}
                 className="inline-flex items-center gap-2 rounded-full border-2 border-white/70 px-8 py-4 text-lg font-semibold text-white hover:bg-white hover:text-[#0B1A2E] transition duration-300 backdrop-blur-sm"
               >
                 Call Now
@@ -102,7 +107,7 @@ export default function Hero() {
         </div>
       </div>
 
-    
+
     </section>
   );
 }
