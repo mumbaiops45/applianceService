@@ -6,6 +6,7 @@ import {
   Quote,
   ArrowRight,
 } from "lucide-react";
+import Link from "next/link";
 
 import { globalTestimonials } from "../data/testimonials";
 
@@ -112,13 +113,13 @@ export default function Testimonials() {
 
               </div>
 
-              <button className="mt-10 flex w-full items-center justify-center gap-2 rounded-xl bg-white py-4 font-semibold text-red-600 transition hover:scale-105">
+              <Link href="/contact" className="mt-10 flex w-full items-center justify-center gap-2 rounded-xl bg-white py-4 font-semibold text-red-600 transition hover:scale-105">
 
                 Book Service
 
                 <ArrowRight size={18} />
 
-              </button>
+              </Link>
 
             </div>
 

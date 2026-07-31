@@ -10,36 +10,28 @@ import {
   Phone,
   Sparkles,
   Loader2,
+  CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 
+// ============================================
+// 📞 CLIENT CONTACT DETAILS - UPDATE THESE ONLY
+// ============================================
+const CLIENT_PHONE = "+91 xxxxxxxxxx";
+const CLIENT_EMAIL = "support@appliancecare.com";
+const CLIENT_ADDRESS = "Doorstep service across Delhi NCR";
+// ============================================
+
 const serviceBrands = {
-  "Washing Machine": [
-    "LG",
-    "Samsung",
-    "Bosch",
-    "IFB",
-    
-  ],
-  Refrigerator: [
-    "LG",
-    "Samsung",
-    "Whirlpool",
-    "Godrej",
-    
-    
-  ],
-  Television: [
-    "Samsung",
-    "LG",
-    "Sony",
-    "Vu",
-    
-  ],
+  "Washing Machine": ["LG", "Samsung", "Bosch", "IFB"],
+  Refrigerator: ["LG", "Samsung", "Whirlpool", "Godrej"],
+  Television: ["Samsung", "LG", "Sony", "Vu"],
 };
 
 export default function ContactClient() {
   const [loading, setLoading] = useState(false);
   const [fetchingCity, setFetchingCity] = useState(false);
+  const [touched, setTouched] = useState({});
 
   const [form, setForm] = useState({
     name: "",
@@ -53,31 +45,185 @@ export default function ContactClient() {
     message: "",
   });
 
+  const [errors, setErrors] = useState({});
+
+  // Validation rules
+  const validateField = (name, value) => {
+    switch (name) {
+      case "name":
+        if (!value || value.trim() === "") {
+          return "Full name is required.";
+        }
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          return "Name should contain only alphabets and spaces.";
+        }
+        if (value.trim().split(/\s+/).length < 2) {
+          return "Please enter your full name (first and last name).";
+        }
+        return "";
+
+      case "phone":
+        if (!value || value.trim() === "") {
+          return "Phone number is required.";
+        }
+        if (!/^[0-9]{10}$/.test(value)) {
+          return "Please enter a valid 10-digit phone number.";
+        }
+        return "";
+
+      case "email":
+        if (!value || value.trim() === "") {
+          return "Email address is required.";
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          return "Please enter a valid email address.";
+        }
+        return "";
+
+      case "service":
+        if (!value) {
+          return "Please select a service.";
+        }
+        return "";
+
+      case "brand":
+        if (!value) {
+          return "Please select a brand.";
+        }
+        return "";
+
+      case "address":
+        if (!value || value.trim() === "") {
+          return "Address is required.";
+        }
+        if (value.trim().length < 10) {
+          return "Please enter a complete address (minimum 10 characters).";
+        }
+        return "";
+
+      case "pincode":
+        if (!value || value.trim() === "") {
+          return "Pincode is required.";
+        }
+        if (!/^[0-9]{6}$/.test(value)) {
+          return "Please enter a valid 6-digit pincode.";
+        }
+        return "";
+
+      case "city":
+        if (!value || value.trim() === "") {
+          return "City is required.";
+        }
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          return "City should contain only alphabets and spaces.";
+        }
+        return "";
+
+      case "message":
+        if (!value || value.trim() === "") {
+          return "Please describe the issue.";
+        }
+        if (value.trim().split(/\s+/).length < 3) {
+          return "Please provide a more detailed description (minimum 3 words).";
+        }
+        if (value.length < 20) {
+          return "Please provide more details (minimum 20 characters).";
+        }
+        return "";
+
+      default:
+        return "";
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
+    // Special handling for service field
     if (name === "service") {
       setForm((prev) => ({
         ...prev,
         service: value,
         brand: "",
       }));
+      // Clear errors
+      setErrors((prev) => ({ ...prev, service: "", brand: "" }));
       return;
     }
 
+    // Name field - block invalid characters
+    if (name === "name") {
+      if (value && !/^[A-Za-z\s]*$/.test(value)) {
+        setErrors((prev) => ({ 
+          ...prev, 
+          name: "Name should contain only alphabets and spaces." 
+        }));
+        return;
+      }
+    }
+
+    // Phone field - block invalid characters
+    if (name === "phone") {
+      if (value && !/^[0-9]*$/.test(value)) {
+        setErrors((prev) => ({ 
+          ...prev, 
+          phone: "Phone number should contain only digits." 
+        }));
+        return;
+      }
+    }
+
+    // City field - block invalid characters
+    if (name === "city") {
+      if (value && !/^[A-Za-z\s]*$/.test(value)) {
+        setErrors((prev) => ({ 
+          ...prev, 
+          city: "City should contain only alphabets and spaces." 
+        }));
+        return;
+      }
+    }
+
+    // Update form
     setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    // Real-time validation for touched fields
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setErrors((prev) => ({ ...prev, [name]: error }));
+    }
   };
 
-  // Auto-fetch city from pincode
-  const fetchCityFromPincode = async (pincode) => {
-    if (!pincode || pincode.length !== 6) return;
-    if (form.city && form.city.trim() !== "") {
-      // If city already has a value, don't override (user manual override)
-      return;
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    
+    // Mark field as touched
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    
+    // Validate on blur
+    const error = validateField(name, value);
+    setErrors((prev) => ({ ...prev, [name]: error }));
+  };
+
+  const handlePincodeBlur = (e) => {
+    const pincode = e.target.value;
+    
+    // Validate pincode
+    const error = validateField("pincode", pincode);
+    setErrors((prev) => ({ ...prev, pincode: error }));
+    setTouched((prev) => ({ ...prev, pincode: true }));
+
+    // Auto-fetch city
+    if (pincode && pincode.length === 6) {
+      fetchCityFromPincode(pincode);
     }
+  };
+
+  const fetchCityFromPincode = async (pincode) => {
+    if (form.city && form.city.trim() !== "") return;
 
     setFetchingCity(true);
     try {
@@ -86,15 +232,14 @@ export default function ContactClient() {
       if (data && data[0] && data[0].Status === "Success") {
         const postOffices = data[0].PostOffice;
         if (postOffices && postOffices.length > 0) {
-          // Use District or Region; fallback to Name
           const cityName = postOffices[0].District || postOffices[0].Region || postOffices[0].Name;
           if (cityName) {
             setForm((prev) => ({ ...prev, city: cityName }));
+            // Validate city after auto-fill
+            const cityError = validateField("city", cityName);
+            setErrors((prev) => ({ ...prev, city: cityError }));
           }
         }
-      } else {
-        // No data – silently ignore or you can show a toast
-        console.log("No city found for pincode");
       }
     } catch (error) {
       console.error("Error fetching city:", error);
@@ -103,16 +248,38 @@ export default function ContactClient() {
     }
   };
 
-  const handlePincodeBlur = (e) => {
-    const pincode = e.target.value;
-    fetchCityFromPincode(pincode);
+  const validateForm = () => {
+    const newErrors = {};
+    let isValid = true;
+
+    // Validate all fields
+    Object.keys(form).forEach((key) => {
+      const error = validateField(key, form[key]);
+      if (error) {
+        newErrors[key] = error;
+        isValid = false;
+      }
+    });
+
+    setErrors(newErrors);
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.service) return toast.error("Please select a service.");
-    if (!form.brand) return toast.error("Please select a brand.");
+    // Mark all fields as touched
+    const allTouched = {};
+    Object.keys(form).forEach((key) => {
+      allTouched[key] = true;
+    });
+    setTouched(allTouched);
+
+    // Validate form
+    if (!validateForm()) {
+      toast.error("Please fix all the errors before submitting.");
+      return;
+    }
 
     setLoading(true);
 
@@ -128,7 +295,19 @@ export default function ContactClient() {
       const data = await response.json();
 
       if (data.success) {
-        toast.success("Thank you! Our team will contact you shortly.");
+        toast.success("🎉 Thank you! Your enquiry has been submitted successfully. Our team will contact you shortly.", {
+          duration: 5000,
+          style: {
+            background: "#10B981",
+            color: "#fff",
+            fontWeight: "600",
+            padding: "16px 24px",
+            borderRadius: "12px",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+          },
+          icon: "✅",
+        });
+        // Reset form
         setForm({
           name: "",
           phone: "",
@@ -140,14 +319,24 @@ export default function ContactClient() {
           brand: "",
           message: "",
         });
+        setErrors({});
+        setTouched({});
       } else {
-        toast.error(data.message);
+        toast.error(data.message || "Submission failed. Please try again.");
       }
-    } catch {
-      toast.error("Something went wrong.");
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast.error("Unable to submit request. Please try again later.");
     }
 
     setLoading(false);
+  };
+
+  // Helper to get input className based on validation state
+  const getInputClassName = (fieldName) => {
+    const baseClass = "w-full rounded-2xl border px-4 py-3 text-white placeholder:text-slate-400 focus:outline-none transition-all duration-200";
+    const errorClass = errors[fieldName] && touched[fieldName] ? "border-[#E0293D] bg-white/5 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20" : "border-white/10 bg-white/10 focus:border-[#E0293D] focus:ring-2 focus:ring-[#E0293D]/20";
+    return `${baseClass} ${errorClass}`;
   };
 
   return (
@@ -158,7 +347,7 @@ export default function ContactClient() {
         <section className="px-4 pb-18 pt-28 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-7xl rounded-[36px] border border-slate-200/80 bg-white/80 p-8 shadow-2xl shadow-slate-200/70 backdrop-blur md:p-12 lg:p-16">
             <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr]">
-              {/* Left Section (unchanged) */}
+              {/* Left Section */}
               <div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-[#E0293D]/20 bg-[#FFF5F6] px-4 py-2 text-sm font-semibold text-[#B81F30]">
                   <Sparkles size={16} />
@@ -176,20 +365,28 @@ export default function ContactClient() {
                   support for all major appliance brands.
                 </p>
 
-                  <div className="mt-8 space-y-4">
-                <a href="tel:+91 xxxxx xxxxx" className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:border-[#E0293D] hover:bg-white">
-                  <Phone className="text-[#E0293D]" size={18} />
-                  <span className="font-semibold text-[#0B1A2E]">+91 xxxxx xxxxx</span>
-                </a>
-                <a href="mailto:support@appliancecare.com" className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:border-[#E0293D] hover:bg-white">
-                  <Mail className="text-[#E0293D]" size={18} />
-                  <span className="font-semibold text-[#0B1A2E]">support@appliancecare.com</span>
-                </a>
-                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <MapPin className="text-[#E0293D]" size={18} />
-                  <span className="font-semibold text-[#0B1A2E]">Doorstep service across Delhi NCR</span>
+                <div className="mt-8 space-y-4">
+                  <a 
+                    href={`tel:${CLIENT_PHONE.replace(/\s/g, '')}`} 
+                    className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:border-[#E0293D] hover:bg-white"
+                  >
+                    <Phone className="text-[#E0293D]" size={18} />
+                    <span className="font-semibold text-[#0B1A2E]">{CLIENT_PHONE}</span>
+                  </a>
+                  
+                  <a 
+                    href={`mailto:${CLIENT_EMAIL}`} 
+                    className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:border-[#E0293D] hover:bg-white"
+                  >
+                    <Mail className="text-[#E0293D]" size={18} />
+                    <span className="font-semibold text-[#0B1A2E]">{CLIENT_EMAIL}</span>
+                  </a>
+                  
+                  <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                    <MapPin className="text-[#E0293D]" size={18} />
+                    <span className="font-semibold text-[#0B1A2E]">{CLIENT_ADDRESS}</span>
+                  </div>
                 </div>
-              </div>
               </div>
 
               {/* Right Section – Form */}
@@ -207,32 +404,44 @@ export default function ContactClient() {
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                       <label className="mb-2 block text-sm font-medium text-slate-200">
-                        Full Name
+                        Full Name <span className="text-[#E0293D]">*</span>
                       </label>
                       <input
                         type="text"
                         name="name"
                         value={form.name}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         placeholder="Enter your full name"
-                        required
-                        className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-white placeholder:text-slate-400 focus:border-[#E0293D] focus:outline-none"
+                        className={getInputClassName("name")}
                       />
+                      {errors.name && touched.name && (
+                        <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                          <AlertCircle size={12} />
+                          {errors.name}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label className="mb-2 block text-sm font-medium text-slate-200">
-                        Phone Number
+                        Phone Number <span className="text-[#E0293D]">*</span>
                       </label>
                       <input
                         type="tel"
                         name="phone"
                         value={form.phone}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         maxLength={10}
-                        required
                         placeholder="9876543210"
-                        className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-white placeholder:text-slate-400 focus:border-[#E0293D] focus:outline-none"
+                        className={getInputClassName("phone")}
                       />
+                      {errors.phone && touched.phone && (
+                        <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                          <AlertCircle size={12} />
+                          {errors.phone}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -240,36 +449,40 @@ export default function ContactClient() {
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                       <label className="mb-2 block text-sm font-medium text-slate-200">
-                        Select Service
+                        Select Service <span className="text-[#E0293D]">*</span>
                       </label>
                       <select
                         name="service"
                         value={form.service}
                         onChange={handleChange}
-                        required
-                        className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-white focus:border-[#E0293D] focus:outline-none"
+                        onBlur={handleBlur}
+                        className={getInputClassName("service")}
                       >
-                        <option value="" className="text-black">
-                          Select Service
-                        </option>
+                        <option value="" className="text-black">Select Service</option>
                         {Object.keys(serviceBrands).map((service) => (
                           <option key={service} value={service} className="text-black">
                             {service}
                           </option>
                         ))}
                       </select>
+                      {errors.service && touched.service && (
+                        <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                          <AlertCircle size={12} />
+                          {errors.service}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label className="mb-2 block text-sm font-medium text-slate-200">
-                        Select Brand
+                        Select Brand <span className="text-[#E0293D]">*</span>
                       </label>
                       <select
                         name="brand"
                         value={form.brand}
                         onChange={handleChange}
-                        required
+                        onBlur={handleBlur}
                         disabled={!form.service}
-                        className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-white disabled:cursor-not-allowed disabled:opacity-60 focus:border-[#E0293D] focus:outline-none"
+                        className={getInputClassName("brand")}
                       >
                         <option value="" className="text-black">
                           {form.service ? "Select Brand" : "Select Service First"}
@@ -281,6 +494,12 @@ export default function ContactClient() {
                             </option>
                           ))}
                       </select>
+                      {errors.brand && touched.brand && (
+                        <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                          <AlertCircle size={12} />
+                          {errors.brand}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -288,38 +507,51 @@ export default function ContactClient() {
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                       <label className="mb-2 block text-sm font-medium text-slate-200">
-                        Email Address
+                        Email Address <span className="text-[#E0293D]">*</span>
                       </label>
                       <input
                         type="email"
                         name="email"
                         value={form.email}
                         onChange={handleChange}
-                        required
+                        onBlur={handleBlur}
                         placeholder="example@gmail.com"
-                        className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-white placeholder:text-slate-400 focus:border-[#E0293D] focus:outline-none"
+                        className={getInputClassName("email")}
                       />
+                      {errors.email && touched.email && (
+                        <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                          <AlertCircle size={12} />
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label className="mb-2 block text-sm font-medium text-slate-200">
-                        Address
+                        Address <span className="text-[#E0293D]">*</span>
                       </label>
                       <input
                         type="text"
                         name="address"
                         value={form.address}
                         onChange={handleChange}
-                        placeholder="Street, locality"
-                        className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-white placeholder:text-slate-400 focus:border-[#E0293D] focus:outline-none"
+                        onBlur={handleBlur}
+                        placeholder="Street, locality, landmark"
+                        className={getInputClassName("address")}
                       />
+                      {errors.address && touched.address && (
+                        <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                          <AlertCircle size={12} />
+                          {errors.address}
+                        </p>
+                      )}
                     </div>
                   </div>
 
-                  {/* Row 4: Pincode + City (with auto‑fill) */}
+                  {/* Row 4: Pincode + City */}
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                       <label className="mb-2 block text-sm font-medium text-slate-200">
-                        Pincode
+                        Pincode <span className="text-[#E0293D]">*</span>
                       </label>
                       <div className="relative">
                         <input
@@ -330,7 +562,7 @@ export default function ContactClient() {
                           onBlur={handlePincodeBlur}
                           maxLength={6}
                           placeholder="560001"
-                          className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-white placeholder:text-slate-400 focus:border-[#E0293D] focus:outline-none"
+                          className={getInputClassName("pincode")}
                         />
                         {fetchingCity && (
                           <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -338,45 +570,64 @@ export default function ContactClient() {
                           </div>
                         )}
                       </div>
+                      {errors.pincode && touched.pincode && (
+                        <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                          <AlertCircle size={12} />
+                          {errors.pincode}
+                        </p>
+                      )}
                       <p className="mt-1 text-xs text-slate-400">
                         Blur after typing 6 digits to auto‑fill city
                       </p>
                     </div>
                     <div>
                       <label className="mb-2 block text-sm font-medium text-slate-200">
-                        City
+                        City <span className="text-[#E0293D]">*</span>
                       </label>
                       <input
                         type="text"
                         name="city"
                         value={form.city}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         placeholder="Bangalore"
-                        className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-white placeholder:text-slate-400 focus:border-[#E0293D] focus:outline-none"
+                        className={getInputClassName("city")}
                       />
+                      {errors.city && touched.city && (
+                        <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                          <AlertCircle size={12} />
+                          {errors.city}
+                        </p>
+                      )}
                       <p className="mt-1 text-xs text-slate-400">
                         Auto‑filled from pincode – you can edit it
                       </p>
                     </div>
                   </div>
 
-                  {/* Row 5: Message (full width) */}
+                  {/* Row 5: Message */}
                   <div>
                     <label className="mb-2 block text-sm font-medium text-slate-200">
-                      Describe the Issue
+                      Describe the Issue <span className="text-[#E0293D]">*</span>
                     </label>
                     <textarea
                       rows={4}
                       name="message"
                       value={form.message}
                       onChange={handleChange}
-                      required
+                      onBlur={handleBlur}
                       placeholder="Example: Washing machine is not spinning properly..."
-                      className="w-full resize-none rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-white placeholder:text-slate-400 focus:border-[#E0293D] focus:outline-none"
+                      className={getInputClassName("message")}
                     />
+                    {errors.message && touched.message && (
+                      <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                        <AlertCircle size={12} />
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
 
-                  {/* Submit */}
+                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={loading}
@@ -384,26 +635,7 @@ export default function ContactClient() {
                   >
                     {loading ? (
                       <>
-                        <svg
-                          className="h-5 w-5 animate-spin"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          />
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M12 2a10 10 0 00-10 10h4a6 6 0 016-6V2z"
-                          />
-                        </svg>
+                        <Loader2 size={20} className="animate-spin" />
                         Sending Request...
                       </>
                     ) : (
@@ -414,7 +646,9 @@ export default function ContactClient() {
                     )}
                   </button>
 
-                  
+                  <p className="text-center text-xs text-slate-400">
+                    By submitting, you agree to our terms and privacy policy.
+                  </p>
                 </form>
               </div>
             </div>

@@ -112,14 +112,14 @@ export default function ServiceHero({
                             {/* Brand & Logo Card */}
                             <div className="mt-6 grid gap-4 rounded-[32px] border border-slate-200/80 bg-white p-5 shadow-sm sm:grid-cols-[1.5fr_1fr]">
                                 <div className={`flex items-center gap-4 rounded-3xl ${isSamsung ? 'bg-[#F0F4FF]' : 'bg-[#FEF3F2]'} p-4`}>
-                                    <div className={`flex items-center justify-center rounded-3xl bg-white shadow-sm ${isSamsung ? 'h-24 w-24' : 'h-28 w-28'}`}>
+                                    <div className={`flex items-center justify-center rounded-3xl bg-white shadow-sm ${isSamsung ? 'h-32 w-32' : 'h-28 w-28'}`}>
                                         {logoSrc ? (
                                             <Image
                                                 src={logoSrc}
                                                 alt={`${brand} logo`}
-                                                width={isSamsung ? 80 : 52}
-                                                height={isSamsung ? 80 : 52}
-                                                className={`rounded-full object-cover ${isSamsung ? 'scale-110' : ''}`}
+                                                width={isSamsung ? 120 : 100}
+                                                height={isSamsung ? 120 : 100}
+                                                className={`rounded-8xl object-contain  p-2 ${isSamsung ? 'scale-110' : ''}`}
                                             />
                                         ) : (
                                             <span className={`text-xl font-black ${colors.text} ${isSamsung ? 'text-3xl' : ''}`}>

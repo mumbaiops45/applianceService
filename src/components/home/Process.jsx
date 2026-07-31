@@ -38,22 +38,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="relative overflow-hidden bg-linear-to-b from-slate-50 via-white to-slate-100 py-24">
-
-      {/* Background Blur */}
-      <div className="absolute -top-32 -left-24 h-96 w-96 rounded-full bg-red-100 blur-3xl opacity-50"></div>
-
-      <div className="absolute -bottom-24 -right-20 h-96 w-96 rounded-full bg-blue-100 blur-3xl opacity-40"></div>
-
-      {/* Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "linear-gradient(#000 1px, transparent 1px),linear-gradient(90deg,#000 1px,transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
+    <section className="bg-white py-24">
 
       <div className="relative mx-auto max-w-7xl px-6">
 
