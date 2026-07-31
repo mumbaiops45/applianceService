@@ -421,13 +421,13 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     Fill in your details and our expert technician will reach out to you at the earliest.
                                 </p>
                             </div>
-                            <div className="hidden sm:flex items-center gap-1.5 rounded-full bg-white/20 px-3.5 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
+                            {/* <div className="hidden sm:flex items-center gap-1.5 rounded-full bg-white/20 px-3.5 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
                                 <span className="relative flex h-2 w-2">
                                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
                                     <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
                                 </span>
                                 Quick Response
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
