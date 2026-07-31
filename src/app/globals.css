@@ -201,3 +201,26 @@ section { padding: clamp(50px, 5vw, 100px) 0; }
 ::-webkit-scrollbar-thumb { background: var(--petrol); border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--petrol-dark); }
 ::selection { background: var(--signal); color: white; }
+
+/* Samsung routes use their own blue-and-white palette without affecting other brands. */
+.samsung-theme [class*="text-[#E0293D]"] { color: #1428A0; }
+.samsung-theme [class*="text-[#B81F30]"] { color: #1428A0; }
+.samsung-theme [class*="bg-[#E0293D]"] { background-color: #1428A0; }
+.samsung-theme [class*="bg-[#B81F30]"] { background-color: #0E1D7A; }
+.samsung-theme [class*="border-[#E0293D]"] { border-color: #1428A0; }
+.samsung-theme [class*="bg-red-50"] { background-color: #F0F4FF; }
+.samsung-theme [class*="bg-red-100"] { background-color: #E5E9F7; }
+.samsung-theme [class*="shadow-red-200"] { --tw-shadow-color: rgb(191 219 254 / 0.7); }
+.samsung-theme [class*="from-[#FFF1F2]"] { --tw-gradient-from: #F0F4FF; }
+.samsung-theme [class*="via-[#FEF6F8]"] { --tw-gradient-via: #F8FAFF; }
+.samsung-theme [class*="from-[#E0293D]"] { --tw-gradient-from: #1428A0; }
+.samsung-theme [class*="via-[#ff7b88]"] { --tw-gradient-via: #5B75D6; }
+.samsung-theme [class*="to-[#0B1A2E]"] { --tw-gradient-to: #0E1D7A; }
+.samsung-theme [class*="bg-[#E0293D]/10"] { background-color: rgb(20 40 160 / 0.1); }
+.samsung-theme [class*="hover:text-[#E0293D]"]:hover { color: #1428A0; }
+.samsung-theme [class*="hover:bg-[#E0293D]"]:hover { background-color: #1428A0; }
+.samsung-theme [class*="hover:bg-[#B81F30]"]:hover,
+.samsung-theme [class*="hover:bg-red-700"]:hover { background-color: #0E1D7A; }
+.samsung-theme [class*="hover:border-[#E0293D]"]:hover,
+.samsung-theme [class*="focus:border-[#E0293D]"]:focus { border-color: #1428A0; }
+.samsung-theme [class*="focus:ring-[#E0293D]"]:focus { --tw-ring-color: rgb(20 40 160 / 0.2); }

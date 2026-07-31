@@ -18,7 +18,7 @@ export default function Page() {
   const content = serviceLandingContent.tv.samsung;
 
   return (
-    <>
+    <main className="samsung-theme">
       <ServiceHero title={content.title} description={content.description} brand="Samsung" brandSlug="samsung" category="TV" categorySlug="tv" badge={content.badge} stats={content.stats} heroImage={content.heroImage} />
       <BrandInfo title="Samsung TV" description={content.introText} highlights={content.highlights} />
       <ServiceCards services={content.services} />
@@ -28,6 +28,6 @@ export default function Page() {
       <FAQSection faq={content.faq} />
       <BookingCTA brand="Samsung" category="TV" />
       <ContactForm />
-    </>
+    </main>
   );
 }

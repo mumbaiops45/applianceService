@@ -18,7 +18,7 @@ export default function Page() {
   const content = serviceLandingContent.refrigerator.samsung;
 
   return (
-    <>
+    <main className="samsung-theme">
       <ServiceHero title={content.title} description={content.description} brand="Samsung" brandSlug="samsung" category="Refrigerator" categorySlug="refrigerator" badge={content.badge} stats={content.stats} heroImage={content.heroImage} />
       <BrandInfo title="Samsung Refrigerator" description={content.introText} highlights={content.highlights} />
       <ServiceCards services={content.services} />
@@ -28,6 +28,6 @@ export default function Page() {
       <FAQSection faq={content.faq} />
       <BookingCTA brand="Samsung" category="Refrigerator" />
       <ContactForm />
-    </>
+    </main>
   );
 }

@@ -74,8 +74,8 @@ export default function Navbar() {
               Services
               <ChevronDown size={16} className="transition-transform duration-300 group-hover:rotate-180" />
             </button>
-            <div className="invisible absolute left-1/2 top-full mt-4 w-[720px] -translate-x-1/2 rounded-[28px] border border-slate-200/80 bg-white/95 p-5 opacity-0 shadow-[0_25px_80px_rgba(7,17,32,0.16)] backdrop-blur-2xl transition-all duration-300 group-hover:visible group-hover:opacity-100">
-              <div className="grid gap-4 md:grid-cols-3">
+            <div className="invisible absolute left-1/2 top-full mt-4 w-[780px] -translate-x-1/2 rounded-[28px] border border-slate-200/80 bg-white/95 p-6 opacity-0 shadow-[0_25px_80px_rgba(7,17,32,0.16)] backdrop-blur-2xl transition-all duration-300 group-hover:visible group-hover:opacity-100">
+              <div className="grid gap-5 md:grid-cols-3">
                 {serviceCategories.map((cat) => {
                   const Icon = cat.slug === 'washing-machine' ? RefreshCw : cat.slug === 'refrigerator' ? Droplet : Tv;
                   const brandIcons = {
@@ -97,22 +97,33 @@ export default function Navbar() {
                     vu: '#ff7f00',
                   };
                   return (
-                    <div key={cat.slug} className="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-4">
-                      <h4 className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.24em] text-[#E0293D]"><Icon size={14} />{cat.label}</h4>
-                      <div className="mt-3 space-y-2">
+                    <div key={cat.slug} className="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-4 hover:shadow-md transition-shadow">
+                      <h4 className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.24em] text-[#E0293D]">
+                        <Icon size={16} />{cat.label}
+                      </h4>
+                      <div className="mt-3 space-y-2.5">
                         {cat.brands.map((brand) => {
                           const color = brandColors[brand.slug] || '#64748b';
                           const BrandIcon = brandIcons[brand.slug];
+                          const isSamsung = brand.slug === 'samsung';
                           return (
                             <Link
                               key={brand.slug}
                               href={`/${cat.slug}/${brand.slug}`}
-                              className="group flex items-center gap-3 rounded-xl px-2 py-2 text-sm font-medium text-slate-600 transition hover:bg-white hover:text-[#E0293D]"
+                              className="group flex items-center gap-3 rounded-xl px-2.5 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-white hover:text-[#E0293D] hover:shadow-sm"
                             >
                               {BrandIcon ? (
-                                <BrandIcon className="h-5 w-5" style={{ color }} />
+                                <BrandIcon 
+                                  className={`${isSamsung ? 'h-8 w-8' : 'h-6 w-6'} transition-transform group-hover:scale-110`} 
+                                  style={{ color }} 
+                                />
                               ) : (
-                                <span className="inline-flex h-6 w-6 items-center justify-center rounded-md text-xs font-bold text-white" style={{ backgroundColor: color }}>{brand.label.slice(0,2).toUpperCase()}</span>
+                                <span 
+                                  className="inline-flex h-8 w-8 items-center justify-center rounded-md text-sm font-bold text-white transition-transform group-hover:scale-110" 
+                                  style={{ backgroundColor: color }}
+                                >
+                                  {brand.label.slice(0,2).toUpperCase()}
+                                </span>
                               )}
                               <span className="group-hover:text-[#E0293D]">{brand.label}</span>
                             </Link>
@@ -182,7 +193,7 @@ export default function Navbar() {
                   <span>Services</span>
                   <ChevronDown size={18} className={`transition-transform duration-300 ${serviceOpen ? 'rotate-180' : ''}`} />
                 </button>
-                <div className={`overflow-hidden transition-all duration-300 ${serviceOpen ? 'mt-2 max-h-[600px]' : 'max-h-0'}`}>
+                <div className={`overflow-hidden transition-all duration-300 ${serviceOpen ? 'mt-2 max-h-[800px]' : 'max-h-0'}`}>
                   {serviceCategories.map((cat) => {
                     const Icon = cat.slug === 'washing-machine' ? RefreshCw : cat.slug === 'refrigerator' ? Droplet : Tv;
                     const brandIcons = {
@@ -204,17 +215,33 @@ export default function Navbar() {
                       vu: '#ff7f00',
                     };
                     return (
-                      <div key={cat.slug} className="mb-3 rounded-2xl bg-slate-50 p-3">
-                        <h4 className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.24em] text-[#E0293D]"><Icon size={14} />{cat.label}</h4>
+                      <div key={cat.slug} className="mb-3 rounded-2xl bg-slate-50 p-4">
+                        <h4 className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.24em] text-[#E0293D]">
+                          <Icon size={14} />{cat.label}
+                        </h4>
                         {cat.brands.map((brand) => {
                           const color = brandColors[brand.slug] || '#64748b';
                           const BrandIcon = brandIcons[brand.slug];
+                          const isSamsung = brand.slug === 'samsung';
                           return (
-                            <Link key={brand.slug} href={`/${cat.slug}/${brand.slug}`} className="block py-1.5 pl-1 text-sm text-slate-600 transition hover:text-[#E0293D] flex items-center gap-2" onClick={closeMenu}>
+                            <Link 
+                              key={brand.slug} 
+                              href={`/${cat.slug}/${brand.slug}`} 
+                              className="flex items-center gap-3 py-2 pl-1 text-sm text-slate-600 transition hover:text-[#E0293D]" 
+                              onClick={closeMenu}
+                            >
                               {BrandIcon ? (
-                                <BrandIcon className="h-5 w-5" style={{ color }} />
+                                <BrandIcon 
+                                  className={`${isSamsung ? 'h-10 w-10' : 'h-7 w-7'}`} 
+                                  style={{ color }} 
+                                />
                               ) : (
-                                <span className="inline-flex h-6 w-6 items-center justify-center rounded-md text-xs font-bold text-white" style={{ backgroundColor: color }}>{brand.label.slice(0,2).toUpperCase()}</span>
+                                <span 
+                                  className="inline-flex h-8 w-8 items-center justify-center rounded-md text-xs font-bold text-white" 
+                                  style={{ backgroundColor: color }}
+                                >
+                                  {brand.label.slice(0,2).toUpperCase()}
+                                </span>
                               )}
                               <span>{brand.label}</span>
                             </Link>
