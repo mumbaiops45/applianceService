@@ -22,6 +22,12 @@ export default function Navbar() {
   const [scroll, setScroll] = useState(false);
   const pathname = usePathname();
 
+  // Hide logo on all /{category}/{brand} service pages
+  // e.g. /tv/lg, /washing-machine/bosch, /refrigerator/samsung
+  const isBrandServicePage = serviceCategories.some((cat) =>
+    cat.brands.some((brand) => pathname === `/${cat.slug}/${brand.slug}`)
+  );
+
   useEffect(() => {
     const handleScroll = () => setScroll(window.scrollY > 30);
     window.addEventListener('scroll', handleScroll);
@@ -45,20 +51,22 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 md:h-20 lg:px-8">
-        
-        {/* LOGO */}
-       <Link
-  href="/"
-  className="relative h-20 w-20 overflow-hidden "
->
-  <Image
-    src="/Build Smar.png"
-    alt="Appliance Care"
-    fill
-    priority
-    className="object-cover object-center scale-150"
-  />
-</Link>
+
+        {/* LOGO - hidden on /{category}/{brand} service pages */}
+        {!isBrandServicePage && (
+          <Link
+            href="/"
+            className="relative h-20 w-20 overflow-hidden "
+          >
+            <Image
+              src="/Build Smar.png"
+              alt="Appliance Care"
+              fill
+              priority
+              className="object-cover object-center scale-150"
+            />
+          </Link>
+        )}
 
         {/* DESKTOP NAVIGATION */}
         <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
