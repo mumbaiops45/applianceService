@@ -551,7 +551,7 @@ export default function TermsPage() {
 
                     <p className="mt-3 text-red-100">
 
-                      +91 xxxxx xxxxx
+                      +91 9108659496
 
                     </p>
 

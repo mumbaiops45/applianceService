@@ -386,7 +386,7 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
 
             {/* Backdrop */}
             <div
-                className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 transition-opacity duration-300"
+                className="fixed  inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 transition-opacity duration-300 pt-40 md:pt-12"
                 style={{ opacity: isVisible ? 1 : 0 }}
             >
                 {/* Popup Container */}
