@@ -31,7 +31,7 @@ export default function Hero() {
         <div className="absolute bottom-20 left-10 w-64 h-64 bg-[#E0293D]/5 rounded-full blur-3xl pointer-events-none" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 pt-8 md:pt-12 pb-24 md:pb-32">
+      <div className="container relative z-10 mx-auto px-4 pt-8 md:pt-10 pb-24 md:pb-32">
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -50,7 +50,7 @@ export default function Hero() {
             </h1>
 
             {/* Typewriter */}
-            <div className="mt-6 text-xl md:text-2xl font-medium text-white min-h-10 flex items-center">
+            <div className="mt-5 text-xl md:text-2xl font-medium text-white min-h-10 flex items-center">
               <span className="text-white/60 mr-2 font-mono text-base uppercase tracking-wider hidden sm:inline">Repairs for</span>
               <span className="text-[#E0293D]">
                 <Typewriter
@@ -71,14 +71,14 @@ export default function Hero() {
               </span>
             </div>
 
-            <p className="mt-6 max-w-2xl text-lg text-white/70 leading-8">
+            <p className="mt-4 max-w-2xl text-lg text-white/70 leading-8">
               Certified technicians providing same‑day doorstep repair for
               Washing Machines, Refrigerators and TVs using genuine spare parts.
             </p>
 
             {/* CTAs */}
             <motion.div
-              className="mt-10 flex flex-wrap gap-4"
+              className="mt-7 flex flex-wrap gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.25 }}

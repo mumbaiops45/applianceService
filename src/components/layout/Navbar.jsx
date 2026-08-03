@@ -49,7 +49,7 @@ export default function Navbar() {
         {/* LOGO */}
        <Link
   href="/"
-  className="relative h-20 w-20 overflow-hidden border border-slate-100"
+  className="relative h-20 w-20 overflow-hidden "
 >
   <Image
     src="/Build Smar.png"

@@ -14,23 +14,11 @@ const PHONE_DISPLAY = "1800-202-257"; // Display format
 
 export default function ScrollToTop() {
   const [showScroll, setShowScroll] = useState(false);
-  const [showContact, setShowContact] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      // Show scroll‑to‑top after scrolling past hero (e.g., 400px)
-      setShowScroll(scrollY > 400);
-
-      // Show WhatsApp & Call only when in hero area (top 500px)
-      // AND not near the bottom (footer)
-      const isNearBottom = windowHeight + scrollY >= documentHeight - 300;
-      const isInHero = scrollY < 500;
-
-      setShowContact(isInHero && !isNearBottom);
+      // Show scroll‑to‑top button after scrolling past hero (e.g., 400px)
+      setShowScroll(window.scrollY > 400);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -43,43 +31,44 @@ export default function ScrollToTop() {
   };
 
   return (
-    <div className="fixed bottom-8 right-6 z-50 flex flex-col gap-4">
-      {/* WhatsApp Button – shown only in hero area */}
-      {showContact && (
+    <>
+      {/* LEFT CORNER: Phone Call Button (Always Visible) */}
+      <div className="fixed bottom-8 left-6 z-50">
+        <a
+          href={`tel:${PHONE_NUMBER}`}
+          className="group flex h-14 w-14 items-center justify-center rounded-full bg-[#1a8cff] shadow-lg transition-all duration-300 hover:scale-110 hover:bg-[#0077ed] hover:shadow-xl"
+          aria-label="Call us"
+        >
+          <Phone className="h-6 w-6 text-white transition-transform duration-300 group-hover:scale-110" />
+        </a>
+      </div>
+
+      {/* RIGHT CORNER: Stacked Buttons (Scroll-To-Top above WhatsApp) */}
+      <div className="fixed bottom-8 right-6 z-50 flex flex-col items-center gap-4">
+        {/* Scroll to Top Button (Placed Above WhatsApp) */}
+        <button
+          onClick={scrollToTop}
+          className={`group flex h-14 w-14 items-center justify-center rounded-full bg-[#E0293D] shadow-lg transition-all duration-300 hover:scale-110 hover:bg-[#B81F30] hover:shadow-xl ${
+            showScroll
+              ? "pointer-events-auto translate-y-0 opacity-100"
+              : "pointer-events-none translate-y-8 opacity-0"
+          }`}
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="h-6 w-6 text-white transition-transform duration-300 group-hover:scale-110" />
+        </button>
+
+        {/* WhatsApp Button (Always Visible at Bottom Right) */}
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="group w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#1ebe5c] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110"
+          className="group flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg transition-all duration-300 hover:scale-110 hover:bg-[#1ebe5c] hover:shadow-xl"
           aria-label="Chat on WhatsApp"
         >
-          <FaWhatsapp className="w-7 h-7 text-white transition-transform duration-300 group-hover:scale-110" />
+          <FaWhatsapp className="h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" />
         </a>
-      )}
-
-      {/* Phone Call Button – shown only in hero area */}
-      {showContact && (
-        <a
-          href={`tel:${PHONE_NUMBER}`}
-          className="group w-14 h-14 rounded-full bg-[#1a8cff] hover:bg-[#0077ed] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110"
-          aria-label="Call us"
-        >
-          <Phone className="w-6 h-6 text-white transition-transform duration-300 group-hover:scale-110" />
-        </a>
-      )}
-
-      {/* Scroll to Top Button – appears after scrolling past hero */}
-      <button
-        onClick={scrollToTop}
-        className={`group w-14 h-14 rounded-full bg-[#E0293D] hover:bg-[#B81F30] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110 ${
-          showScroll
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 translate-y-8 pointer-events-none"
-        }`}
-        aria-label="Scroll to top"
-      >
-        <ArrowUp className="w-6 h-6 text-white transition-transform duration-300 group-hover:scale-110" />
-      </button>
-    </div>
+      </div>
+    </>
   );
 }
