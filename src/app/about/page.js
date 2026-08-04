@@ -39,7 +39,7 @@ export default function AboutPage() {
                 Premium appliance repair with fast, friendly service and trusted <span className="text-[#E0293D]">results.</span>
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-                ApplianceCare combines expert technicians, transparent pricing, and genuine parts to restore refrigerators, washing machines, and TVs quickly and confidently.
+                ApplianceCare combines expert technician, transparent pricing, and genuine parts to restore refrigerators, washing machines, and TVs quickly and confidently.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-[#E0293D] px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#E0293D]/20 transition hover:bg-[#B81F30]">
