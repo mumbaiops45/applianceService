@@ -56,14 +56,14 @@ export default function Navbar() {
         {!isBrandServicePage && (
           <Link
             href="/"
-            className="relative h-20 w-20 overflow-hidden "
+            className="relative h-20 w-40 overflow-hidden  "
           >
             <Image
-              src="/Build Smar.png"
+              src="/Build-Smar.png"
               alt="Appliance Care"
               fill
               priority
-              className="object-cover object-center scale-150"
+              className="object-contain object-center scale-200"
             />
           </Link>
         )}
