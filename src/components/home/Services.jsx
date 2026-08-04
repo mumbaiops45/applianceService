@@ -129,7 +129,7 @@ export default function Services() {
 
                 <div className="mt-auto">
                   <a
-                    href="tel:+91 xxxxx xxxxx"
+                    href="tel:+91 1800202257"
                     className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[#E0293D] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#B81F30]"
                   >
                     Call for Service
