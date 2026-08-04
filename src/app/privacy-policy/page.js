@@ -400,7 +400,7 @@ export default function PrivacyPolicy() {
 
                     <p className="mt-2 text-red-100">
 
-                      +91 xxxxx xxxxx
+                      +91 1800202257
 
                     </p>
 

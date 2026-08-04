@@ -2,7 +2,9 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
-   images: {
+  output: 'export',
+  images: {
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "logo.clearbit.com" },
       { protocol: "https", hostname: "www.google.com" },
