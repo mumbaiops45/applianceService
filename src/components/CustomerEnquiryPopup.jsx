@@ -328,67 +328,55 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
 
         setLoading(true);
 
-        try {
-            const response = await fetch(FORM_ENDPOINT, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                body: JSON.stringify({
-                    _subject: `New Enquiry from ${form.name} - ${form.service || "Service Request"}`,
-                    ...form,
-                }),
-            });
+ try {
+    const response = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: JSON.stringify({
+            _subject: `New Enquiry from ${form.name} - ${form.service || "Service Request"}`,
+            ...form,
+        }),
+    });
 
-            const data = await response.json();
+    const data = await response.json();
 
-            // formsubmit.co returns { success: "true", message: "..." }
-            if (response.ok && (data.success === "true" || data.success === true)) {
-                toast.success("✅ Your query has been submitted successfully!", {
-                    duration: 5000,
-                    style: {
-                        background: "#10B981",
-                        color: "#fff",
-                        fontWeight: "600",
-                        padding: "16px 24px",
-                        borderRadius: "12px",
-                        boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-                    },
-                    icon: "✅",
-                });
-                setForm({
-                    name: "",
-                    phone: "",
-                    email: "",
-                    address: "",
-                    pincode: "",
-                    city: "",
-                    service: "",
-                    message: "",
-                });
-                setErrors({});
-                setTouched({});
-                // ✅ Submission succeeded — close the popup
-                handleCancel();
-            } else {
-                // ❌ Submission failed — keep popup open so the user can retry
-                toast.error(data.message || "❌ Something went wrong. Your query could not be submitted. Please try again.", {
-                    duration: 5000,
-                    style: {
-                        background: "#DC2626",
-                        color: "#fff",
-                        fontWeight: "600",
-                        padding: "16px 24px",
-                        borderRadius: "12px",
-                        boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-                    },
-                    icon: "❌",
-                });
-            }
-        } catch {
-            // ❌ Network/unexpected error — keep popup open so the user can retry
-            toast.error("❌ Something went wrong. Your query could not be submitted. Please try again.", {
+    if (response.ok && (data.success === "true" || data.success === true)) {
+        toast.success("✅ Your query has been submitted successfully!", {
+            duration: 5000,
+            style: {
+                background: "#10B981",
+                color: "#fff",
+                fontWeight: "600",
+                padding: "16px 24px",
+                borderRadius: "12px",
+                boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+            },
+            icon: "✅",
+        });
+
+        setForm({
+            name: "",
+            phone: "",
+            email: "",
+            address: "",
+            pincode: "",
+            city: "",
+            service: "",
+            message: "",
+        });
+
+        setErrors({});
+        setTouched({});
+
+        handleCancel(); // Close popup after success
+    } else {
+        toast.error(
+            data.message ||
+                "❌ Something went wrong. Your query could not be submitted. Please try again.",
+            {
                 duration: 5000,
                 style: {
                     background: "#DC2626",
@@ -399,10 +387,32 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                     boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
                 },
                 icon: "❌",
-            });
-        }
+            }
+        );
 
-        setLoading(false);
+        handleCancel(); // Close popup after failure
+    }
+} catch {
+    toast.error(
+        "❌ Something went wrong. Your query could not be submitted. Please try again.",
+        {
+            duration: 5000,
+            style: {
+                background: "#DC2626",
+                color: "#fff",
+                fontWeight: "600",
+                padding: "16px 24px",
+                borderRadius: "12px",
+                boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+            },
+            icon: "❌",
+        }
+    );
+
+    handleCancel(); // Close popup after network error
+}
+
+setLoading(false);
     };
 
     // Helper to get input className based on validation state
@@ -696,7 +706,6 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                             
                             <button
                                 type="submit"
-                                 onClick={handleCancel}
                                 disabled={loading}
                                 className="w-full sm:w-auto min-w-[180px] rounded-xl bg-[#E0293D] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#B81F30] hover:shadow-lg hover:shadow-red-500/20 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
                             >
