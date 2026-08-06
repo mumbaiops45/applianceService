@@ -33,19 +33,19 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-18 md:grid-cols-2 xl:grid-cols-4">
           {/* ================= Company ================= */}
           <div>
-         {/* ================= Company Logo ================= */}
-<Link
-  href="/"
-  className="relative inline-block h-20 w-40 overflow-hidden cursor-pointer"
->
-  <Image
-    src="/build-smar.png" // 1. Renamed to remove spaces
-    alt="Appliance Care"
-    fill
-    priority
-    className="object-contain object-center scale-200 bg-white" // 2. Changed object-cover to object-contain to preserve aspect ratio
-  />
-</Link>
+            {/* ================= Company Logo ================= */}
+            <Link
+              href="/"
+              className="relative inline-block h-20 w-40 overflow-hidden cursor-pointer bg-white"
+            >
+              <Image
+                src="/Build-Smar.png" // 1. Renamed to remove spaces
+                alt="Appliance Care"
+                fill
+                priority
+                className="object-contain object-center scale-200" // 2. Changed object-cover to object-contain to preserve aspect ratio
+              />
+            </Link>
 
             <p className="mt-8 leading-7 text-slate-400">
               ApplianceCare provides fast, affordable and reliable repair

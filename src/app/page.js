@@ -9,6 +9,12 @@ import FAQ from "../components/home/FAQ";
 import ContactCTA from "../components/home/ContactCTA";
 import About from "../components/home/About";
 
+export const metadata = {
+  verification: {
+    google: "XcdOGfomjhHpfBFHE3otZroY9BcBmEtlWGaJEVpxEUg",
+  },
+};  
+
 export default function HomePage() {
   return (
     <>

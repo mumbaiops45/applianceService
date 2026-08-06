@@ -23,6 +23,12 @@ const CLIENT_EMAIL = "buildsmart0@gmail.com";
 const CLIENT_ADDRESS = "Bengaluru, Karnataka, India";
 // ============================================
 
+// ============================================
+// 📧 FORMSUBMIT.CO ENDPOINT
+// ============================================
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${CLIENT_EMAIL}`;
+// ============================================
+
 const serviceBrands = {
   "Washing Machine": ["LG", "Samsung", "Bosch", "IFB"],
   Refrigerator: ["LG", "Samsung", "Whirlpool", "Godrej"],
@@ -285,18 +291,23 @@ export default function ContactClient() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/enquiry", {
+      const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          _subject: `New Enquiry from ${form.name} - ${form.service || "Service Request"}`,
+          ...form,
+        }),
       });
 
       const data = await response.json();
 
-      if (data.success) {
-        toast.success("🎉 Thank you! Your enquiry has been submitted successfully. Our team will contact you shortly.", {
+      // formsubmit.co returns { success: "true", message: "..." }
+      if (response.ok && (data.success === "true" || data.success === true)) {
+        toast.success("✅ Your query has been submitted successfully!", {
           duration: 5000,
           style: {
             background: "#10B981",

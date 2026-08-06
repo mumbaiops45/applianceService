@@ -13,7 +13,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://www.example.com"),
+metadataBase: new URL("https://customercare247.support"),
   title: {
     default: "Home Appliance Repair Services",
     template: "%s | ApplianceCare",
@@ -26,10 +26,16 @@ export const metadata = {
     "Samsung Refrigerator Repair",
     "Sony TV Repair",
   ],
+   icons: {
+    icon: "/Screenshot 2026-08-05 160324.png",
+    shortcut: "/Screenshot 2026-08-05 160324.png",
+    apple: "/Screenshot 2026-08-05 160324.png",
+  },
+
   openGraph: {
     title: "Home Appliance Repair Services",
     description: "Professional Home Appliance Repair Services Near You.",
-    url: "https://www.example.com",
+url: "https://customercare247.support",
     siteName: "ApplianceCare",
     type: "website",
   },
@@ -46,7 +52,7 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         <main className="pt-6">{children}</main>
-  <ScrollToTop />
+        <ScrollToTop />
         <Footer />
       </body>
     </html>
