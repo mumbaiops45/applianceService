@@ -1,4 +1,5 @@
 import { Poppins } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 import Navbar from "../components/layout/Navbar";
@@ -13,7 +14,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-metadataBase: new URL("https://customercare247.support"),
+  metadataBase: new URL("https://customercare247.support"),
   title: {
     default: "Home Appliance Repair Services",
     template: "%s | ApplianceCare",
@@ -26,16 +27,18 @@ metadataBase: new URL("https://customercare247.support"),
     "Samsung Refrigerator Repair",
     "Sony TV Repair",
   ],
-   icons: {
+  icons: {
     icon: "/Screenshot 2026-08-05 160324.png",
     shortcut: "/Screenshot 2026-08-05 160324.png",
     apple: "/Screenshot 2026-08-05 160324.png",
   },
-
+  verification: {
+    google: "XcdOGfomjhHpfBFHE3otZroY9BcBmEtlWGaJEVpxEUg",
+  },
   openGraph: {
     title: "Home Appliance Repair Services",
     description: "Professional Home Appliance Repair Services Near You.",
-url: "https://customercare247.support",
+    url: "https://customercare247.support",
     siteName: "ApplianceCare",
     type: "website",
   },
@@ -48,6 +51,22 @@ url: "https://customercare247.support",
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics Script */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-GM9SKVTD79"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-GM9SKVTD79');
+          `}
+        </Script>
+      </head>
       <body className={poppins.variable}>
         <Navbar />
 
