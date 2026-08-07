@@ -54,155 +54,148 @@ export default function ContactClient() {
 
   const [errors, setErrors] = useState({});
 
-  // Validation rules
-  const validateField = (name, value) => {
-    switch (name) {
-      case "name":
-        if (!value || value.trim() === "") {
-          return "Full name is required.";
-        }
-        if (!/^[A-Za-z\s]+$/.test(value)) {
-          return "Name should contain only alphabets and spaces.";
-        }
-        if (value.trim().split(/\s+/).length < 2) {
-          return "Please enter your full name (first and last name).";
-        }
-        return "";
-
-      case "phone":
-        if (!value || value.trim() === "") {
-          return "Phone number is required.";
-        }
-        if (!/^[0-9]{10}$/.test(value)) {
-          return "Please enter a valid 10-digit phone number.";
-        }
-        return "";
-
-      case "email":
-        if (!value || value.trim() === "") {
-          return "Email address is required.";
-        }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          return "Please enter a valid email address.";
-        }
-        return "";
-
-      case "service":
-        if (!value) {
-          return "Please select a service.";
-        }
-        return "";
-
-      case "brand":
-        if (!value) {
-          return "Please select a brand.";
-        }
-        return "";
-
-      case "address":
-        if (!value || value.trim() === "") {
-          return "Address is required.";
-        }
-        if (value.trim().length < 10) {
-          return "Please enter a complete address (minimum 10 characters).";
-        }
-        return "";
-
-      case "pincode":
-        if (!value || value.trim() === "") {
-          return "Pincode is required.";
-        }
-        if (!/^[0-9]{6}$/.test(value)) {
-          return "Please enter a valid 6-digit pincode.";
-        }
-        return "";
-
-      case "city":
-        if (!value || value.trim() === "") {
-          return "City is required.";
-        }
-        if (!/^[A-Za-z\s]+$/.test(value)) {
-          return "City should contain only alphabets and spaces.";
-        }
-        return "";
-
-      case "message":
-        if (!value || value.trim() === "") {
-          return "Please describe the issue.";
-        }
-        if (value.trim().split(/\s+/).length < 3) {
-          return "Please provide a more detailed description (minimum 3 words).";
-        }
-        if (value.length < 20) {
-          return "Please provide more details (minimum 20 characters).";
-        }
-        return "";
-
-      default:
-        return "";
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    // Special handling for service field
-    if (name === "service") {
-      setForm((prev) => ({
-        ...prev,
-        service: value,
-        brand: "",
-      }));
-      // Clear errors
-      setErrors((prev) => ({ ...prev, service: "", brand: "" }));
-      return;
-    }
-
-    // Name field - block invalid characters
-    if (name === "name") {
-      if (value && !/^[A-Za-z\s]*$/.test(value)) {
-        setErrors((prev) => ({ 
-          ...prev, 
-          name: "Name should contain only alphabets and spaces." 
-        }));
-        return;
+const validateField = (name, value) => {
+  switch (name) {
+    case "name":
+      if (!value || value.trim() === "") {
+        return "Full name is required.";
       }
-    }
-
-    // Phone field - block invalid characters
-    if (name === "phone") {
-      if (value && !/^[0-9]*$/.test(value)) {
-        setErrors((prev) => ({ 
-          ...prev, 
-          phone: "Phone number should contain only digits." 
-        }));
-        return;
+      if (!/^[A-Za-z\s]+$/.test(value)) {
+        return "Name should contain only alphabets and spaces.";
       }
-    }
+      return "";
 
-    // City field - block invalid characters
-    if (name === "city") {
-      if (value && !/^[A-Za-z\s]*$/.test(value)) {
-        setErrors((prev) => ({ 
-          ...prev, 
-          city: "City should contain only alphabets and spaces." 
-        }));
-        return;
+    case "phone":
+      if (!value || value.trim() === "") {
+        return "Phone number is required.";
       }
-    }
+      if (!/^[0-9]{10}$/.test(value)) {
+        return "Please enter a valid 10-digit phone number.";
+      }
+      return "";
 
-    // Update form
+    case "email":
+      if (!value || value.trim() === "") {
+        return "Email address is required.";
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        return "Please enter a valid email address.";
+      }
+      return "";
+
+    case "service":
+      if (!value) {
+        return "Please select a service.";
+      }
+      return "";
+
+    case "brand":
+      if (!value) {
+        return "Please select a brand.";
+      }
+      return "";
+
+    case "address":
+      return "";
+
+    case "pincode":
+      if (!value || value.trim() === "") {
+        return "Pincode is required.";
+      }
+      if (!/^[0-9]{6}$/.test(value)) {
+        return "Please enter a valid 6-digit pincode.";
+      }
+      return "";
+
+    case "city":
+      return "";
+
+    case "message":
+      return "";
+
+    default:
+      return "";
+  }
+};
+
+ const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  // Special handling for service field
+  if (name === "service") {
     setForm((prev) => ({
       ...prev,
-      [name]: value,
+      service: value,
+      brand: "",
     }));
 
-    // Real-time validation for touched fields
-    if (touched[name]) {
-      const error = validateField(name, value);
-      setErrors((prev) => ({ ...prev, [name]: error }));
+    setErrors((prev) => ({
+      ...prev,
+      service: "",
+      brand: "",
+    }));
+    return;
+  }
+
+  // Name field - block invalid characters
+  if (name === "name") {
+    if (value && !/^[A-Za-z\s]*$/.test(value)) {
+      setErrors((prev) => ({
+        ...prev,
+        name: "Name should contain only alphabets and spaces.",
+      }));
+      return;
     }
-  };
+  }
+
+  // Phone field - block invalid characters
+  if (name === "phone") {
+    if (value && !/^[0-9]*$/.test(value)) {
+      setErrors((prev) => ({
+        ...prev,
+        phone: "Phone number should contain only digits.",
+      }));
+      return;
+    }
+  }
+
+  // Pincode field - block invalid characters
+  if (name === "pincode") {
+    if (value && !/^[0-9]*$/.test(value)) {
+      setErrors((prev) => ({
+        ...prev,
+        pincode: "Pincode should contain only digits.",
+      }));
+      return;
+    }
+  }
+
+  // City field - block invalid characters
+  if (name === "city") {
+    if (value && !/^[A-Za-z\s]*$/.test(value)) {
+      setErrors((prev) => ({
+        ...prev,
+        city: "City should contain only alphabets and spaces.",
+      }));
+      return;
+    }
+  }
+
+  // Update form
+  setForm((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+
+  // Real-time validation for touched fields
+  if (touched[name]) {
+    const error = validateField(name, value);
+    setErrors((prev) => ({
+      ...prev,
+      [name]: error,
+    }));
+  }
+};
 
   const handleBlur = (e) => {
     const { name, value } = e.target;

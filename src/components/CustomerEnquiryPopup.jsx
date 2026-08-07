@@ -102,9 +102,6 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                 if (!/^[A-Za-z\s]+$/.test(value)) {
                     return "Name should contain only alphabets and spaces.";
                 }
-                if (value.trim().split(/\s+/).length < 2) {
-                    return "Please enter your full name (first and last name).";
-                }
                 return "";
 
             case "phone":
@@ -132,12 +129,6 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                 return "";
 
             case "address":
-                if (!value || value.trim() === "") {
-                    return "Address is required.";
-                }
-                if (value.trim().length < 10) {
-                    return "Please enter a complete address (minimum 10 characters).";
-                }
                 return "";
 
             case "pincode":
@@ -150,24 +141,9 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                 return "";
 
             case "city":
-                if (!value || value.trim() === "") {
-                    return "City is required.";
-                }
-                if (!/^[A-Za-z\s]+$/.test(value)) {
-                    return "City should contain only alphabets and spaces.";
-                }
                 return "";
 
             case "message":
-                // Message is optional, but if provided, validate
-                if (value && value.trim() !== "") {
-                    if (value.trim().split(/\s+/).length < 3) {
-                        return "Please provide a more detailed description (minimum 3 words).";
-                    }
-                    if (value.length < 20) {
-                        return "Please provide more details (minimum 20 characters).";
-                    }
-                }
                 return "";
 
             default:
@@ -194,9 +170,9 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
         // Name field - block invalid characters
         if (name === "name") {
             if (value && !/^[A-Za-z\s]*$/.test(value)) {
-                setErrors((prev) => ({ 
-                    ...prev, 
-                    name: "Name should contain only alphabets and spaces." 
+                setErrors((prev) => ({
+                    ...prev,
+                    name: "Name should contain only alphabets and spaces."
                 }));
                 return;
             }
@@ -205,9 +181,19 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
         // Phone field - block invalid characters
         if (name === "phone") {
             if (value && !/^[0-9]*$/.test(value)) {
-                setErrors((prev) => ({ 
-                    ...prev, 
-                    phone: "Phone number should contain only digits." 
+                setErrors((prev) => ({
+                    ...prev,
+                    phone: "Phone number should contain only digits."
+                }));
+                return;
+            }
+        }
+        // Pincode field - block invalid characters
+        if (name === "pincode") {
+            if (value && !/^[0-9]*$/.test(value)) {
+                setErrors((prev) => ({
+                    ...prev,
+                    pincode: "Pincode should contain only digits."
                 }));
                 return;
             }
@@ -216,9 +202,9 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
         // City field - block invalid characters
         if (name === "city") {
             if (value && !/^[A-Za-z\s]*$/.test(value)) {
-                setErrors((prev) => ({ 
-                    ...prev, 
-                    city: "City should contain only alphabets and spaces." 
+                setErrors((prev) => ({
+                    ...prev,
+                    city: "City should contain only alphabets and spaces."
                 }));
                 return;
             }
@@ -239,10 +225,10 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
 
     const handleBlur = (e) => {
         const { name, value } = e.target;
-        
+
         // Mark field as touched
         setTouched((prev) => ({ ...prev, [name]: true }));
-        
+
         // Validate on blur
         const error = validateField(name, value);
         setErrors((prev) => ({ ...prev, [name]: error }));
@@ -328,91 +314,91 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
 
         setLoading(true);
 
- try {
-    const response = await fetch(FORM_ENDPOINT, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
-        body: JSON.stringify({
-            _subject: `New Enquiry from ${form.name} - ${form.service || "Service Request"}`,
-            ...form,
-        }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok && (data.success === "true" || data.success === true)) {
-        toast.success("✅ Your query has been submitted successfully!", {
-            duration: 5000,
-            style: {
-                background: "#10B981",
-                color: "#fff",
-                fontWeight: "600",
-                padding: "16px 24px",
-                borderRadius: "12px",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-            },
-            icon: "✅",
-        });
-
-        setForm({
-            name: "",
-            phone: "",
-            email: "",
-            address: "",
-            pincode: "",
-            city: "",
-            service: "",
-            message: "",
-        });
-
-        setErrors({});
-        setTouched({});
-
-        handleCancel(); // Close popup after success
-    } else {
-        toast.error(
-            data.message ||
-                "❌ Something went wrong. Your query could not be submitted. Please try again.",
-            {
-                duration: 5000,
-                style: {
-                    background: "#DC2626",
-                    color: "#fff",
-                    fontWeight: "600",
-                    padding: "16px 24px",
-                    borderRadius: "12px",
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+        try {
+            const response = await fetch(FORM_ENDPOINT, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
                 },
-                icon: "❌",
+                body: JSON.stringify({
+                    _subject: `New Enquiry from ${form.name} - ${form.service || "Service Request"}`,
+                    ...form,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok && (data.success === "true" || data.success === true)) {
+                toast.success("✅ Your query has been submitted successfully!", {
+                    duration: 5000,
+                    style: {
+                        background: "#10B981",
+                        color: "#fff",
+                        fontWeight: "600",
+                        padding: "16px 24px",
+                        borderRadius: "12px",
+                        boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+                    },
+                    icon: "✅",
+                });
+
+                setForm({
+                    name: "",
+                    phone: "",
+                    email: "",
+                    address: "",
+                    pincode: "",
+                    city: "",
+                    service: "",
+                    message: "",
+                });
+
+                setErrors({});
+                setTouched({});
+
+                handleCancel(); // Close popup after success
+            } else {
+                toast.error(
+                    data.message ||
+                    "❌ Something went wrong. Your query could not be submitted. Please try again.",
+                    {
+                        duration: 5000,
+                        style: {
+                            background: "#DC2626",
+                            color: "#fff",
+                            fontWeight: "600",
+                            padding: "16px 24px",
+                            borderRadius: "12px",
+                            boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+                        },
+                        icon: "❌",
+                    }
+                );
+
+                handleCancel(); // Close popup after failure
             }
-        );
+        } catch {
+            toast.error(
+                "❌ Something went wrong. Your query could not be submitted. Please try again.",
+                {
+                    duration: 5000,
+                    style: {
+                        background: "#DC2626",
+                        color: "#fff",
+                        fontWeight: "600",
+                        padding: "16px 24px",
+                        borderRadius: "12px",
+                        boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+                    },
+                    icon: "❌",
+                }
+            );
 
-        handleCancel(); // Close popup after failure
-    }
-} catch {
-    toast.error(
-        "❌ Something went wrong. Your query could not be submitted. Please try again.",
-        {
-            duration: 5000,
-            style: {
-                background: "#DC2626",
-                color: "#fff",
-                fontWeight: "600",
-                padding: "16px 24px",
-                borderRadius: "12px",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-            },
-            icon: "❌",
+            handleCancel(); // Close popup after network error
         }
-    );
 
-    handleCancel(); // Close popup after network error
-}
-
-setLoading(false);
+        setLoading(false);
     };
 
     // Helper to get input className based on validation state
@@ -478,10 +464,10 @@ setLoading(false);
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit}  className="p-5 sm:p-7 md:p-8">
+                    <form onSubmit={handleSubmit} className="p-5 sm:p-7 md:p-8">
                         {/* 2-Column Grid Layout */}
                         <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
-                            
+
                             {/* Row 1: Name */}
                             <div className="space-y-1.5">
                                 <label className="flex items-center gap-1.5 text-sm font-medium text-slate-300">
@@ -703,7 +689,7 @@ setLoading(false);
                             >
                                 Cancel
                             </button>
-                            
+
                             <button
                                 type="submit"
                                 disabled={loading}
