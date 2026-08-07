@@ -11,7 +11,7 @@ import About from "../components/home/About";
 
 export const metadata = {
   verification: {
-    google: "v8V8u0O26Xs7LqUOMKgCP2WzL1nEOh5KFtM59qqozlg",
+    google: "XcdOGfomjhHpfBFHE3otZroY9BcBmEtlWGaJEVpxEUg",
   },
 };  
 
