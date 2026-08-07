@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { SectionTitle } from '../ui/SectionTitle';
 import toast, { Toaster } from 'react-hot-toast';
-import { ArrowRight, Loader2, Phone, AlertCircle } from 'lucide-react';
+import { ArrowRight, Loader2, Phone, AlertCircle, Lock } from 'lucide-react';
 
 // ============================================
 // 📞 CLIENT CONTACT DETAILS
@@ -24,7 +24,25 @@ const serviceBrands = {
   Television: ["Samsung", "LG", "Sony", "Vu"],
 };
 
-export function ContactForm() {
+/**
+ * Props:
+ * - brand?: string (e.g. "LG", "Samsung", "Sony" ...)
+ *
+ * Service is ALWAYS a normal dropdown with all 3 options
+ * (Washing Machine / Refrigerator / Television) — user picks it.
+ *
+ * Brand, when passed, is locked to that value regardless of
+ * which service the user selects.
+ *
+ * Usage on a brand page e.g. /washing-machine/lg or /tv/lg or /refrigerator/lg:
+ *   <ContactForm brand="LG" />
+ *
+ * Usage on a generic page (no brand, user picks both):
+ *   <ContactForm />
+ */
+export function ContactForm({ brand: defaultBrand = "" }) {
+  const isBrandLocked = Boolean(defaultBrand);
+
   const [loading, setLoading] = useState(false);
   const [fetchingCity, setFetchingCity] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -38,7 +56,7 @@ export function ContactForm() {
     pincode: "",
     city: "",
     service: "",
-    brand: "",
+    brand: isBrandLocked ? defaultBrand : "",
     message: "",
     date: "",
   });
@@ -46,81 +64,81 @@ export function ContactForm() {
   const [errors, setErrors] = useState({});
 
   // Validation rules
-const validateField = (name, value) => {
-  switch (name) {
-    case "name":
-      if (!value || value.trim() === "") {
-        return "Full name is required.";
-      }
-      if (!/^[A-Za-z\s]+$/.test(value)) {
-        return "Name should contain only alphabets and spaces.";
-      }
-      return "";
-
-    case "phone":
-      if (!value || value.trim() === "") {
-        return "Phone number is required.";
-      }
-      if (!/^[0-9]{10}$/.test(value)) {
-        return "Please enter a valid 10-digit phone number.";
-      }
-      return "";
-
-    case "email":
-      if (!value || value.trim() === "") {
-        return "Email address is required.";
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        return "Please enter a valid email address.";
-      }
-      return "";
-
-    case "service":
-      if (!value) {
-        return "Please select a service.";
-      }
-      return "";
-
-    case "brand":
-      if (!value) {
-        return "Please select a brand.";
-      }
-      return "";
-
-    case "address":
-      return "";
-
-    case "pincode":
-      if (!value || value.trim() === "") {
-        return "Pincode is required.";
-      }
-      if (!/^[0-9]{6}$/.test(value)) {
-        return "Please enter a valid 6-digit pincode.";
-      }
-      return "";
-
-    case "city":
-      return "";
-
-    case "message":
-      return "";
-
-    case "date":
-      if (value && value.trim() !== "") {
-        const selectedDate = new Date(value);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        if (selectedDate < today) {
-          return "Please select today or a future date.";
+  const validateField = (name, value) => {
+    switch (name) {
+      case "name":
+        if (!value || value.trim() === "") {
+          return "Full name is required.";
         }
-      }
-      return "";
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          return "Name should contain only alphabets and spaces.";
+        }
+        return "";
 
-    default:
-      return "";
-  }
-};
+      case "phone":
+        if (!value || value.trim() === "") {
+          return "Phone number is required.";
+        }
+        if (!/^[0-9]{10}$/.test(value)) {
+          return "Please enter a valid 10-digit phone number.";
+        }
+        return "";
+
+      case "email":
+        if (!value || value.trim() === "") {
+          return "Email address is required.";
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          return "Please enter a valid email address.";
+        }
+        return "";
+
+      case "service":
+        if (!value) {
+          return "Please select a service.";
+        }
+        return "";
+
+      case "brand":
+        if (!value) {
+          return "Please select a brand.";
+        }
+        return "";
+
+      case "address":
+        return "";
+
+      case "pincode":
+        if (!value || value.trim() === "") {
+          return "Pincode is required.";
+        }
+        if (!/^[0-9]{6}$/.test(value)) {
+          return "Please enter a valid 6-digit pincode.";
+        }
+        return "";
+
+      case "city":
+        return "";
+
+      case "message":
+        return "";
+
+      case "date":
+        if (value && value.trim() !== "") {
+          const selectedDate = new Date(value);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          if (selectedDate < today) {
+            return "Please select today or a future date.";
+          }
+        }
+        return "";
+
+      default:
+        return "";
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -129,18 +147,23 @@ const validateField = (name, value) => {
       setForm((prev) => ({
         ...prev,
         service: value,
-        brand: "",
+        // brand stays as-is: either the locked default, or reset if free-choice
+        brand: isBrandLocked ? prev.brand : "",
       }));
       setErrors((prev) => ({ ...prev, service: "", brand: "" }));
       return;
     }
 
+    if (name === "brand") {
+      if (isBrandLocked) return; // locked, ignore
+    }
+
     // Name field - block invalid characters
     if (name === "name") {
       if (value && !/^[A-Za-z\s]*$/.test(value)) {
-        setErrors((prev) => ({ 
-          ...prev, 
-          name: "Name should contain only alphabets and spaces." 
+        setErrors((prev) => ({
+          ...prev,
+          name: "Name should contain only alphabets and spaces."
         }));
         return;
       }
@@ -149,30 +172,30 @@ const validateField = (name, value) => {
     // Phone field - block invalid characters
     if (name === "phone") {
       if (value && !/^[0-9]*$/.test(value)) {
-        setErrors((prev) => ({ 
-          ...prev, 
-          phone: "Phone number should contain only digits." 
+        setErrors((prev) => ({
+          ...prev,
+          phone: "Phone number should contain only digits."
         }));
         return;
       }
     }
     // Pincode field - block invalid characters
-if (name === "pincode") {
-  if (value && !/^[0-9]*$/.test(value)) {
-    setErrors((prev) => ({
-      ...prev,
-      pincode: "Pincode should contain only digits."
-    }));
-    return;
-  }
-}
+    if (name === "pincode") {
+      if (value && !/^[0-9]*$/.test(value)) {
+        setErrors((prev) => ({
+          ...prev,
+          pincode: "Pincode should contain only digits."
+        }));
+        return;
+      }
+    }
 
     // City field - block invalid characters
     if (name === "city") {
       if (value && !/^[A-Za-z\s]*$/.test(value)) {
-        setErrors((prev) => ({ 
-          ...prev, 
-          city: "City should contain only alphabets and spaces." 
+        setErrors((prev) => ({
+          ...prev,
+          city: "City should contain only alphabets and spaces."
         }));
         return;
       }
@@ -306,7 +329,7 @@ if (name === "pincode") {
           pincode: "",
           city: "",
           service: "",
-          brand: "",
+          brand: isBrandLocked ? defaultBrand : "",
           message: "",
           date: "",
         });
@@ -325,19 +348,22 @@ if (name === "pincode") {
 
   const getInputClassName = (fieldName) => {
     const baseClass = "w-full rounded-2xl border p-3.5 text-sm outline-none transition focus:ring-2 bg-white";
-    const errorClass = errors[fieldName] && touched[fieldName] 
-      ? "border-[#E0293D] focus:border-[#E0293D] focus:ring-[#E0293D]/20" 
+    const errorClass = errors[fieldName] && touched[fieldName]
+      ? "border-[#E0293D] focus:border-[#E0293D] focus:ring-[#E0293D]/20"
       : "border-slate-200 focus:border-[#E0293D] focus:ring-[#E0293D]/10";
     return `${baseClass} ${errorClass}`;
   };
 
   const getSelectClassName = (fieldName) => {
     const baseClass = "w-full rounded-2xl border p-3.5 text-sm outline-none transition focus:ring-2 bg-white appearance-none cursor-pointer";
-    const errorClass = errors[fieldName] && touched[fieldName] 
-      ? "border-[#E0293D] focus:border-[#E0293D] focus:ring-[#E0293D]/20" 
+    const errorClass = errors[fieldName] && touched[fieldName]
+      ? "border-[#E0293D] focus:border-[#E0293D] focus:ring-[#E0293D]/20"
       : "border-slate-200 focus:border-[#E0293D] focus:ring-[#E0293D]/10";
     return `${baseClass} ${errorClass}`;
   };
+
+  const lockedFieldClassName =
+    "w-full rounded-2xl border border-slate-200 bg-slate-50 p-3.5 text-sm text-slate-600 flex items-center justify-between";
 
   return (
     <section className="bg-white py-14">
@@ -460,6 +486,7 @@ if (name === "pincode") {
                 <label htmlFor="contact-service" className="block text-sm font-semibold text-slate-700 mb-1.5">
                   Select Service <span className="text-[#E0293D]">*</span>
                 </label>
+
                 <select
                   id="contact-service"
                   name="service"
@@ -481,6 +508,7 @@ if (name === "pincode") {
                     </option>
                   ))}
                 </select>
+
                 {errors.service && touched.service && (
                   <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
                     <AlertCircle size={13} />
@@ -494,31 +522,39 @@ if (name === "pincode") {
                 <label htmlFor="contact-brand" className="block text-sm font-semibold text-slate-700 mb-1.5">
                   Select Brand <span className="text-[#E0293D]">*</span>
                 </label>
-                <select
-                  id="contact-brand"
-                  name="brand"
-                  value={form.brand}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  disabled={!form.service}
-                  className={getSelectClassName("brand")}
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "right 1rem center",
-                    backgroundSize: "12px",
-                  }}
-                >
-                  <option value="">
-                    {form.service ? "Select Brand" : "Select Service First"}
-                  </option>
-                  {form.service &&
-                    serviceBrands[form.service].map((brand) => (
-                      <option key={brand} value={brand}>
-                        {brand}
-                      </option>
-                    ))}
-                </select>
+
+                {isBrandLocked ? (
+                  <div className={lockedFieldClassName}>
+                    <span>{form.brand}</span>
+                    <Lock size={14} className="text-slate-400" />
+                  </div>
+                ) : (
+                  <select
+                    id="contact-brand"
+                    name="brand"
+                    value={form.brand}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    disabled={!form.service}
+                    className={getSelectClassName("brand")}
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "right 1rem center",
+                      backgroundSize: "12px",
+                    }}
+                  >
+                    <option value="">
+                      {form.service ? "Select Brand" : "Select Service First"}
+                    </option>
+                    {form.service &&
+                      serviceBrands[form.service]?.map((b) => (
+                        <option key={b} value={b}>
+                          {b}
+                        </option>
+                      ))}
+                  </select>
+                )}
                 {errors.brand && touched.brand && (
                   <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#E0293D]">
                     <AlertCircle size={13} />

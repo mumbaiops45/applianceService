@@ -8,6 +8,7 @@ import { Reviews } from '@/components/service/Reviews';
 import { FAQSection } from '@/components/service/FAQSection';
 import { ContactForm } from '@/components/service/ContactForm';
 import { serviceLandingContent } from '@/components/service/serviceLandingContent';
+import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
   title: 'LG Refrigerator Repair Service',
@@ -19,6 +20,7 @@ export default function Page() {
 
   return (
     <>
+    <CustomerEnquiryPopup brand="LG" />
       <ServiceHero title={content.title} description={content.description} brand="LG" brandSlug="lg" category="Refrigerator" categorySlug="refrigerator" badge={content.badge} stats={content.stats} heroImage={content.heroImage} />
       <BrandInfo title="LG Refrigerator" description={content.introText} highlights={content.highlights} />
       <ServiceCards services={content.services} />
@@ -27,7 +29,7 @@ export default function Page() {
       <Reviews testimonials={content.testimonials} />
       <FAQSection faq={content.faq} />
       <BookingCTA brand="LG" category="Refrigerator" />
-      <ContactForm />
+   <ContactForm brand="LG" />
     </>
   );
 }

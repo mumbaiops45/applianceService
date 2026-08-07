@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
-import { ArrowRight, Loader2, X, User, Phone, Mail, MapPin, Home, Building2, FileText, AlertCircle } from "lucide-react";
+import { ArrowRight, Loader2, X, User, Phone, Mail, MapPin, Home, Building2, FileText, AlertCircle, Lock } from "lucide-react";
 
 const serviceBrands = {
     "Washing Machine": ["LG", "Samsung", "Bosch", "IFB"],
@@ -24,8 +24,24 @@ const CLIENT_EMAIL = "buildsmart0@gmail.com";
 const FORM_ENDPOINT = `https://formsubmit.co/ajax/${CLIENT_EMAIL}`;
 // ============================================
 
-export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
+/**
+ * Works with NO props (homepage) — service AND brand both selectable:
+ *   <CustomerEnquiryPopup />
+ *
+ * Works WITH a brand prop (brand pages) — brand is locked, only service is picked:
+ *   <CustomerEnquiryPopup brand="LG" />
+ *
+ * Opens automatically ~800ms after the page loads, once per PAGE per browser
+ * session (uses the current route in the storage key, so closing it on the
+ * homepage does not stop it opening again on a brand page, and vice versa).
+ */
+export default function CustomerEnquiryPopup({ onSubmitSuccess, brand: defaultBrand = "" }) {
+    const isBrandLocked = Boolean(defaultBrand);
+
     const router = useRouter();
+    const pathname = usePathname();
+    const storageKey = `popupClosed:${pathname || "/"}`;
+
     const [show, setShow] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -40,6 +56,7 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
         pincode: "",
         city: "",
         service: "",
+        brand: isBrandLocked ? defaultBrand : "",
         message: "",
     });
 
@@ -51,11 +68,12 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
         pincode: "",
         city: "",
         service: "",
+        brand: "",
         message: "",
     });
 
     useEffect(() => {
-        const popupClosed = sessionStorage.getItem("popupClosed");
+        const popupClosed = sessionStorage.getItem(storageKey);
 
         if (!popupClosed) {
             const timer = setTimeout(() => {
@@ -67,7 +85,8 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
 
             return () => clearTimeout(timer);
         }
-    }, []);
+        // storageKey changes whenever the route changes, so this re-runs per page
+    }, [storageKey]);
 
     // Close popup on Escape key press
     useEffect(() => {
@@ -84,11 +103,10 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
         setIsVisible(false);
         setTimeout(() => {
             setShow(false);
-            sessionStorage.setItem("popupClosed", "true");
+            sessionStorage.setItem(storageKey, "true");
             if (onSubmitSuccess) {
                 onSubmitSuccess();
             }
-            router.push("/");
         }, 300);
     };
 
@@ -128,6 +146,12 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                 }
                 return "";
 
+            case "brand":
+                if (!value) {
+                    return "Please select a brand.";
+                }
+                return "";
+
             case "address":
                 return "";
 
@@ -159,12 +183,14 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
             setForm((prev) => ({
                 ...prev,
                 service: value,
+                brand: isBrandLocked ? prev.brand : "",
             }));
-            // Clear error when service is selected
-            if (errors.service) {
-                setErrors((prev) => ({ ...prev, service: "" }));
-            }
+            setErrors((prev) => ({ ...prev, service: "", brand: "" }));
             return;
+        }
+
+        if (name === "brand") {
+            if (isBrandLocked) return; // locked, ignore
         }
 
         // Name field - block invalid characters
@@ -351,6 +377,7 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                     pincode: "",
                     city: "",
                     service: "",
+                    brand: isBrandLocked ? defaultBrand : "",
                     message: "",
                 });
 
@@ -408,6 +435,9 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
         return `${baseClass} ${errorClass}`;
     };
 
+    const lockedFieldClassName =
+        "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white flex items-center justify-between";
+
     if (!show) {
         return <Toaster position="top-center" reverseOrder={false} />;
     }
@@ -453,13 +483,6 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     Fill in your details and our expert technician will reach out to you at the earliest.
                                 </p>
                             </div>
-                            {/* <div className="hidden sm:flex items-center gap-1.5 rounded-full bg-white/20 px-3.5 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-                                    <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
-                                </span>
-                                Quick Response
-                            </div> */}
                         </div>
                     </div>
 
@@ -569,6 +592,52 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess }) {
                                     <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
                                         <AlertCircle size={12} />
                                         {errors.service}
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* Row 2b: Brand */}
+                            <div className="md:col-span-2 space-y-1.5">
+                                <label className="flex items-center gap-1.5 text-sm font-medium text-slate-300">
+                                    <FileText size={15} className="text-[#E0293D]" />
+                                    Select Brand <span className="text-[#E0293D]">*</span>
+                                </label>
+
+                                {isBrandLocked ? (
+                                    <div className={lockedFieldClassName}>
+                                        <span>{form.brand}</span>
+                                        <Lock size={14} className="text-slate-400" />
+                                    </div>
+                                ) : (
+                                    <select
+                                        name="brand"
+                                        value={form.brand}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        disabled={!form.service}
+                                        className={getInputClassName("brand")}
+                                        style={{
+                                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
+                                            backgroundRepeat: "no-repeat",
+                                            backgroundPosition: "right 1rem center",
+                                            backgroundSize: "12px",
+                                        }}
+                                    >
+                                        <option value="" className="text-black">
+                                            {form.service ? "Select Brand" : "Select Service First"}
+                                        </option>
+                                        {form.service &&
+                                            serviceBrands[form.service]?.map((b) => (
+                                                <option key={b} value={b} className="text-black">
+                                                    {b}
+                                                </option>
+                                            ))}
+                                    </select>
+                                )}
+                                {errors.brand && touched.brand && (
+                                    <p className="mt-1 flex items-center gap-1 text-xs text-[#E0293D]">
+                                        <AlertCircle size={12} />
+                                        {errors.brand}
                                     </p>
                                 )}
                             </div>

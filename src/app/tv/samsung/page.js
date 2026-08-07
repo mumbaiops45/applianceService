@@ -8,7 +8,7 @@ import { Reviews } from '@/components/service/Reviews';
 import { FAQSection } from '@/components/service/FAQSection';
 import { ContactForm } from '@/components/service/ContactForm';
 import { serviceLandingContent } from '@/components/service/serviceLandingContent';
-
+import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 export const metadata = {
   title: 'Samsung TV Repair Service',
   description: 'Professional Samsung TV repair for display, sound, and smart features.',
@@ -19,6 +19,7 @@ export default function Page() {
 
   return (
     <main className="samsung-theme">
+      <CustomerEnquiryPopup brand="Samsung" />
       <ServiceHero title={content.title} description={content.description} brand="Samsung" brandSlug="samsung" category="TV" categorySlug="tv" badge={content.badge} stats={content.stats} heroImage={content.heroImage} />
       <BrandInfo title="Samsung TV" description={content.introText} highlights={content.highlights} />
       <ServiceCards services={content.services} />
@@ -27,7 +28,7 @@ export default function Page() {
       <Reviews testimonials={content.testimonials} />
       <FAQSection faq={content.faq} />
       <BookingCTA brand="Samsung" category="TV" />
-      <ContactForm />
+  <ContactForm brand="Samsung" />
     </main>
   );
 }

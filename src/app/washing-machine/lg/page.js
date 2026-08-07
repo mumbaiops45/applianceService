@@ -8,6 +8,7 @@ import { Reviews } from '@/components/service/Reviews';
 import { FAQSection } from '@/components/service/FAQSection';
 import { ContactForm } from '@/components/service/ContactForm';
 import { serviceLandingContent } from '@/components/service/serviceLandingContent';
+import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
   title: 'LG Washing Machine Repair Service',
@@ -20,6 +21,7 @@ export default function Page() {
 
   return (
     <>
+    <CustomerEnquiryPopup brand="LG" />
       <ServiceHero
         title={content.title}
         description={content.description}
@@ -48,7 +50,7 @@ export default function Page() {
       <Reviews testimonials={content.testimonials} />
       <FAQSection faq={content.faq} />
       <BookingCTA brand="LG" category="Washing Machine" />
-      <ContactForm />
+<ContactForm brand="LG" />
     </>
   );
 }

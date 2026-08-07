@@ -32,9 +32,7 @@ export const metadata = {
     shortcut: "/Screenshot 2026-08-05 160324.png",
     apple: "/Screenshot 2026-08-05 160324.png",
   },
-  verification: {
-    google: "XcdOGfomjhHpfBFHE3otZroY9BcBmEtlWGaJEVpxEUg",
-  },
+
   openGraph: {
     title: "Home Appliance Repair Services",
     description: "Professional Home Appliance Repair Services Near You.",

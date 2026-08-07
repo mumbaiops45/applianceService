@@ -8,7 +8,7 @@ import { Reviews } from '@/components/service/Reviews';
 import { FAQSection } from '@/components/service/FAQSection';
 import { ContactForm } from '@/components/service/ContactForm';
 import { serviceLandingContent } from '@/components/service/serviceLandingContent';
-
+import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 export const metadata = {
   title: 'Whirlpool Refrigerator Repair Service',
   description: 'Professional Whirlpool refrigerator repair for cooling issues, leakage, and noisy operation.',
@@ -19,6 +19,7 @@ export default function Page() {
 
   return (
     <>
+    <CustomerEnquiryPopup brand="Whirlpool" />
       <ServiceHero title={content.title} description={content.description} brand="Whirlpool" brandSlug="whirlpool" category="Refrigerator" categorySlug="refrigerator" badge={content.badge} stats={content.stats} heroImage={content.heroImage} />
       <BrandInfo title="Whirlpool Refrigerator" description={content.introText} highlights={content.highlights} />
       <ServiceCards services={content.services} />
@@ -27,7 +28,7 @@ export default function Page() {
       <Reviews testimonials={content.testimonials} />
       <FAQSection faq={content.faq} />
       <BookingCTA brand="Whirlpool" category="Refrigerator" />
-      <ContactForm />
+<ContactForm brand="Whirlpool" />
     </>
   );
 }
