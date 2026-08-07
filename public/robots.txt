@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Block non-public folders (if they exist)
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /api/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /uploads/temp/
+
+# Sitemap
+Sitemap: https://customercare247.support/sitemap.xml
