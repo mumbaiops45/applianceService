@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Phone,
   Mail,
@@ -12,6 +13,7 @@ import {
   Headphones,
   ExternalLink,
 } from "lucide-react";
+import { serviceCategories } from "../data/services";
 
 // ============================================
 // 📞 CLIENT CONTACT DETAILS
@@ -22,6 +24,14 @@ const CLIENT_EMAIL = "buildsmart0@gmail.com";
 // ============================================
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Hide logo on all /{category}/{brand} service pages
+  // e.g. /tv/lg, /washing-machine/bosch, /refrigerator/samsung
+  const isBrandServicePage = serviceCategories.some((cat) =>
+    cat.brands.some((brand) => pathname === `/${cat.slug}/${brand.slug}`)
+  );
+
   return (
     <footer className="relative overflow-hidden bg-slate-950 text-white">
       {/* Background Effects */}
@@ -33,19 +43,21 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-18 md:grid-cols-2 xl:grid-cols-4">
           {/* ================= Company ================= */}
           <div>
-            {/* ================= Company Logo ================= */}
-            <Link
-              href="/"
-              className="relative inline-block h-20 w-40 overflow-hidden cursor-pointer bg-white"
-            >
-              <Image
-                src="/Build-Smar.png" // 1. Renamed to remove spaces
-                alt="Appliance Care"
-                fill
-                priority
-                className="object-contain object-center scale-200" // 2. Changed object-cover to object-contain to preserve aspect ratio
-              />
-            </Link>
+            {/* ================= Company Logo - hidden on /{category}/{brand} service pages ================= */}
+            {!isBrandServicePage && (
+              <Link
+                href="/"
+                className="relative inline-block h-20 w-40 overflow-hidden cursor-pointer bg-white"
+              >
+                <Image
+                  src="/Build-Smar.png"
+                  alt="Appliance Care"
+                  fill
+                  priority
+                  className="object-contain object-center scale-200"
+                />
+              </Link>
+            )}
 
             <p className="mt-8 leading-7 text-slate-400">
               ApplianceCare provides fast, affordable and reliable repair

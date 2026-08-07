@@ -356,7 +356,7 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess, brand: defaultBr
             const data = await response.json();
 
             if (response.ok && (data.success === "true" || data.success === true)) {
-                toast.success("✅ Your query has been submitted successfully!", {
+                toast.success(" Your query has been submitted successfully!", {
                     duration: 5000,
                     style: {
                         background: "#10B981",
@@ -388,7 +388,7 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess, brand: defaultBr
             } else {
                 toast.error(
                     data.message ||
-                    "❌ Something went wrong. Your query could not be submitted. Please try again.",
+                    "Something went wrong. Your query could not be submitted. Please try again.",
                     {
                         duration: 5000,
                         style: {

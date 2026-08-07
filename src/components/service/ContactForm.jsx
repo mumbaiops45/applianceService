@@ -309,7 +309,7 @@ export function ContactForm({ brand: defaultBrand = "" }) {
 
       // formsubmit.co returns { success: "true", message: "..." }
       if (response.ok && (data.success === "true" || data.success === true)) {
-        toast.success("✅ Your query has been submitted successfully!", {
+        toast.success("Your query has been submitted successfully!", {
           duration: 5000,
           style: {
             background: "#10B981",
