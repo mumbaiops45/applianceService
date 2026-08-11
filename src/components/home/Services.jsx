@@ -78,7 +78,8 @@ export default function Services() {
         <SectionTitle
           tag="What We Repair"
           title="Our Services"
-          subtitle="Expert repair for all major home appliances – fast, reliable, and guaranteed."
+          subtitle="Expert Home Appliance Repair Service for major household appliances – fast, reliable, professional, and backed by quality service.
+"
         />
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 items-stretch">

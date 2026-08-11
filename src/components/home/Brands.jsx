@@ -74,10 +74,7 @@ export default function Brands() {
 
           <p className="mt-6 text-lg leading-8 text-slate-600">
 
-            Our experienced technicians provide professional repair services
-            for Washing Machines, Refrigerators and Televisions from all
-            leading appliance brands. We use genuine spare parts and advanced
-            diagnostic tools to ensure reliable, long-lasting repairs.
+Our experienced technicians provide professional Home Appliance Repair Service for Washing Machines, Refrigerators, Televisions, and other major appliances from leading brands. We use genuine spare parts and advanced diagnostic tools to deliver reliable, long-lasting repairs with a focus on quality and customer satisfaction.
 
           </p>
 

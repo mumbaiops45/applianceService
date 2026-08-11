@@ -11,8 +11,27 @@ import { serviceLandingContent } from '@/components/service/serviceLandingConten
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
-  title: 'LG TV Repair Service',
-  description: 'Premium LG TV repair for display, power, sound, and smart TV issues.',
+  title: "LG TV Repair Service | Expert Doorstep TV Repair",
+
+  description:
+    "Get LG TV Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
+
+  keywords: [
+    "LG TV Repair Service",
+    "LG TV Repair",
+    "LG Television Repair",
+    "LG Smart TV Repair",
+    "LG TV Technician",
+    "LG TV Service",
+    "Doorstep LG TV Repair",
+    "Same Day LG TV Repair",
+    "LG TV Spare Parts",
+    "LG TV Repair Technician",
+  ],
+
+  alternates: {
+    canonical: "https://customercare247.support/tv/lg",
+  },
 };
 
 export default function Page() {
@@ -21,8 +40,28 @@ export default function Page() {
   return (
     <>
     <CustomerEnquiryPopup brand="LG" />
-      <ServiceHero title={content.title} description={content.description} brand="LG" brandSlug="lg" category="TV" categorySlug="tv" badge={content.badge} stats={content.stats} heroImage={content.heroImage} />
-      <BrandInfo title="LG TV" description={content.introText} highlights={content.highlights} />
+      <ServiceHero
+        title={content.title}
+        description={content.description}
+        brand="LG"
+        brandSlug="lg"
+        category="TV"
+        categorySlug="tv"
+        badge={content.badge}
+        stats={content.stats}
+        heroImage={content.heroImage}
+      />
+      <BrandInfo
+        title="LG TV"
+        description={content.introText}
+        highlights={content.highlights}
+        stats={[
+          { value: '15+', label: 'Years Experience' },
+          { value: '25K+', label: 'Repairs Completed' },
+          { value: '100%', label: 'Customer Satisfaction' },
+          { value: '4.9★', label: 'Customer Rating' },
+        ]}
+      />
       <ServiceCards services={content.services} />
       <Benefits features={content.benefits} title="Why Choose Our Service" />
       <RepairProcess steps={content.process} />

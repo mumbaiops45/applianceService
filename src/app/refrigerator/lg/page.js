@@ -11,8 +11,26 @@ import { serviceLandingContent } from '@/components/service/serviceLandingConten
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
-  title: 'LG Refrigerator Repair Service',
-  description: 'Same-day LG refrigerator repair for cooling, drainage, and compressor issues.',
+  title: "LG Refrigerator Repair Service | Trusted Fridge Experts",
+
+  description:
+    "Get LG Refrigerator Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
+
+  keywords: [
+    "LG Refrigerator Repair Service",
+    "LG Refrigerator Repair",
+    "LG Fridge Repair",
+    "LG Refrigerator Technician",
+    "LG Refrigerator Service",
+    "Doorstep LG Refrigerator Repair",
+    "Same Day LG Refrigerator Repair",
+    "LG Refrigerator Spare Parts",
+    "LG Refrigerator Repair Technician",
+  ],
+
+  alternates: {
+    canonical: "https://customercare247.support/refrigerator/lg",
+  },
 };
 
 export default function Page() {
@@ -21,15 +39,35 @@ export default function Page() {
   return (
     <>
     <CustomerEnquiryPopup brand="LG" />
-      <ServiceHero title={content.title} description={content.description} brand="LG" brandSlug="lg" category="Refrigerator" categorySlug="refrigerator" badge={content.badge} stats={content.stats} heroImage={content.heroImage} />
-      <BrandInfo title="LG Refrigerator" description={content.introText} highlights={content.highlights} />
+      <ServiceHero
+        title={content.title}
+        description={content.description}
+        brand="LG"
+        brandSlug="lg"
+        category="Refrigerator"
+        categorySlug="refrigerator"
+        badge={content.badge}
+        stats={content.stats}
+        heroImage={content.heroImage}
+      />
+      <BrandInfo
+        title="LG Refrigerator"
+        description={content.introText}
+        highlights={content.highlights}
+        stats={[
+          { value: '15+', label: 'Years Experience' },
+          { value: '25K+', label: 'Repairs Completed' },
+          { value: '100%', label: 'Customer Satisfaction' },
+          { value: '4.9★', label: 'Customer Rating' },
+        ]}
+      />
       <ServiceCards services={content.services} />
       <Benefits features={content.benefits} title="Why Choose Our Service" />
       <RepairProcess steps={content.process} />
       <Reviews testimonials={content.testimonials} />
       <FAQSection faq={content.faq} />
       <BookingCTA brand="LG" category="Refrigerator" />
-   <ContactForm brand="LG" />
+<ContactForm brand="LG" />
     </>
   );
 }

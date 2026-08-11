@@ -11,8 +11,30 @@ import { serviceLandingContent } from '@/components/service/serviceLandingConten
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
-  title: 'Vu TV Repair Service',
-  description: 'Expert Vu TV repair for LED, 4K, and Smart TVs with fast service and genuine parts.',
+  title: "Vu TV Repair Service | Reliable Home TV Repairs",
+
+  description:
+    "Get Vu TV Repair Service for LED, 4K and Smart TVs with expert diagnostics, doorstep support, genuine parts and same-day service when available.",
+
+  keywords: [
+    "Vu TV Repair Service",
+    "Vu TV Repair",
+    "Vu Television Repair",
+    "Vu Smart TV Repair",
+    "Vu LED TV Repair",
+    "Vu 4K TV Repair",
+    "Vu TV Technician",
+    "Vu TV Service",
+    "Vu TV Repair Technician",
+    "Doorstep Vu TV Repair",
+    "Same Day Vu TV Repair",
+    "Vu TV Display Repair",
+    "Vu TV Sound Repair",
+  ],
+
+  alternates: {
+    canonical: "https://customercare247.support/tv/vu",
+  },
 };
 
 export default function Page() {

@@ -49,7 +49,7 @@ export default function AboutUs() {
               One-Stop Solution For{" "}
               <span className="text-[#E0293D]">
                 <Typewriter
-                  words={["Customers", "All Brands", "Bangalore City"]}
+                  words={["Home Appliance Repairs", "Customers", "All Brands", "Bangalore City"]}
                   loop={0}
                   cursor
                   cursorStyle="|"
@@ -59,18 +59,20 @@ export default function AboutUs() {
               </span>
             </h3>
             <p className="mt-6 text-[#55636C] text-base md:text-lg leading-relaxed text-justify">
-              We provide complete clarity on repairing all Brands Appliances,
-              of all time. And, we do it with perfection along with service
-              warranty.
+              We provide a dependable Home Appliance Repair Service for major household appliance brands. Our experienced technicians focus on accurate diagnosis, quality workmanship, and clear communication, ensuring customers understand the repair requirements before the service begins.
+
             </p>
             <p className="mt-4 text-[#55636C] text-base md:text-lg leading-relaxed text-justify">
-              Perfection and good quality repairing service to the customers
-              of Bangalore city. In today's Indian market, every manufacturer
-              offers a 1 year warranty after which they charge more than the
-              customer's expectation. Because of this, customers find private
-              home services more affordable. Thus, our services is
-              established to provide a direct service from our service
-              center to our customers doorstep.
+              We offer <strong>Appliance Repair Services</strong> with a focus on
+              convenience, professional support, genuine spare parts, and service
+              warranty. Our doorstep approach provides an affordable alternative for
+              customers looking for reliable appliance assistance without the hassle of
+              transporting heavy appliances to a service location.
+            </p>
+            <p className="mt-4 text-[#55636C] text-base md:text-lg leading-relaxed text-justify">
+              From washing machines and refrigerators to televisions and other household
+              appliances, our technicians are committed to delivering efficient repairs
+              and a smooth customer experience from inspection to completion.
             </p>
           </div>
         </div>

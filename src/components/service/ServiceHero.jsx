@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { CalendarCheck, Phone, ShieldCheck, Clock3, Sparkles, BadgeCheck } from 'lucide-react';
+
 // ============================================
 // 📞 CLIENT CONTACT DETAILS
 // ============================================
@@ -114,6 +115,9 @@ export default function ServiceHero({
                             </div>
 
                             {/* Brand & Logo Card */}
+                            <h2 className="sr-only">
+                                {brand} {category} Specialists
+                            </h2>
                             <div className="mt-6 grid gap-4 rounded-[32px] border border-slate-200/80 bg-white p-5 shadow-sm sm:grid-cols-[1.5fr_1fr]">
                                 <div className={`flex items-center gap-4 rounded-3xl ${isSamsung ? 'bg-[#F0F4FF]' : 'bg-[#FEF3F2]'} p-4`}>
                                     <div className={`flex items-center justify-center rounded-3xl bg-white shadow-sm ${isSamsung ? 'h-32 w-32' : 'h-28 w-28'}`}>
@@ -123,7 +127,7 @@ export default function ServiceHero({
                                                 alt={`${brand} logo`}
                                                 width={isSamsung ? 120 : 100}
                                                 height={isSamsung ? 120 : 100}
-                                                className={`rounded-8xl object-contain  p-2 ${isSamsung ? 'scale-110' : ''}`}
+                                                className={`rounded-8xl object-contain p-2 ${isSamsung ? 'scale-110' : ''}`}
                                             />
                                         ) : (
                                             <span className={`text-xl font-black ${colors.text} ${isSamsung ? 'text-3xl' : ''}`}>
@@ -132,16 +136,16 @@ export default function ServiceHero({
                                         )}
                                     </div>
                                     <div>
-                                        <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Premium Brand Repair</p>
+                                        <h3 className="text-sm uppercase tracking-[0.24em] text-slate-500 font-semibold">Premium Brand Repair</h3>
                                         <p className="mt-2 text-lg font-semibold text-[#0B1A2E]">
                                             {brand} service with a premium experience
                                         </p>
                                     </div>
                                 </div>
                                 <div className="rounded-3xl border border-slate-200/80 bg-slate-50 p-5">
-                                    <p className="text-sm font-semibold text-[#0B1A2E]">
-                                        Trusted repair for {brand} {category?.toLowerCase()}
-                                    </p>
+                                    <h3 className="text-sm font-semibold text-[#0B1A2E]">
+                                        Trusted Repair for {brand} {category}
+                                    </h3>
                                     <p className="mt-3 text-sm leading-7 text-slate-600">
                                         Our technicians deliver polished service, genuine parts, and clear communication through every repair.
                                     </p>

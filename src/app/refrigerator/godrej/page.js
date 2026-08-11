@@ -11,8 +11,26 @@ import { serviceLandingContent } from '@/components/service/serviceLandingConten
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
-  title: 'Godrej Refrigerator Repair Service',
-  description: 'Professional Godrej refrigerator repair for cooling, compressor, and leak issues with expert support.',
+  title: "Godrej Refrigerator Repair Service | Expert Technicians",
+
+  description:
+    "Get Godrej Refrigerator Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
+
+  keywords: [
+    "Godrej Refrigerator Repair Service",
+    "Godrej Refrigerator Repair",
+    "Godrej Fridge Repair",
+    "Godrej Refrigerator Technician",
+    "Godrej Refrigerator Service",
+    "Doorstep Godrej Refrigerator Repair",
+    "Same Day Godrej Refrigerator Repair",
+    "Godrej Refrigerator Spare Parts",
+    "Godrej Refrigerator Repair Technician",
+  ],
+
+  alternates: {
+    canonical: "https://customercare247.support/refrigerator/godrej",
+  },
 };
 
 export default function Page() {
@@ -49,7 +67,7 @@ export default function Page() {
       <Reviews testimonials={content.testimonials} />
       <FAQSection faq={content.faq} />
       <BookingCTA brand="Godrej" category="Refrigerator" />
-    <ContactForm brand="Godrej" />
+<ContactForm brand="Godrej" />
     </>
   );
 }

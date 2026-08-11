@@ -45,7 +45,7 @@ export default function Hero() {
 
             {/* Big headline — the actual service statement */}
             <h1 className="text-4xl md:text-4xl xl:text-6xl font-black leading-[1.1] text-white lg:whitespace-nowrap">
-              Bangalore's No.1 Appliances{" "}
+             Best Home Appliance Repair{" "}
               <span className="text-[#E0293D]">Service Provider</span>
             </h1>
 
@@ -55,13 +55,13 @@ export default function Hero() {
               <span className="text-[#E0293D]">
                 <Typewriter
                   words={[
-                    "LG Washing Machines",
-                    "Samsung Refrigerators",
-                    "Sony Smart TVs",
-                    "Bosch Washing Machines",
-                    "Whirlpool Refrigerators",
-                    "All Major Brands",
-                  ]}
+  "LG Washing Machines",
+  "Bosch Washing Machines",
+  "Samsung Refrigerators",
+  "Whirlpool Refrigerators",
+  "Sony Smart TVs",
+  "All Major Brands",
+]}
                   loop={0}
                   cursor
                   cursorStyle="|"
@@ -72,8 +72,8 @@ export default function Hero() {
             </div>
 
             <p className="mt-4 max-w-2xl text-lg text-white/70 leading-8">
-              Certified technicians providing same‑day doorstep repair for
-              Washing Machines, Refrigerators and TVs using genuine spare parts.
+              Get reliable Home Appliance Repair Service from certified technicians providing same-day doorstep repairs for Washing Machines, Refrigerators and TVs using genuine spare parts.
+
             </p>
 
             {/* CTAs */}

@@ -56,12 +56,12 @@ export default function Process() {
             Our Appliance Repair <span className="text-[#E0293D]">Process</span>
           </h2>
 
-          <p className="mt-6 text-lg leading-8 text-slate-600">
-
-            We follow a streamlined repair process to ensure every customer
-            receives quick, transparent, and professional appliance service.
-
-          </p>
+    <p className="mt-6 text-lg leading-8 text-slate-600">
+  We follow a streamlined <strong>Home Appliance Repair Service</strong>{" "}
+  process to ensure every customer receives quick, transparent, and
+  professional appliance service from booking and inspection to repair,
+  testing, and after-service support.
+</p>
 
         </div>
 

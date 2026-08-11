@@ -11,25 +11,63 @@ import { serviceLandingContent } from '@/components/service/serviceLandingConten
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
-  title: 'Samsung Washing Machine Repair Service',
-  description: 'Fast Samsung washing machine repair for drain issues, motor faults, and inverter problems.',
+  title: "Samsung Washing Machine Repair Service | Quick Home Service",
+
+  description:
+    "Get Samsung Washing Machine Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
+
+  keywords: [
+    "Samsung Washing Machine Repair Service",
+    "Samsung Washing Machine Repair",
+    "Samsung Washer Repair",
+    "Samsung Washing Machine Technician",
+    "Samsung Washing Machine Service",
+    "Doorstep Samsung Washing Machine Repair",
+    "Same Day Samsung Washing Machine Repair",
+    "Samsung Washing Machine Spare Parts",
+    "Samsung Washing Machine Repair Technician",
+  ],
+
+  alternates: {
+    canonical: "https://customercare247.support/washing-machine/samsung",
+  },
 };
 
 export default function Page() {
   const content = serviceLandingContent['washing-machine'].samsung;
 
   return (
-    <main className="samsung-theme">
-      <CustomerEnquiryPopup brand="Samsung" />
-      <ServiceHero title={content.title} description={content.description} brand="Samsung" brandSlug="samsung" category="Washing Machine" categorySlug="washing-machine" badge={content.badge} stats={content.stats} heroImage={content.heroImage} />
-      <BrandInfo title="Samsung Washing Machine" description={content.introText} highlights={content.highlights} />
+    <>
+    <CustomerEnquiryPopup brand="Samsung" />
+      <ServiceHero
+        title={content.title}
+        description={content.description}
+        brand="Samsung"
+        brandSlug="samsung"
+        category="Washing Machine"
+        categorySlug="washing-machine"
+        badge={content.badge}
+        stats={content.stats}
+        heroImage={content.heroImage}
+      />
+      <BrandInfo
+        title="Samsung Washing Machine"
+        description={content.introText}
+        highlights={content.highlights}
+        stats={[
+          { value: '15+', label: 'Years Experience' },
+          { value: '25K+', label: 'Repairs Completed' },
+          { value: '100%', label: 'Customer Satisfaction' },
+          { value: '4.9★', label: 'Customer Rating' },
+        ]}
+      />
       <ServiceCards services={content.services} />
       <Benefits features={content.benefits} title="Why Choose Our Service" />
       <RepairProcess steps={content.process} />
       <Reviews testimonials={content.testimonials} />
       <FAQSection faq={content.faq} />
       <BookingCTA brand="Samsung" category="Washing Machine" />
-      <ContactForm brand="Samsung" />
-    </main>
+<ContactForm brand="Samsung" />
+    </>
   );
 }

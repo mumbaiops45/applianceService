@@ -45,11 +45,10 @@ export default function ContactCTA() {
             </h2>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-
-              Our certified technicians repair washing machines,
-              refrigerators, televisions, microwaves, dishwashers,
-              chimneys and more using genuine spare parts.
-
+              Our certified technicians provide reliable{" "}
+              <strong>Home Appliance Repair Service</strong> for washing machines,
+              refrigerators, televisions, microwaves, dishwashers, chimneys, and more,
+              using genuine spare parts for dependable repairs.
             </p>
 
             {/* Trust Points */}

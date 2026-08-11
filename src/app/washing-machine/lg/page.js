@@ -9,13 +9,28 @@ import { FAQSection } from '@/components/service/FAQSection';
 import { ContactForm } from '@/components/service/ContactForm';
 import { serviceLandingContent } from '@/components/service/serviceLandingContent';
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
-
 export const metadata = {
-  title: 'LG Washing Machine Repair Service',
-  description:
-    'Professional LG washing machine repair with certified technicians, same-day service, and genuine spare parts.',
-};
+  title: "LG Washing Machine Repair Service | Doorstep LG Washer Repair",
 
+  description:
+    "Get reliable LG Washing Machine Repair Service with certified technicians, doorstep visits, genuine spare parts, expert diagnostics, clear pricing and warranty support.",
+
+  keywords: [
+    "LG Washing Machine Repair Service",
+    "LG Washing Machine Repair",
+    "LG Washer Repair",
+    "LG Washing Machine Technician",
+    "LG Washing Machine Service",
+    "Doorstep LG Washing Machine Repair",
+    "Same Day LG Washing Machine Repair",
+    "LG Washing Machine Spare Parts",
+    "LG Washing Machine Repair Technician",
+  ],
+
+  alternates: {
+    canonical: "https://customercare247.support/washing-machine/lg",
+  },
+};
 export default function Page() {
   const content = serviceLandingContent['washing-machine'].lg;
 

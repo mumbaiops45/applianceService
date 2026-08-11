@@ -11,8 +11,26 @@ import { serviceLandingContent } from '@/components/service/serviceLandingConten
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
-  title: 'IFB Washing Machine Repair Service',
-  description: 'Professional IFB washing machine repair with trained technicians, genuine parts, and fast doorstep service.',
+  title: "IFB Washing Machine Repair Service | Fast & Reliable Repairs",
+
+  description:
+    "Get IFB Washing Machine Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
+
+  keywords: [
+    "IFB Washing Machine Repair Service",
+    "IFB Washing Machine Repair",
+    "IFB Washer Repair",
+    "IFB Washing Machine Technician",
+    "IFB Washing Machine Service",
+    "Doorstep IFB Washing Machine Repair",
+    "Same Day IFB Washing Machine Repair",
+    "IFB Washing Machine Spare Parts",
+    "IFB Washing Machine Repair Technician",
+  ],
+
+  alternates: {
+    canonical: "https://customercare247.support/washing-machine/ifb",
+  },
 };
 
 export default function Page() {
@@ -49,7 +67,7 @@ export default function Page() {
       <Reviews testimonials={content.testimonials} />
       <FAQSection faq={content.faq} />
       <BookingCTA brand="IFB" category="Washing Machine" />
-    <ContactForm brand="IFB" />
+<ContactForm brand="IFB" />
     </>
   );
 }

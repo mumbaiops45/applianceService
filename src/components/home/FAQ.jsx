@@ -46,7 +46,9 @@ export default function FAQ() {
             Have Questions? <span className="text-[#E0293D]">We've Got Answers</span>
           </h2>
           <p className="mt-6 text-lg leading-8 text-slate-600">
-            Find answers to the most common questions about our appliance repair services.
+            Find answers to the most common questions about our{" "}
+            <strong>Home Appliance Repair Service</strong>, including booking, repairs,
+            doorstep service, genuine spare parts, and warranty support.
           </p>
         </div>
 
@@ -74,20 +76,18 @@ export default function FAQ() {
                   </div>
                   <ChevronDown
                     size={24}
-                    className={`transition-all duration-300 ${
-                      openIndex === idx
+                    className={`transition-all duration-300 ${openIndex === idx
                         ? "rotate-180 text-red-600"
                         : "text-slate-400"
-                    }`}
+                      }`}
                   />
                 </button>
 
                 <div
-                  className={`grid transition-all duration-500 ease-in-out ${
-                    openIndex === idx
+                  className={`grid transition-all duration-500 ease-in-out ${openIndex === idx
                       ? "grid-rows-[1fr]"
                       : "grid-rows-[0fr]"
-                  }`}
+                    }`}
                 >
                   <div className="overflow-hidden">
                     <div className="border-t border-slate-100 px-8 py-6 text-[16px] leading-8 text-slate-600">

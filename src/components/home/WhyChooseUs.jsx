@@ -68,9 +68,7 @@ export default function WhyChooseUs() {
 
           <p className="mt-6 text-lg leading-8 text-slate-600">
 
-            We deliver fast, reliable, and professional repair services
-            backed by experienced engineers, genuine spare parts,
-            and outstanding customer support.
+         We deliver a reliable Home Appliance Repair Service backed by experienced engineers, genuine spare parts, and outstanding customer support. Our Doorstep Appliance Repair approach ensures convenient, professional assistance with a focus on quality workmanship and long-lasting solutions.
 
           </p>
 

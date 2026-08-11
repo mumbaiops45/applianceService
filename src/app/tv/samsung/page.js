@@ -9,26 +9,67 @@ import { FAQSection } from '@/components/service/FAQSection';
 import { ContactForm } from '@/components/service/ContactForm';
 import { serviceLandingContent } from '@/components/service/serviceLandingContent';
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
+
 export const metadata = {
-  title: 'Samsung TV Repair Service',
-  description: 'Professional Samsung TV repair for display, sound, and smart features.',
+  title: "Samsung TV Repair Service | Smart, LED & 4K TV Repair",
+
+  description:
+    "Get Samsung TV Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
+
+  keywords: [
+    "Samsung TV Repair Service",
+    "Samsung TV Repair",
+    "Samsung Television Repair",
+    "Samsung Smart TV Repair",
+    "Samsung TV Technician",
+    "Samsung TV Service",
+    "Samsung TV Repair Technician",
+    "Doorstep Samsung TV Repair",
+    "Same Day Samsung TV Repair",
+    "Samsung TV Spare Parts",
+    "Samsung TV Display Repair",
+  ],
+
+  alternates: {
+    canonical: "https://customercare247.support/tv/samsung",
+  },
 };
 
 export default function Page() {
   const content = serviceLandingContent.tv.samsung;
 
   return (
-    <main className="samsung-theme">
-      <CustomerEnquiryPopup brand="Samsung" />
-      <ServiceHero title={content.title} description={content.description} brand="Samsung" brandSlug="samsung" category="TV" categorySlug="tv" badge={content.badge} stats={content.stats} heroImage={content.heroImage} />
-      <BrandInfo title="Samsung TV" description={content.introText} highlights={content.highlights} />
+    <>
+    <CustomerEnquiryPopup brand="Samsung" />
+      <ServiceHero
+        title={content.title}
+        description={content.description}
+        brand="Samsung"
+        brandSlug="samsung"
+        category="TV"
+        categorySlug="tv"
+        badge={content.badge}
+        stats={content.stats}
+        heroImage={content.heroImage}
+      />
+      <BrandInfo
+        title="Samsung TV"
+        description={content.introText}
+        highlights={content.highlights}
+        stats={[
+          { value: '15+', label: 'Years Experience' },
+          { value: '25K+', label: 'Repairs Completed' },
+          { value: '100%', label: 'Customer Satisfaction' },
+          { value: '4.9★', label: 'Customer Rating' },
+        ]}
+      />
       <ServiceCards services={content.services} />
       <Benefits features={content.benefits} title="Why Choose Our Service" />
       <RepairProcess steps={content.process} />
       <Reviews testimonials={content.testimonials} />
       <FAQSection faq={content.faq} />
       <BookingCTA brand="Samsung" category="TV" />
-  <ContactForm brand="Samsung" />
-    </main>
+<ContactForm brand="Samsung" />
+    </>
   );
 }

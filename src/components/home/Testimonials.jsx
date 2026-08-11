@@ -35,10 +35,8 @@ export default function Testimonials() {
           </h2>
 
           <p className="mt-6 text-lg leading-8 text-slate-600">
-
-            We deliver reliable appliance repair with certified engineers,
-            genuine spare parts and same-day doorstep service.
-
+            We deliver a reliable <strong>Home Appliance Repair Service</strong> with
+            certified engineers, genuine spare parts, and same-day doorstep service.
           </p>
 
         </div>
@@ -129,7 +127,7 @@ export default function Testimonials() {
 
           <div className="lg:col-span-8">
 
-            <div className="grid gap-8 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-2">
               {globalTestimonials.map((t, index) => (
                 <div
                   key={t.id}
@@ -164,7 +162,7 @@ export default function Testimonials() {
 
                   {/* Customer */}
 
-                  <div className="mt-8 flex items-center">
+                  <div className="mt-0 flex items-center">
 
                     {/* Avatar */}
 
@@ -227,7 +225,7 @@ export default function Testimonials() {
           </div>
 
         </div>
-        </div>
+      </div>
 
     </section>
   );
