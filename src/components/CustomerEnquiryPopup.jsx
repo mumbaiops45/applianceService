@@ -72,6 +72,11 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess, brand: defaultBr
         message: "",
     });
 
+    // Warm up the thank-you route so the redirect after submit feels instant
+    useEffect(() => {
+        router.prefetch("/thank-you");
+    }, [router]);
+
     useEffect(() => {
         const popupClosed = sessionStorage.getItem(storageKey);
 
@@ -98,6 +103,14 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess, brand: defaultBr
         window.addEventListener('keydown', handleEscape);
         return () => window.removeEventListener('keydown', handleEscape);
     }, [show]);
+
+    // Close the popup for good and hand the user over to the thank-you page
+    const handleSuccessRedirect = () => {
+        setIsVisible(false);
+        setShow(false);
+        sessionStorage.setItem(storageKey, "true");
+        router.push("/thank-you");
+    };
 
     const handleCancel = () => {
         setIsVisible(false);
@@ -356,19 +369,6 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess, brand: defaultBr
             const data = await response.json();
 
             if (response.ok && (data.success === "true" || data.success === true)) {
-                toast.success(" Your query has been submitted successfully!", {
-                    duration: 5000,
-                    style: {
-                        background: "#10B981",
-                        color: "#fff",
-                        fontWeight: "600",
-                        padding: "16px 24px",
-                        borderRadius: "12px",
-                        boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-                    },
-                    icon: "✅",
-                });
-
                 setForm({
                     name: "",
                     phone: "",
@@ -384,7 +384,8 @@ export default function CustomerEnquiryPopup({ onSubmitSuccess, brand: defaultBr
                 setErrors({});
                 setTouched({});
 
-                handleCancel(); // Close popup after success
+                handleSuccessRedirect(); // Send the user to the thank-you page
+                return; // keep the button disabled while the navigation happens
             } else {
                 toast.error(
                     data.message ||

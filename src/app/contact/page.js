@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import {
   ArrowRight,
@@ -36,9 +37,16 @@ const serviceBrands = {
 };
 
 export default function ContactClient() {
+  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const [fetchingCity, setFetchingCity] = useState(false);
   const [touched, setTouched] = useState({});
+
+  // Warm up the thank-you route so the redirect after submit feels instant
+  useEffect(() => {
+    router.prefetch("/thank-you");
+  }, [router]);
 
   const [form, setForm] = useState({
     name: "",
@@ -300,18 +308,6 @@ const validateField = (name, value) => {
 
       // formsubmit.co returns { success: "true", message: "..." }
       if (response.ok && (data.success === "true" || data.success === true)) {
-        toast.success(" Your query has been submitted successfully!", {
-          duration: 5000,
-          style: {
-            background: "#10B981",
-            color: "#fff",
-            fontWeight: "600",
-            padding: "16px 24px",
-            borderRadius: "12px",
-            boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-          },
-          icon: "✅",
-        });
         // Reset form
         setForm({
           name: "",
@@ -326,9 +322,13 @@ const validateField = (name, value) => {
         });
         setErrors({});
         setTouched({});
-      } else {
-        toast.error(data.message || "Submission failed. Please try again.");
+
+        // Send the user straight to the thank-you page
+        router.push("/thank-you");
+        return; // keep the button disabled while the navigation happens
       }
+
+      toast.error(data.message || "Submission failed. Please try again.");
     } catch (error) {
       console.error("Submission error:", error);
       toast.error("Unable to submit request. Please try again later.");

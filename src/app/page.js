@@ -27,6 +27,9 @@ export const metadata = {
   alternates: {
     canonical: "https://customercare247.support/",
   },
+   verification: {
+    google: "XcdOGfomjhHpfBFHE3otZroY9BcBmEtlWGaJEVpxEUg",
+  },
 };
 
 export default function HomePage() {

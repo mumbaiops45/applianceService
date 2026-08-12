@@ -197,21 +197,37 @@ export const serviceLandingContent = {
         { title: "Practical Advice", text: "Our technicians share useful maintenance recommendations to help keep your Bosch washing machine in better working condition." },
       ],
       processIntro:
-        "A structured Bosch Washing Machine Repair Service process keeps the pricing clear and the workmanship consistent at every stage.",
-      process: [
-        { title: "Request a Bosch Repair Visit", description: "Share your Bosch model number, the fault you have noticed, and a convenient time slot for the technician's visit." },
-        { title: "Detailed On-Site Inspection", description: "Our technician examines the control panel, motor, belt, and drainage system to establish the precise cause of the fault." },
-        { title: "Repair with Transparent Pricing", description: "We confirm the cost before starting, then complete the repair using genuine or suitable quality Bosch spare parts." },
-        { title: "Performance Test & Care Advice", description: "The wash cycle is tested end to end, and we share warranty details plus maintenance tips to keep the machine running quietly." },
-      ],
+        "A clear and professional workflow keeps the experience smooth from the first enquiry to final handover.",
+   process: [
+  {
+    title: "Book a Visit",
+    description:
+      "Contact our team or request a convenient appointment for an initial diagnosis.",
+  },
+  {
+    title: "Inspect the Machine",
+    description:
+      "Our technician checks the washing machine and identifies the likely source of the problem.",
+  },
+  {
+    title: "Repair the Appliance",
+    description:
+      "After approval, we repair or replace faulty components using suitable quality parts.",
+  },
+  {
+    title: "Test the Cycle",
+    description:
+      "The appliance is tested after repair, and our technician provides relevant care recommendations.",
+  },
+],
       ctaText:
         "Get a free estimate, schedule a convenient visit, and speak with a specialist about the fastest solution for your appliance. Our Bosch Washing Machine Repair Service is designed to make the repair process convenient, transparent, and reliable.",
       servicesIntro:
-        "Dependable Bosch Washing Machine Repair Service for control-panel faults, weak spin cycles, belt and motor wear, and drainage blockages.",
+        "From everyday breakdowns to advanced faults, we cover important Bosch washing machine repair requirements.",
       benefitsTitle:
         "Why Choose Our Bosch Washing Machine Service",
       benefitsIntro:
-        "Precision workmanship, transparent pricing, and genuine spare parts make our Doorstep Appliance Repair a practical alternative to workshop service.",
+        "Every Bosch Washing Machine Repair Service appointment is designed around accurate diagnosis, professional workmanship, honest communication, and dependable appliance performance.",
       reviewsTitle:
         "Feedback From Bosch Customers",
       reviewsIntro:
@@ -268,13 +284,29 @@ export const serviceLandingContent = {
         { title: "Reliable Results", text: "We focus on durable repairs and accurate diagnosis to help reduce repeat service requirements." },
       ],
       processIntro:
-        "Our IFB Washing Machine Repair Service follows a simple four-step route from your first call to a fully tested appliance.",
-      process: [
-        { title: "Book Your IFB Appointment", description: "Contact our team with the IFB model, the fault or error code displayed, and your preferred appointment time." },
-        { title: "Doorstep Fault Detection", description: "The technician inspects the drum, bearings, inlet valve, and control board on-site to identify exactly what has failed." },
-        { title: "Repair with IFB-Compatible Parts", description: "After your approval, we repair or replace the affected component using trusted IFB-compatible spare parts." },
-        { title: "Final Testing & Service Warranty", description: "We test the wash, rinse, and spin cycles, then hand over the appliance with applicable warranty and care guidance." },
-      ],
+        "A clear, professional workflow keeps the experience smooth from the first call to the final handover.",
+   process: [
+  {
+    title: "Book Your IFB Repair Appointment",
+    description:
+      "Share your washing machine model, problem, and preferred appointment details with our support team.",
+  },
+  {
+    title: "Inspect & Diagnose",
+    description:
+      "Our technician examines the machine and identifies the likely cause of the reported fault.",
+  },
+  {
+    title: "Repair Using Suitable Parts",
+    description:
+      "After approval, faulty components are repaired or replaced using genuine or suitable quality parts.",
+  },
+  {
+    title: "Test Performance",
+    description:
+      "We test the washing machine after repair and explain relevant care and maintenance tips.",
+  },
+],
       ctaText:
         "Get a free estimate, schedule a convenient visit, and speak with a specialist about the fastest solution for your appliance. Our IFB Washing Machine Repair Service is designed to make the repair process convenient, transparent, and reliable.",
       servicesIntro:
@@ -340,13 +372,29 @@ export const serviceLandingContent = {
         { title: "Long-Term Reliability", text: "We focus on addressing the underlying problem to help reduce unnecessary repeat repairs and future downtime." },
       ],
       processIntro:
-        "Our LG Refrigerator Repair Service moves from cooling diagnosis to a tested appliance in four clear stages.",
-      process: [
-        { title: "Tell Us About the Cooling Problem", description: "Describe the cooling loss, unusual noise, or water leakage you have noticed, along with your LG refrigerator model number." },
-        { title: "Cooling System Diagnosis", description: "Our technician checks the thermostat, condenser fan, sensors, and compressor circuit to pinpoint why cooling has dropped." },
-        { title: "Repair and Component Replacement", description: "We explain the options and the cost, then carry out the approved repair using quality parts matched to your model." },
-        { title: "Temperature Test & Warranty Guidance", description: "Fridge and freezer temperatures are verified after the repair, and we share warranty details with maintenance guidance." },
-      ],
+        "A clear, professional workflow keeps the experience smooth from the first call to the final handover.",
+   process: [
+  {
+    title: "Inspect the Cooling System",
+    description:
+      "We inspect the refrigerator and observe the reported cooling, temperature, leakage, or operational issue.",
+  },
+  {
+    title: "Identify the Fault",
+    description:
+      "Our technician identifies the likely cause and explains the recommended repair option clearly.",
+  },
+  {
+    title: "Repair & Test",
+    description:
+      "After approval, the refrigerator is repaired using suitable tools and quality replacement components, followed by performance checks.",
+  },
+  {
+    title: "Maintenance & Warranty Support",
+    description:
+      "We provide relevant maintenance guidance and applicable warranty information after the repair.",
+  },
+],
       ctaText:
         "Get a free estimate, schedule a convenient visit, and speak with a specialist about the fastest solution for your appliance. Our LG Refrigerator Repair Service is designed to make the repair process convenient, transparent, and reliable.",
       servicesIntro:
@@ -411,13 +459,29 @@ export const serviceLandingContent = {
         { title: "Peace of Mind", text: "Eligible repairs are supported by applicable service warranty for additional customer confidence." },
       ],
       processIntro:
-        "Each Samsung Refrigerator Repair Service visit follows a structured sequence built around accurate diagnosis rather than guesswork.",
-      process: [
-        { title: "Share the Symptoms and Model", description: "Let us know whether the issue is cooling, noise, water dispensing, or a display error, and share the Samsung model number." },
-        { title: "Systematic Performance Check", description: "The technician measures cooling performance and inspects fans, sensors, wiring, and the control panel to isolate the faulty part." },
-        { title: "Component Repair or Replacement", description: "We repair or replace the identified component with genuine or suitable quality parts once you approve the estimate." },
-        { title: "Retest & After-Service Support", description: "The refrigerator is retested across both compartments, and we explain warranty cover with practical maintenance advice." },
-      ],
+        "A clear and professional workflow keeps the service experience smooth from the first call to final handover.",
+    process: [
+  {
+    title: "Inspect Cooling Performance",
+    description:
+      "We examine cooling performance and observe the reported symptoms.",
+  },
+  {
+    title: "Identify the Fault",
+    description:
+      "Our technician checks relevant components to identify damaged parts, electrical faults, or other causes.",
+  },
+  {
+    title: "Repair & Retest",
+    description:
+      "After approval, we repair or replace the faulty component and thoroughly test the refrigerator.",
+  },
+  {
+    title: "Maintenance & Warranty Guidance",
+    description:
+      "We explain relevant maintenance steps and applicable warranty details after the repair.",
+  },
+],
       ctaText:
         "Get a free estimate, schedule a convenient visit, and speak with a specialist about the fastest solution for your appliance. Our Samsung Refrigerator Repair Service is designed to make the repair process convenient, transparent, and reliable.",
       servicesIntro:
@@ -482,13 +546,29 @@ export const serviceLandingContent = {
         { title: "Long-Term Reliability", text: "We focus on resolving the underlying fault to help improve appliance reliability and reduce unnecessary repeat repairs." },
       ],
       processIntro:
-        "The Godrej Refrigerator Repair Service process keeps costs clear and the repair straightforward from booking through to handover.",
-      process: [
-        { title: "Book Your Godrej Service Visit", description: "Share the refrigerator model, whether it is a frost-free or direct-cool unit, and the problem you are facing." },
-        { title: "On-Site Inspection and Estimate", description: "Our technician identifies the fault at your home and explains the repair approach along with the expected cost." },
-        { title: "Repair Using Genuine Parts", description: "The approved repair is completed with proper tools and genuine or suitable quality Godrej spare parts." },
-        { title: "Cooling Test & Care Guidance", description: "We confirm stable cooling, hand over the applicable warranty details, and share simple care tips for daily use." },
-      ],
+        "A clear, professional workflow keeps the experience smooth from the first call to the final handover.",
+    process: [
+  {
+    title: "Inspect the Refrigerator",
+    description:
+      "We examine the Godrej refrigerator and identify the likely source of the reported problem.",
+  },
+  {
+    title: "Explain the Repair",
+    description:
+      "Our technician explains the recommended repair approach and applicable cost before approved work begins.",
+  },
+  {
+    title: "Repair Using Suitable Parts",
+    description:
+      "We repair or replace faulty components using genuine or suitable quality parts based on the appliance requirement.",
+  },
+  {
+    title: "Test & Provide Care Guidance",
+    description:
+      "The refrigerator is tested after repair, followed by relevant maintenance and care recommendations.",
+  },
+],
       ctaText:
         "Get a free estimate, schedule a convenient visit, and speak with a specialist about the fastest solution for your appliance. Our Godrej Refrigerator Repair Service is designed to make the repair process convenient, transparent, and reliable.",
       servicesIntro:
@@ -552,13 +632,29 @@ export const serviceLandingContent = {
         { title: "Less Stress", text: "We keep the repair process simple and transparent from booking through completion." },
       ],
       processIntro:
-        "Whirlpool Refrigerator Repair Service is delivered through four transparent stages, each confirmed before we move to the next.",
-      process: [
-        { title: "Describe the Complaint", description: "Tell us what you have observed, whether it is weak cooling, water pooling, or unusual noise, along with the model number." },
-        { title: "Cooling, Drainage & Electrical Testing", description: "The technician tests cooling output, checks the drainage line, and inspects wiring and controls to trace the fault." },
-        { title: "Repair, Replace and Retest", description: "We complete the approved repair or part replacement, then immediately retest the affected system on-site." },
-        { title: "Service Summary & Warranty", description: "You receive a summary of the work done, applicable warranty details, and guidance that helps avoid a repeat fault." },
-      ],
+        "A clear, professional workflow keeps the experience smooth from the first call to final handover.",
+   process: [
+  {
+    title: "Inspect the Appliance",
+    description:
+      "We inspect the refrigerator and listen carefully to the reported problem.",
+  },
+  {
+    title: "Test Key Systems",
+    description:
+      "Our technician checks cooling, drainage, electrical performance, and other relevant components.",
+  },
+  {
+    title: "Repair & Retest",
+    description:
+      "After approval, we repair or replace faulty components and thoroughly test the refrigerator.",
+  },
+  {
+    title: "Service Summary & Care Guidance",
+    description:
+      "We explain the completed repair and provide relevant maintenance recommendations.",
+  },
+],
       ctaText:
         "Get a free estimate, schedule a convenient visit, and speak with a specialist about the fastest solution for your appliance. Our Whirlpool Refrigerator Repair Service is designed to make the repair process convenient, transparent, and reliable.",
       servicesIntro:
@@ -625,13 +721,29 @@ export const serviceLandingContent = {
         { title: "Smart TV Stability", text: "We troubleshoot supported software, connectivity, and Smart TV issues to improve everyday usability." },
       ],
       processIntro:
-        "Our LG TV Repair Service follows a focused four-stage route from your fault report to a fully tested television.",
-      process: [
-        { title: "Report the TV Fault", description: "Tell us what the television is doing, whether it is no power, lines on the screen, or a sound problem, plus the LG model number." },
-        { title: "Board and Display Diagnosis", description: "Our technician inspects the power board, main board, panel connectors, and inputs to locate the source of the fault." },
-        { title: "Component-Level Repair", description: "We repair or replace the faulty board or component after confirming the cost with you." },
-        { title: "Picture, Sound & Smart TV Testing", description: "We test picture quality, audio output, and Smart TV connectivity before explaining the applicable warranty." },
-      ],
+        "A clear, professional workflow keeps the experience smooth from the first call to the final handover.",
+    process: [
+  {
+    title: "Inspect the TV",
+    description:
+      "We inspect the television and understand the reported picture, sound, power, or connectivity issue.",
+  },
+  {
+    title: "Diagnose the Fault",
+    description:
+      "Our technician checks the relevant board, display, power, audio, or input components to identify the problem.",
+  },
+  {
+    title: "Repair or Replace",
+    description:
+      "After approval, faulty components are repaired or replaced using suitable quality parts.",
+  },
+  {
+    title: "Test the TV",
+    description:
+      "We test picture quality, sound, inputs, and supported Smart TV functions before completing the service.",
+  },
+],
       ctaText:
         "Get a free estimate, schedule a convenient visit, and speak with a specialist about the fastest solution for your appliance. Our LG TV Repair Service is designed to make the repair process convenient, transparent, and reliable.",
       servicesIntro:
@@ -696,13 +808,29 @@ export const serviceLandingContent = {
         { title: "Less Downtime", text: "We work efficiently to help reduce disruption and get your television back into working condition sooner." },
       ],
       processIntro:
-        "Samsung TV Repair Service is carried out in four diagnostic stages, so no component is replaced without a clear reason.",
-      process: [
-        { title: "Share the TV Symptoms", description: "Describe the picture, sound, or connectivity issue you are facing and share your Samsung television model number." },
-        { title: "Power, Board & Signal Diagnostics", description: "The technician runs power, main board, and signal checks to determine which stage of the television has failed." },
-        { title: "Repair or Component Replacement", description: "Once approved, we carry out the repair using genuine or suitable quality parts matched to your model." },
-        { title: "Picture & Connectivity Confirmation", description: "We confirm display quality, audio balance, and network connectivity, then explain the applicable warranty cover." },
-      ],
+        "A clear, professional workflow keeps the experience smooth from the first call to the final handover.",
+   process: [
+  {
+    title: "Inspect the TV",
+    description:
+      "We inspect the television and collect information about the reported symptoms.",
+  },
+  {
+    title: "Run Diagnostic Tests",
+    description:
+      "Our technician checks relevant power, board, display, input, and signal components.",
+  },
+  {
+    title: "Repair the Fault",
+    description:
+      "After approval, the faulty component is repaired or replaced using suitable quality parts.",
+  },
+  {
+    title: "Test Performance",
+    description:
+      "We confirm picture, sound, connectivity, and supported Smart TV functions before completing the service.",
+  },
+],
       ctaText:
         "Get a free estimate, schedule a convenient visit, and speak with a specialist about the fastest solution for your appliance. Our Samsung TV Repair Service is designed to make the repair process convenient, transparent, and reliable.",
       servicesIntro:
@@ -767,13 +895,29 @@ export const serviceLandingContent = {
         { title: "Less Downtime", text: "We work efficiently to help reduce disruption and restore your television to working condition sooner." },
       ],
       processIntro:
-        "Sony TV Repair Service follows a careful, panel-safe process from the first inspection through to final handover.",
-      process: [
-        { title: "Explain the Bravia Fault", description: "Let us know the fault, such as a black screen, a restart loop, or audio dropouts, along with the Sony model number." },
-        { title: "Board, Display and Audio Testing", description: "Our technician tests the power board, panel, backlight, and audio circuit at your location to identify the cause." },
-        { title: "Precise Repair Work", description: "We complete the approved repair or replacement carefully, protecting the panel and surrounding components throughout." },
-        { title: "Retest and Care Guidance", description: "The television is retested for picture and sound, and we hand over warranty details with practical care guidance." },
-      ],
+        "A clear, professional workflow keeps the experience smooth from the first call to the final handover.",
+ process: [
+  {
+    title: "Inspect the TV",
+    description:
+      "We inspect the television and collect information about the reported symptoms.",
+  },
+  {
+    title: "Test Key Components",
+    description:
+      "Our technician checks the relevant board, display, power circuit, audio system, and input components.",
+  },
+  {
+    title: "Repair & Retest",
+    description:
+      "After approval, the faulty component is repaired or replaced using suitable quality parts, followed by thorough testing.",
+  },
+  {
+    title: "Share the Outcome",
+    description:
+      "We explain the completed repair and provide relevant care and maintenance guidance.",
+  },
+],
       ctaText:
         "Get a free estimate, schedule a convenient visit, and speak with a specialist about the fastest solution for your appliance. Our Sony TV Repair Service is designed to make the repair process convenient, transparent, and reliable.",
       servicesIntro:
@@ -838,13 +982,29 @@ export const serviceLandingContent = {
         { title: "Better Connectivity", text: "We troubleshoot supported applications, Wi-Fi, HDMI inputs, and other connectivity-related issues." },
       ],
       processIntro:
-        "Vu TV Repair Service runs through four practical stages designed to reduce downtime and avoid repeat visits.",
-      process: [
-        { title: "Book Your Vu TV Repair", description: "Share the Vu model and screen size along with the problem you are seeing, such as no display, a dim picture, or app failures." },
-        { title: "Board, Power & Display Diagnosis", description: "The technician diagnoses the power supply, main board, backlight, and panel connections to find the fault." },
-        { title: "Repair with Suitable Quality Parts", description: "We complete the approved repair using suitable quality components matched to your Vu television." },
-        { title: "Full Feature Testing", description: "Picture, sound, HDMI inputs, and Smart TV features are all tested before we explain the applicable warranty." },
-      ],
+        "A clear, professional workflow keeps the experience smooth from the first call to the final handover.",
+    process: [
+  {
+    title: "Inspect the Vu TV",
+    description:
+      "We inspect the television and collect information about the reported power, display, sound, or connectivity symptoms.",
+  },
+  {
+    title: "Diagnose the Fault",
+    description:
+      "Our technician checks relevant board, power, display, audio, and connectivity components.",
+  },
+  {
+    title: "Repair the Fault",
+    description:
+      "After approval, faulty components are repaired or replaced using suitable quality parts.",
+  },
+  {
+    title: "Test the TV",
+    description:
+      "We test picture, sound, inputs, and supported Smart TV features before completing the repair.",
+  },
+],
       ctaText:
         "Get a free estimate, schedule a convenient visit, and speak with a specialist about the fastest solution for your appliance. Our Vu TV Repair Service is designed to make the repair process convenient, transparent, and reliable.",
       servicesIntro:
