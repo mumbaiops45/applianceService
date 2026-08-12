@@ -40,7 +40,10 @@ const serviceBrands = {
  * Usage on a generic page (no brand, user picks both):
  *   <ContactForm />
  */
-export function ContactForm({ brand: defaultBrand = "" }) {
+export function ContactForm({
+  brand: defaultBrand = "",
+  subtitle = "Share your appliance issue and our team will respond with the right support plan.",
+}) {
   const isBrandLocked = Boolean(defaultBrand);
 
   const [loading, setLoading] = useState(false);
@@ -373,8 +376,10 @@ export function ContactForm({ brand: defaultBrand = "" }) {
         <SectionTitle
           tag="Get in touch"
           title="Send Us a Message"
-          subtitle="Share your appliance issue and our team will respond with the right support plan."
+          subtitle={subtitle}
           align="center"
+          tagAs="p"
+          titleAs="h2"
         />
 
         {submitted ? (

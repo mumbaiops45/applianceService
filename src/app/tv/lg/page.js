@@ -11,7 +11,9 @@ import { serviceLandingContent } from '@/components/service/serviceLandingConten
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
-  title: "LG TV Repair Service | Expert Doorstep TV Repair",
+  title: {
+    absolute: "LG TV Repair Service | Expert Doorstep TV Repair",
+  },
 
   description:
     "Get LG TV Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
@@ -27,10 +29,30 @@ export const metadata = {
     "Same Day LG TV Repair",
     "LG TV Spare Parts",
     "LG TV Repair Technician",
+    "Home Appliance Repair Service",
+    "Appliance Repair Services",
+    "Doorstep Appliance Repair",
+    "Same Day Appliance Repair",
+    "TV Repair",
+    "Home Appliance Repair Near Me",
   ],
 
   alternates: {
     canonical: "https://customercare247.support/tv/lg",
+  },
+
+  openGraph: {
+    title: "LG TV Repair Service | Expert Doorstep TV Repair",
+    description: "Get LG TV Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
+    url: "https://customercare247.support/tv/lg",
+    siteName: "ApplianceCare",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "LG TV Repair Service | Expert Doorstep TV Repair",
+    description: "Get LG TV Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
   },
 };
 
@@ -50,11 +72,13 @@ export default function Page() {
         badge={content.badge}
         stats={content.stats}
         heroImage={content.heroImage}
+        cardText={content.heroCardText}
       />
       <BrandInfo
         title="LG TV"
         description={content.introText}
         highlights={content.highlights}
+        ctaText={content.brandCtaText}
         stats={[
           { value: '15+', label: 'Years Experience' },
           { value: '25K+', label: 'Repairs Completed' },
@@ -62,13 +86,13 @@ export default function Page() {
           { value: '4.9★', label: 'Customer Rating' },
         ]}
       />
-      <ServiceCards services={content.services} />
-      <Benefits features={content.benefits} title="Why Choose Our Service" />
-      <RepairProcess steps={content.process} />
-      <Reviews testimonials={content.testimonials} />
-      <FAQSection faq={content.faq} />
-      <BookingCTA brand="LG" category="TV" />
-<ContactForm brand="LG" />
+      <ServiceCards services={content.services} subtitle={content.servicesIntro} />
+      <Benefits features={content.benefits} title={content.benefitsTitle} subtitle={content.benefitsIntro} />
+      <RepairProcess steps={content.process} subtitle={content.processIntro} />
+      <Reviews testimonials={content.testimonials} title={content.reviewsTitle} subtitle={content.reviewsIntro} />
+      <FAQSection faq={content.faq} subtitle={content.faqIntro} />
+      <BookingCTA brand="LG" category="TV" description={content.ctaText} />
+<ContactForm brand="LG" subtitle={content.contactIntro} />
     </>
   );
 }

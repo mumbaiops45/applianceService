@@ -11,7 +11,9 @@ import { serviceLandingContent } from '@/components/service/serviceLandingConten
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
-  title: "Sony TV Repair Service | Fast & Reliable TV Repairs",
+  title: {
+    absolute: "Sony TV Repair Service | Fast & Reliable TV Repairs",
+  },
 
   description:
     "Get Sony TV Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
@@ -29,10 +31,30 @@ export const metadata = {
     "Same Day Sony TV Repair",
     "Sony TV Display Repair",
     "Sony TV Sound Repair",
+    "Home Appliance Repair Service",
+    "Appliance Repair Services",
+    "Doorstep Appliance Repair",
+    "Same Day Appliance Repair",
+    "TV Repair",
+    "Home Appliance Repair Near Me",
   ],
 
   alternates: {
     canonical: "https://customercare247.support/tv/sony",
+  },
+
+  openGraph: {
+    title: "Sony TV Repair Service | Fast & Reliable TV Repairs",
+    description: "Get Sony TV Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
+    url: "https://customercare247.support/tv/sony",
+    siteName: "ApplianceCare",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Sony TV Repair Service | Fast & Reliable TV Repairs",
+    description: "Get Sony TV Repair Service with expert diagnostics, doorstep support, genuine spare parts, transparent pricing, and same-day service when available.",
   },
 };
 
@@ -52,11 +74,13 @@ export default function Page() {
         badge={content.badge}
         stats={content.stats}
         heroImage={content.heroImage}
+        cardText={content.heroCardText}
       />
       <BrandInfo
         title="Sony TV"
         description={content.introText}
         highlights={content.highlights}
+        ctaText={content.brandCtaText}
         stats={[
           { value: '15+', label: 'Years Experience' },
           { value: '25K+', label: 'Repairs Completed' },
@@ -64,13 +88,13 @@ export default function Page() {
           { value: '4.9★', label: 'Customer Rating' },
         ]}
       />
-      <ServiceCards services={content.services} />
-      <Benefits features={content.benefits} title="Why Choose Our Service" />
-      <RepairProcess steps={content.process} />
-      <Reviews testimonials={content.testimonials} />
-      <FAQSection faq={content.faq} />
-      <BookingCTA brand="Sony" category="TV" />
-<ContactForm brand="Sony" />
+      <ServiceCards services={content.services} subtitle={content.servicesIntro} />
+      <Benefits features={content.benefits} title={content.benefitsTitle} subtitle={content.benefitsIntro} />
+      <RepairProcess steps={content.process} subtitle={content.processIntro} />
+      <Reviews testimonials={content.testimonials} title={content.reviewsTitle} subtitle={content.reviewsIntro} />
+      <FAQSection faq={content.faq} subtitle={content.faqIntro} />
+      <BookingCTA brand="Sony" category="TV" description={content.ctaText} />
+<ContactForm brand="Sony" subtitle={content.contactIntro} />
     </>
   );
 }

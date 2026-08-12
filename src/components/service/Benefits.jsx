@@ -4,7 +4,11 @@
 
 import { SectionTitle } from '../ui/SectionTitle';
 
-export function Benefits({ features = [], title = 'Features & Benefits' }) {
+export function Benefits({
+  features = [],
+  title = 'Features & Benefits',
+  subtitle = 'We deliver a reliable Home Appliance Repair Service backed by experienced engineers, genuine spare parts, and outstanding customer support. Our Doorstep Appliance Repair approach ensures convenient, professional assistance with a focus on quality workmanship and long-lasting solutions.',
+}) {
   if (!features.length) return null;
 
   const normalized = features.map((feature) =>
@@ -14,7 +18,7 @@ export function Benefits({ features = [], title = 'Features & Benefits' }) {
   return (
     <section className="bg-white py-20">
       <div className="container mx-auto px-4">
-        <SectionTitle tag="Why it works" title={title} subtitle="Every repair is designed to deliver lasting performance, honest support, and a smoother experience for your home." align="center" />
+        <SectionTitle tag="Why choose us" title={title} subtitle={subtitle} align="center" tagAs="p" titleAs="h2" />
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {normalized.map((feature, idx) => (
             <div key={idx} className="rounded-[28px] border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-2 hover:shadow-xl">

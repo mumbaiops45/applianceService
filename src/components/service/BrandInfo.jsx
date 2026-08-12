@@ -38,7 +38,7 @@ const defaultHighlights = [
   },
 ];
 
-export function BrandInfo({ title, description, highlights = [], stats = [] }) {
+export function BrandInfo({ title, description, highlights = [], stats = [], ctaText }) {
   const featureCards = highlights.length ? highlights : defaultHighlights;
   const statCards = stats.length
     ? stats
@@ -56,13 +56,13 @@ export function BrandInfo({ title, description, highlights = [], stats = [] }) {
 
       <div className="container relative z-10 mx-auto px-4">
         <div className="mx-auto max-w-4xl text-center">
-          <h2 className="inline-flex items-center gap-2 rounded-full bg-red-50 px-5 py-2 text-sm font-semibold tracking-wide text-[#E0293D]">
+          <p className="inline-flex items-center gap-2 rounded-full bg-red-50 px-5 py-2 text-sm font-semibold tracking-wide text-[#E0293D]">
             <Sparkles size={16} /> PROFESSIONAL REPAIR SERVICE
-          </h2>
+          </p>
 
-          <h3 className="mt-6 text-4xl font-extrabold leading-tight text-[#0B1A2E] md:text-5xl">
+          <h2 className="mt-6 text-4xl font-extrabold leading-tight text-[#0B1A2E] md:text-5xl">
             Expert {title} <span className="text-[#E0293D]">Repair</span> Service
-          </h3>
+          </h2>
 
           <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-[#E0293D]" />
           <p className="mt-8 text-lg leading-8 text-gray-600">{description}</p>
@@ -71,7 +71,7 @@ export function BrandInfo({ title, description, highlights = [], stats = [] }) {
         <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {statCards.map((item, index) => (
             <div key={index} className="rounded-[28px] border border-slate-200 bg-white p-6 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-              <h3 className="text-4xl font-black text-[#E0293D]">{item.value}</h3>
+              <p className="text-4xl font-black text-[#E0293D]">{item.value}</p>
               <p className="mt-2 text-gray-600">{item.label}</p>
             </div>
           ))}
@@ -91,8 +91,8 @@ export function BrandInfo({ title, description, highlights = [], stats = [] }) {
 
         <div className="mt-20 flex flex-col items-center justify-between gap-8 rounded-[32px] bg-gradient-to-r from-[#FFF1F2] via-[#FEF6F8] to-[#F8FAFC] p-10 md:flex-row md:p-14">
           <div>
-            <h2 className="text-3xl font-bold text-[#0B1A2E]">Need Immediate {title} Repair?</h2>
-            <p className="mt-3 max-w-xl text-slate-600">Our certified technicians are available for same-day doorstep service with genuine spare parts, clear pricing, and a premium repair experience.</p>
+            <h3 className="text-3xl font-bold text-[#0B1A2E]">Need Immediate {title} Repair?</h3>
+            <p className="mt-3 max-w-xl text-slate-600">{ctaText || 'Our certified technicians are available for same-day doorstep service with genuine spare parts, clear pricing, and a premium repair experience.'}</p>
           </div>
           <div className="flex flex-wrap gap-4">
             <a href={`tel:${CLIENT_PHONE}`} className="rounded-full bg-[#E0293D] px-8 py-4 font-semibold text-white transition hover:bg-[#B81F30]">Call Now</a>

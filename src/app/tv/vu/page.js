@@ -11,7 +11,9 @@ import { serviceLandingContent } from '@/components/service/serviceLandingConten
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 
 export const metadata = {
-  title: "Vu TV Repair Service | Reliable Home TV Repairs",
+  title: {
+    absolute: "Vu TV Repair Service | Reliable Home TV Repairs",
+  },
 
   description:
     "Get Vu TV Repair Service for LED, 4K and Smart TVs with expert diagnostics, doorstep support, genuine parts and same-day service when available.",
@@ -30,10 +32,30 @@ export const metadata = {
     "Same Day Vu TV Repair",
     "Vu TV Display Repair",
     "Vu TV Sound Repair",
+    "Home Appliance Repair Service",
+    "Appliance Repair Services",
+    "Doorstep Appliance Repair",
+    "Same Day Appliance Repair",
+    "TV Repair",
+    "Home Appliance Repair Near Me",
   ],
 
   alternates: {
     canonical: "https://customercare247.support/tv/vu",
+  },
+
+  openGraph: {
+    title: "Vu TV Repair Service | Reliable Home TV Repairs",
+    description: "Get Vu TV Repair Service for LED, 4K and Smart TVs with expert diagnostics, doorstep support, genuine parts and same-day service when available.",
+    url: "https://customercare247.support/tv/vu",
+    siteName: "ApplianceCare",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Vu TV Repair Service | Reliable Home TV Repairs",
+    description: "Get Vu TV Repair Service for LED, 4K and Smart TVs with expert diagnostics, doorstep support, genuine parts and same-day service when available.",
   },
 };
 
@@ -53,11 +75,13 @@ export default function Page() {
         badge={content.badge}
         stats={content.stats}
         heroImage={content.heroImage}
+        cardText={content.heroCardText}
       />
       <BrandInfo
         title="Vu TV"
         description={content.introText}
         highlights={content.highlights}
+        ctaText={content.brandCtaText}
         stats={[
           { value: '15+', label: 'Years Experience' },
           { value: '25K+', label: 'Repairs Completed' },
@@ -65,13 +89,13 @@ export default function Page() {
           { value: '4.9★', label: 'Customer Rating' },
         ]}
       />
-      <ServiceCards services={content.services} />
-      <Benefits features={content.benefits} title="Why Choose Our Service" />
-      <RepairProcess steps={content.process} />
-      <Reviews testimonials={content.testimonials} />
-      <FAQSection faq={content.faq} />
-      <BookingCTA brand="Vu" category="TV" />
-<ContactForm brand="Vu" />
+      <ServiceCards services={content.services} subtitle={content.servicesIntro} />
+      <Benefits features={content.benefits} title={content.benefitsTitle} subtitle={content.benefitsIntro} />
+      <RepairProcess steps={content.process} subtitle={content.processIntro} />
+      <Reviews testimonials={content.testimonials} title={content.reviewsTitle} subtitle={content.reviewsIntro} />
+      <FAQSection faq={content.faq} subtitle={content.faqIntro} />
+      <BookingCTA brand="Vu" category="TV" description={content.ctaText} />
+<ContactForm brand="Vu" subtitle={content.contactIntro} />
     </>
   );
 }

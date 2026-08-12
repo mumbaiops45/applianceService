@@ -10,7 +10,9 @@ import { ContactForm } from '@/components/service/ContactForm';
 import { serviceLandingContent } from '@/components/service/serviceLandingContent';
 import CustomerEnquiryPopup from '@/components/CustomerEnquiryPopup';
 export const metadata = {
-  title: "LG Washing Machine Repair Service | Doorstep LG Washer Repair",
+  title: {
+    absolute: "LG Washing Machine Repair Service | Doorstep LG Washer Repair",
+  },
 
   description:
     "Get reliable LG Washing Machine Repair Service with certified technicians, doorstep visits, genuine spare parts, expert diagnostics, clear pricing and warranty support.",
@@ -25,10 +27,30 @@ export const metadata = {
     "Same Day LG Washing Machine Repair",
     "LG Washing Machine Spare Parts",
     "LG Washing Machine Repair Technician",
+    "Home Appliance Repair Service",
+    "Appliance Repair Services",
+    "Doorstep Appliance Repair",
+    "Same Day Appliance Repair",
+    "Washing Machine Repair",
+    "Home Appliance Repair Near Me",
   ],
 
   alternates: {
     canonical: "https://customercare247.support/washing-machine/lg",
+  },
+
+  openGraph: {
+    title: "LG Washing Machine Repair Service | Doorstep LG Washer Repair",
+    description: "Get reliable LG Washing Machine Repair Service with certified technicians, doorstep visits, genuine spare parts, expert diagnostics, clear pricing and warranty support.",
+    url: "https://customercare247.support/washing-machine/lg",
+    siteName: "ApplianceCare",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "LG Washing Machine Repair Service | Doorstep LG Washer Repair",
+    description: "Get reliable LG Washing Machine Repair Service with certified technicians, doorstep visits, genuine spare parts, expert diagnostics, clear pricing and warranty support.",
   },
 };
 export default function Page() {
@@ -47,11 +69,13 @@ export default function Page() {
         badge={content.badge}
         stats={content.stats}
         heroImage={content.heroImage}
+        cardText={content.heroCardText}
       />
       <BrandInfo
         title="LG Washing Machine"
         description={content.introText}
         highlights={content.highlights}
+        ctaText={content.brandCtaText}
         stats={[
           { value: '15+', label: 'Years Experience' },
           { value: '25K+', label: 'Repairs Completed' },
@@ -59,13 +83,13 @@ export default function Page() {
           { value: '4.9★', label: 'Customer Rating' },
         ]}
       />
-      <ServiceCards services={content.services} />
-      <Benefits features={content.benefits} title="Why Choose Our Service" />
-      <RepairProcess steps={content.process} />
-      <Reviews testimonials={content.testimonials} />
-      <FAQSection faq={content.faq} />
-      <BookingCTA brand="LG" category="Washing Machine" />
-<ContactForm brand="LG" />
+      <ServiceCards services={content.services} subtitle={content.servicesIntro} />
+      <Benefits features={content.benefits} title={content.benefitsTitle} subtitle={content.benefitsIntro} />
+      <RepairProcess steps={content.process} subtitle={content.processIntro} />
+      <Reviews testimonials={content.testimonials} title={content.reviewsTitle} subtitle={content.reviewsIntro} />
+      <FAQSection faq={content.faq} subtitle={content.faqIntro} />
+      <BookingCTA brand="LG" category="Washing Machine" description={content.ctaText} />
+<ContactForm brand="LG" subtitle={content.contactIntro} />
     </>
   );
 }

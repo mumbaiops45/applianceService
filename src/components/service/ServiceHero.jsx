@@ -67,6 +67,7 @@ export default function ServiceHero({
     badge,
     stats = [],
     heroImage,
+    cardText,
 }) {
     const routeCategory = categorySlug || (typeof category === 'string' ? category.toLowerCase().replace(/\s+/g, '-') : '');
     const imageSrc = heroImage || applianceImages[routeCategory] || '/hero.jpg';
@@ -115,9 +116,6 @@ export default function ServiceHero({
                             </div>
 
                             {/* Brand & Logo Card */}
-                            <h2 className="sr-only">
-                                {brand} {category} Specialists
-                            </h2>
                             <div className="mt-6 grid gap-4 rounded-[32px] border border-slate-200/80 bg-white p-5 shadow-sm sm:grid-cols-[1.5fr_1fr]">
                                 <div className={`flex items-center gap-4 rounded-3xl ${isSamsung ? 'bg-[#F0F4FF]' : 'bg-[#FEF3F2]'} p-4`}>
                                     <div className={`flex items-center justify-center rounded-3xl bg-white shadow-sm ${isSamsung ? 'h-32 w-32' : 'h-28 w-28'}`}>
@@ -136,18 +134,18 @@ export default function ServiceHero({
                                         )}
                                     </div>
                                     <div>
-                                        <h3 className="text-sm uppercase tracking-[0.24em] text-slate-500 font-semibold">Premium Brand Repair</h3>
+                                        <p className="text-sm uppercase tracking-[0.24em] text-slate-500 font-semibold">Premium Brand Repair</p>
                                         <p className="mt-2 text-lg font-semibold text-[#0B1A2E]">
                                             {brand} service with a premium experience
                                         </p>
                                     </div>
                                 </div>
                                 <div className="rounded-3xl border border-slate-200/80 bg-slate-50 p-5">
-                                    <h3 className="text-sm font-semibold text-[#0B1A2E]">
+                                    <p className="text-sm font-semibold text-[#0B1A2E]">
                                         Trusted Repair for {brand} {category}
-                                    </h3>
+                                    </p>
                                     <p className="mt-3 text-sm leading-7 text-slate-600">
-                                        Our technicians deliver polished service, genuine parts, and clear communication through every repair.
+                                        {cardText || 'Our technicians deliver polished service, genuine parts, and clear communication through every repair.'}
                                     </p>
                                 </div>
                             </div>
