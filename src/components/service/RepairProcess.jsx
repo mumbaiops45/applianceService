@@ -19,7 +19,7 @@ export function RepairProcess({
     <section className="bg-[#F8FAFC] py-20">
       <div className="container mx-auto px-4">
         <SectionTitle
-          tag="How it works"
+          tag=" How We Work"
           title={title}
           subtitle={subtitle}
           align="center"

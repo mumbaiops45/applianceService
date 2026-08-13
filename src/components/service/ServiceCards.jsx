@@ -6,7 +6,7 @@ import { SectionTitle } from '../ui/SectionTitle';
 
 export default function ServiceCards({
   services = [],
-  title = 'Our Services',
+  title = 'Our Core Services',
   subtitle = 'Expert Home Appliance Repair Service for major household appliances – fast, reliable, professional, and backed by quality service.',
 }) {
   if (!services.length) return null;
@@ -14,7 +14,7 @@ export default function ServiceCards({
   return (
     <section className="bg-white py-20">
       <div className="container mx-auto px-4">
-        <SectionTitle tag="What we repair" title={title} subtitle={subtitle} align="center" tagAs="p" titleAs="h2" />
+        <SectionTitle tag="What We Fix" title={title} subtitle={subtitle} align="center" tagAs="p" titleAs="h2" />
         <div className="grid gap-8 lg:grid-cols-3">
           {services.map((service, idx) => (
             <motion.div key={idx} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.08 }} className="group rounded-[30px] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-white p-8 shadow-sm hover:-translate-y-2 hover:shadow-2xl transition-all">

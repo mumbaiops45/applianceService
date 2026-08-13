@@ -15,6 +15,7 @@ import {
   SearchCheck,
   Wrench,
   ChevronDown,
+  HeartHandshake,
   HelpCircle,
   PhoneCall,
   MessageCircle,
@@ -46,26 +47,14 @@ const highlights = [
 ];
 
 const whyChoose = [
-  {
-    icon: <Users size={22} />,
-    title: "Experienced Technicians",
-    text: "Trained professionals who handle every appliance type, brand, and model with practical, hands-on expertise.",
-  },
-  {
-    icon: <PackageCheck size={22} />,
-    title: "Genuine Quality Parts",
-    text: "Genuine or suitable quality replacement components used for reliable, long-lasting repairs.",
-  },
-  {
-    icon: <MessageSquare size={22} />,
-    title: "Transparent Communication",
-    text: "Clear findings and repair recommendations explained before any work begins — no surprises.",
-  },
-  {
-    icon: <ShieldCheck size={22} />,
-    title: "Warranty Support",
-    text: "Eligible repairs backed by service warranty, so you get peace of mind after the job is done.",
-  },
+  { icon: <Users size={22} />, title: "Experienced Technicians" },
+  { icon: <PackageCheck size={22} />, title: "Quality Replacement Parts" },
+  { icon: <CalendarClock size={22} />, title: "Convenient Booking" },
+  { icon: <MessageSquare size={22} />, title: "Transparent Communication" },
+  { icon: <Wrench size={22} />, title: "Professional Handling" },
+  { icon: <SearchCheck size={22} />, title: "Proper Testing" },
+  { icon: <ShieldCheck size={22} />, title: "Warranty Support" },
+  { icon: <HeartHandshake size={22} />, title: "Customer-Focused Service" },
 ];
 
 const processSteps = [
@@ -140,20 +129,14 @@ export default function AboutPage() {
               <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
                 Premium appliance repair with fast, friendly service and trusted results.
               </p>
-              <p className="mt-2 max-w-2xl text-lg leading-8 text-slate-600">
-                ApplianceCare is committed to making appliance repairs simple, transparent,
-                and convenient for households. Our{" "}
-                <strong>Appliance Repair Experts</strong> combine practical experience,
-                professional diagnostic methods, quality replacement components, and
-                customer-focused service to restore essential appliances efficiently.
-              </p>
-              <p className="mt-2 max-w-2xl text-lg leading-8 text-slate-600">
-                We support repairs for refrigerators, washing machines, televisions,
-                dishwashers, microwaves, chimneys, and other major household appliances.
-                Whether your appliance has stopped working completely or is showing signs
-                of a recurring problem, our technicians carefully inspect the issue before
-                recommending the right solution.
-              </p>
+       <p className="mt-2 max-w-2xl text-lg leading-8 text-slate-600">
+  ApplianceCare is committed to making appliance repairs simple, transparent,
+  and convenient for households. Our Appliance Repair Experts combine practical
+  experience, professional diagnostics, quality replacement components, and
+  customer focused service to efficiently restore refrigerators, washing
+  machines, televisions, and other essential household appliances.
+</p>
+    
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   href="/contact"
@@ -178,14 +161,10 @@ export default function AboutPage() {
                 <p className="mt-4 text-3xl font-black text-white">
                   More than 25,000 trusted repairs delivered.
                 </p>
-                <p className="mt-4 text-sm leading-7 text-slate-300">
-                  We support homes across Bangalore with clear communication, professional
-                  diagnostics, reliable service, and warranty-backed repairs. Our{" "}
-                  <strong>Appliance Repair Experts</strong> use their experience across major
-                  appliance brands to accurately identify problems, recommend the right
-                  solutions, and deliver a smooth repair experience from booking to
-                  completion.
-                </p>
+            <p className="mt-4 text-sm leading-7 text-slate-300">
+  With experienced Appliance Repair Experts, professional diagnostics, reliable
+  service, and warranty-backed support.
+</p>
               </div>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -212,7 +191,7 @@ export default function AboutPage() {
                   <div>
                     <h3 className="font-semibold text-white">Genuine Parts Assurance</h3>
                     <p className="mt-2 text-sm leading-6 text-slate-300">
-                      We use trusted <strong>genuine spare parts</strong> to restore
+                      We use trusted genuine spare parts to restore
                       appliance performance and support reliable, long-lasting operation.
                     </p>
                   </div>
@@ -226,7 +205,7 @@ export default function AboutPage() {
                     <h3 className="font-semibold text-white">Fast Appointment Booking</h3>
                     <p className="mt-2 text-sm leading-6 text-slate-300">
                       Book a convenient slot, and our{" "}
-                      <strong>Appliance Repair Experts</strong> arrive with the right tools
+                      Appliance Repair Experts arrive with the right tools
                       and provide a clear repair estimate.
                     </p>
                   </div>
@@ -260,7 +239,7 @@ export default function AboutPage() {
 
               <p className="mt-5 text-lg leading-8 text-slate-600">
                 From leak detection to board repair, our{" "}
-                <strong>Appliance Repair Experts</strong> diagnose and resolve appliance
+                Appliance Repair Experts diagnose and resolve appliance
                 issues with care, transparency, and professional expertise. We support
                 major brands and a wide range of essential home appliances.
               </p>
@@ -293,7 +272,7 @@ export default function AboutPage() {
                 <div className="rounded-3xl bg-white p-5 shadow-sm">
                   <h3 className="font-semibold text-[#0B1A2E]">Home Appliances</h3>
                   <p className="mt-2 text-sm text-slate-600">
-                    Comprehensive <strong>Appliance Repair Service</strong> for kitchen
+                    Comprehensive Appliance Repair Service for kitchen
                     and laundry appliances across leading brands.
                   </p>
                 </div>
@@ -315,7 +294,7 @@ export default function AboutPage() {
                       <h3 className="font-semibold text-[#0B1A2E]">Certified Experts</h3>
                       <p className="mt-2 text-sm text-slate-600">
                         Every repair is handled by trained{" "}
-                        <strong>Appliance Repair Experts</strong> who understand modern
+                        Appliance Repair Experts who understand modern
                         home appliances, leading brands, and common technical issues.
                       </p>
                     </div>
@@ -331,7 +310,7 @@ export default function AboutPage() {
                       <h3 className="font-semibold text-[#0B1A2E]">Fast Response</h3>
                       <p className="mt-2 text-sm text-slate-600">
                         We value your time with prompt scheduling and{" "}
-                        <strong>Same Day Appliance Repair</strong> support whenever
+                        Same Day Appliance Repair support whenever
                         possible, helping minimize disruption to your daily routine.
                       </p>
                     </div>
@@ -347,7 +326,7 @@ export default function AboutPage() {
                       <h3 className="font-semibold text-[#0B1A2E]">Trusted Service</h3>
                       <p className="mt-2 text-sm text-slate-600">
                         We stand behind our work with transparent advice, reliable{" "}
-                        <strong>Appliance Repair Service</strong>, warranty-backed
+                        Appliance Repair Service, warranty-backed
                         repairs, genuine spare parts, and honest pricing.
                       </p>
                     </div>
@@ -370,15 +349,29 @@ export default function AboutPage() {
               Why Choose <span className="text-[#E0293D]">ApplianceCare?</span>
             </h2>
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Choosing a reliable repair provider can make a significant difference to the overall service experience. ApplianceCare combines experienced technicians, genuine or suitable quality replacement parts, convenient booking, transparent communication, and warranty support.
-            </p>
-            <p className="mt-4 text-lg leading-8 text-slate-600">
               Our Appliance Repair Experts handle every service request with attention to the appliance type, brand, model, and reported problem. This structured approach helps us provide practical solutions while reducing unnecessary delays.
             </p>
-            <p className="mt-4 text-lg leading-8 text-slate-600">
-              We believe appliance repair should be more than simply fixing a fault. It should include clear communication, professional handling, appropriate testing, and helpful customer support.
-            </p>
           </div>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {whyChoose.map((item) => (
+              <div
+                key={item.title}
+                className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#E0293D]/30 hover:shadow-lg"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#E0293D]/10 text-[#E0293D] transition group-hover:bg-[#E0293D] group-hover:text-white">
+                  {item.icon}
+                </div>
+                <h3 className="text-base font-semibold text-[#0B1A2E]">
+                  {item.title}
+                </h3>
+              </div>
+            ))}
+          </div>
+
+          <p className="mx-auto mt-14 max-w-3xl text-center text-lg leading-8 text-slate-600">
+            We believe appliance repair should be more than simply fixing a fault. It should include clear communication, professional handling, appropriate testing, and helpful customer support.
+          </p>
         </div>
       </section>
 

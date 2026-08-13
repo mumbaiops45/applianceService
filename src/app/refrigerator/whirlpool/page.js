@@ -78,10 +78,26 @@ export default function Page() {
         highlights={content.highlights}
         ctaText={content.brandCtaText}
         stats={[
-          { value: '15+', label: 'Years Experience' },
-          { value: '25K+', label: 'Repairs Completed' },
-          { value: '100%', label: 'Customer Satisfaction' },
-          { value: '4.9★', label: 'Customer Rating' },
+          {
+            value: '15+',
+            label: 'Years Experience',
+            text: 'Our technicians have practical experience handling different refrigerator models and common cooling, electrical, drainage, and mechanical faults.',
+          },
+          {
+            value: '25K+',
+            label: 'Repairs Completed',
+            text: 'Thousands of completed repairs reflect our focus on convenient and professional appliance service.',
+          },
+          {
+            value: '100%',
+            label: 'Customer Satisfaction',
+            text: 'We prioritize clear communication, careful workmanship, and a smooth customer experience.',
+          },
+          {
+            value: '4.9★',
+            label: 'Customer Rating',
+            text: 'Our service approach focuses on dependable repairs and responsive customer support.',
+          },
         ]}
       />
       <ServiceCards services={content.services} subtitle={content.servicesIntro} />

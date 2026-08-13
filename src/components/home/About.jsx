@@ -63,7 +63,7 @@ export default function AboutUs() {
 
             </p>
             <p className="mt-4 text-[#55636C] text-base md:text-lg leading-relaxed text-justify">
-              We offer <strong>Appliance Repair Services</strong> with a focus on
+              We offer Appliance Repair Services with a focus on
               convenience, professional support, genuine spare parts, and service
               warranty. Our doorstep approach provides an affordable alternative for
               customers looking for reliable appliance assistance without the hassle of

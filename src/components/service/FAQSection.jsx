@@ -16,7 +16,7 @@
       <section className="bg-[#F8FAFC] py-14">
         <div className="mx-auto max-w-xl px-4">
           <SectionTitle
-            tag="Have questions? We've got answers"
+            tag="Common Questions"
             title={title}
             subtitle={subtitle}
             align="center"

@@ -71,8 +71,11 @@ export function BrandInfo({ title, description, highlights = [], stats = [], cta
         <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {statCards.map((item, index) => (
             <div key={index} className="rounded-[28px] border border-slate-200 bg-white p-6 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-              <p className="text-4xl font-black text-[#E0293D]">{item.value}</p>
-              <p className="mt-2 text-gray-600">{item.label}</p>
+              <h3>
+                <span className="block text-4xl font-black text-[#E0293D]">{item.value}</span>
+                <span className="mt-2 block text-gray-600">{item.label}</span>
+              </h3>
+              {item.text && <p className="mt-3 text-sm leading-6 text-gray-600">{item.text}</p>}
             </div>
           ))}
         </div>

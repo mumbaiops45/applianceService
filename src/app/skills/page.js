@@ -234,9 +234,7 @@ export default function SkillsPage() {
               <p className="mt-6 text-lg leading-8 text-slate-600">
                 Our Certified Appliance Technicians inspect electrical components, mechanical parts, sensors, wiring, electronic controls, and smart features to identify the source of appliance problems.
               </p>
-              <p className="mt-4 text-lg leading-8 text-slate-600">
-                This structured approach supports accurate Professional Appliance Repair while helping avoid unnecessary component replacement.
-              </p>
+         
             </div>
 
             <div className="lg:col-span-6">
@@ -263,6 +261,9 @@ export default function SkillsPage() {
               </div>
             </div>
           </div>
+               <p className="mt-4 text-lg leading-8 text-slate-600">
+                This structured approach supports accurate Professional Appliance Repair while helping avoid unnecessary component replacement.
+              </p>
         </div>
       </section>
 
@@ -276,9 +277,7 @@ export default function SkillsPage() {
             <h2 className="mt-4 text-3xl font-extrabold text-[#0B1A2E] sm:text-4xl lg:text-5xl">
               Appliance-Specific Technical Expertise
             </h2>
-            <p className="mt-4 text-lg text-slate-600">
-              Select a category below to explore our technical diagnostic and repair setup.
-            </p>
+        
           </div>
 
           {/* Navigation Tabs */}

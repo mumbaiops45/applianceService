@@ -81,10 +81,26 @@ export default function Page() {
         highlights={content.highlights}
         ctaText={content.brandCtaText}
         stats={[
-          { value: '15+', label: 'Years Experience' },
-          { value: '25K+', label: 'Repairs Completed' },
-          { value: '100%', label: 'Customer Satisfaction' },
-          { value: '4.9★', label: 'Customer Rating' },
+          {
+            value: '15+',
+            label: 'Years Experience',
+            text: 'Our technicians have practical experience diagnosing different television models and common display, power, sound, and connectivity problems.',
+          },
+          {
+            value: '25K+',
+            label: 'Repairs Completed',
+            text: 'Thousands of completed repairs reflect our focus on dependable service and customer convenience.',
+          },
+          {
+            value: '100%',
+            label: 'Customer Satisfaction',
+            text: 'We prioritize professional workmanship, clear communication, and a smooth repair experience.',
+          },
+          {
+            value: '4.9★',
+            label: 'Customer Rating',
+            text: 'Our service approach focuses on reliable repairs and responsive customer support.',
+          },
         ]}
       />
       <ServiceCards services={content.services} subtitle={content.servicesIntro} />
