@@ -3,6 +3,7 @@ const nextConfig = {
   // output:"export",
   /* config options here */
   reactCompiler: true,
+  trailingSlash: true,
   output: 'export',
   images: {
     unoptimized: true,
